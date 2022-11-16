@@ -5,18 +5,20 @@ class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('interface.ui', self)
+        self.connections()
         self.show()
 
-        self.checkbox()
-
-    def checkbox(self):
+    def connections(self):
         self.V1_b.stateChanged.connect(self.updateNumber)
-
 
     def updateNumber(self, state):
         if state == Qt.Checked:
             from randomer import RNG
-            self.V1.display(RNG())
+            from time import sleep
+            while True:
+                print(RNG())
+                self.V1.display(RNG())
+                sleep(1)
         else:
             self.V1.display(0)
 

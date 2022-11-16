@@ -19,9 +19,12 @@
      <rect>
       <x>90</x>
       <y>50</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="V3">
@@ -29,9 +32,12 @@
      <rect>
       <x>90</x>
       <y>130</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="V2">
@@ -39,9 +45,12 @@
      <rect>
       <x>90</x>
       <y>90</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="V4">
@@ -49,9 +58,12 @@
      <rect>
       <x>90</x>
       <y>170</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="A1">
@@ -59,9 +71,12 @@
      <rect>
       <x>90</x>
       <y>220</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="A2">
@@ -69,9 +84,12 @@
      <rect>
       <x>90</x>
       <y>260</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="A3">
@@ -79,9 +97,12 @@
      <rect>
       <x>90</x>
       <y>300</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QLCDNumber" name="A4">
@@ -89,9 +110,12 @@
      <rect>
       <x>90</x>
       <y>340</y>
-      <width>111</width>
+      <width>141</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="digitCount">
+     <number>6</number>
     </property>
    </widget>
    <widget class="QCheckBox" name="V1_b">
@@ -204,7 +228,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>50</y>
       <width>31</width>
       <height>41</height>
@@ -220,7 +244,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>90</y>
       <width>31</width>
       <height>41</height>
@@ -236,7 +260,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>130</y>
       <width>31</width>
       <height>41</height>
@@ -252,7 +276,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>170</y>
       <width>31</width>
       <height>41</height>
@@ -268,7 +292,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>220</y>
       <width>41</width>
       <height>41</height>
@@ -284,7 +308,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>260</y>
       <width>41</width>
       <height>41</height>
@@ -300,7 +324,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>300</y>
       <width>41</width>
       <height>41</height>
@@ -316,7 +340,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>340</y>
       <width>41</width>
       <height>41</height>
