@@ -118,7 +118,7 @@
      <number>6</number>
     </property>
    </widget>
-   <widget class="QCheckBox" name="V1_b">
+   <widget class="QCheckBox" name="V1_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -131,7 +131,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="V2_b">
+   <widget class="QCheckBox" name="V2_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -144,7 +144,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="V_b">
+   <widget class="QCheckBox" name="V3_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -157,7 +157,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="V4_b">
+   <widget class="QCheckBox" name="V4_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -170,7 +170,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="A1_b">
+   <widget class="QCheckBox" name="A1_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -183,7 +183,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="A2_b">
+   <widget class="QCheckBox" name="A2_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -196,7 +196,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="A3_b">
+   <widget class="QCheckBox" name="A3_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -209,7 +209,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="A4_b">
+   <widget class="QCheckBox" name="A4_checkbox">
     <property name="geometry">
      <rect>
       <x>60</x>

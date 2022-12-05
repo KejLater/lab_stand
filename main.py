@@ -12,7 +12,8 @@ class Ui(QtWidgets.QMainWindow):
         self.show()
 
     def connections(self):
-        self.V1_b.stateChanged.connect(self.updateNumber)
+        self.V1_checkbox.stateChanged.connect(self.updateNumber)
+        self.V2_checkbox.stateChanged.connect(self.updateNumber1)
         self.COM_setup()
 
 
@@ -25,9 +26,18 @@ class Ui(QtWidgets.QMainWindow):
             val = float(self.data)
             #print(type(val))
             self.V1.display(val)
-
         else:
             self.V1.display(0)
+
+    def updateNumber1(self, state):
+        if state == Qt.Checked:
+            from randomer import RNG
+            #print(self.serial.readLine())
+            val = float(self.data)
+            #print(type(val))
+            self.V2.display(-val)
+        else:
+            self.V2.display(0)
 
     def COM_setup(self):
         self.serial = QSerialPort()
