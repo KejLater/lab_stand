@@ -10,15 +10,12 @@ class Ui(QtWidgets.QMainWindow):
         self.show()
 
     def connections(self):
-        self.V1_checkbox.stateChanged.connect(self.update_V1)
-        self.V2_checkbox.stateChanged.connect(self.update_V2)   #test function
-
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList(self.MC.ports)
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
 
-        #self.MC.onRead()
-
+        self.V1_checkbox.stateChanged.connect(self.update_V1)
+        self.V2_checkbox.stateChanged.connect(self.update_V2)  # test function
 
 
     def update_portList(self, array):
@@ -26,17 +23,14 @@ class Ui(QtWidgets.QMainWindow):
 
     def update_V1(self, state):
         if state == Qt.Checked:
-            from randomer import RNG
-            val = float(self.data)
+            val = float(self.MC.data)
             self.V1.display(val)
         else:
             self.V1.display(0)
 
     def update_V2(self, state):    #test function
         if state == Qt.Checked:
-            self.MC.onRead()
             val = float(self.MC.data)
-            #print(val)
             self.V2.display(val)
         else:
             self.V2.display(0)
@@ -61,14 +55,11 @@ class SerialPort:
         self.serial.open(QIODevice.ReadWrite)
         window.connect_label.setText('подключено')
         self.serial.readyRead.connect(self.onRead)
-        #print(1)
+
 
 
     def onRead(self):
-        print(1)
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        if self.data:
-            window.test.setText(self.data)    #test label
 
 
 
