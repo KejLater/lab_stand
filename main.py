@@ -19,13 +19,12 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def updateNumber(self, state):
-        print(1)
         if state == Qt.Checked:
             from randomer import RNG
             #print(self.serial.readLine())
-            print(2)
-            print(self.data)
-            self.V1.display(float(self.data))
+            val = float(self.data)
+            #print(type(val))
+            self.V1.display(val)
 
         else:
             self.V1.display(0)
@@ -51,8 +50,8 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def onRead(self):
-        data = str(self.serial.readAll(), 'utf-8')
-        #print(bool(str(data, 'utf-8')))
+        self.data = str(self.serial.readAll(), 'utf-8').strip()
+        #print(data)
 
 if __name__ == "__main__":
     import sys
