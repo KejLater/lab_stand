@@ -12,51 +12,64 @@ class Ui(QtWidgets.QMainWindow):
     def connections(self):
         self.V1_checkbox.stateChanged.connect(self.update_V1)
         self.V2_checkbox.stateChanged.connect(self.update_V2)   #test function
-        self.COM_setup()
+
+        self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
+        self.update_portList(self.MC.ports)
+        self.connect_MC.clicked.connect(self.MC.openChosenPort)
+
+        #self.MC.onRead()
 
 
 
+    def update_portList(self, array):
+        self.portList.addItems(array)
 
     def update_V1(self, state):
         if state == Qt.Checked:
             from randomer import RNG
-            #print(self.serial.readLine())
             val = float(self.data)
-            #print(type(val))
             self.V1.display(val)
         else:
             self.V1.display(0)
 
     def update_V2(self, state):    #test function
         if state == Qt.Checked:
-            from randomer import RNG
-            #print(self.serial.readLine())
-            val = float(self.data)
-            #print(type(val))
-            self.V2.display(-val)
+            self.MC.onRead()
+            val = float(self.MC.data)
+            #print(val)
+            self.V2.display(val)
         else:
             self.V2.display(0)
+
+
+class SerialPort:
+    def __init__(self):
+        self.COM_setup()
 
     def COM_setup(self):
         self.serial = QSerialPort()   #Creating object of class QSerialPort
         self.serial.setBaudRate(QSerialPort.Baud9600)
-        ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
-        #print(ports)
-        port = ports[1]
-        #print(port)
-        #self.comL.addItems(portList)
+        self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
+        del self.ports[0]
+
+
+
+    def openChosenPort(self):
+        port = window.portList.currentText()
         self.serial.setPortName(port)
         self.serial.setDataTerminalReady(True)
         self.serial.open(QIODevice.ReadWrite)
-        #self.serial.write(b'1')
+        window.connect_label.setText('подключено')
         self.serial.readyRead.connect(self.onRead)
-
-
+        #print(1)
 
 
     def onRead(self):
-        self.data = str(self.serial.readAll(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        #print(data)
+        print(1)
+        self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
+        if self.data:
+            window.test.setText(self.data)    #test label
+
 
 
 class MyThread(QThread):
