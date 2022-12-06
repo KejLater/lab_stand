@@ -1,21 +1,37 @@
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 
-class Ui(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('interface.ui', self)
-        self.connections()    #just not to cahnge __init__ anymore
+        self.initializations()    #just not to change __init__ anymore
         self.show()
 
-    def connections(self):
+    def initializations(self):
+        self.setWindowTitle("Поебень")
+        #self.MC_connected = False
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList(self.MC.ports)
+
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
+        self.connect_MC.clicked.connect(self.show_MC_connected)
+
+
+    def checkable_initializations(self):
 
         self.V1_checkbox.stateChanged.connect(self.update_V1)
         self.V2_checkbox.stateChanged.connect(self.update_V2)  # test function
+
+    def show_MC_connected(self):
+        if self.MC.connected:
+            self.connect_label.setText('подключено')
+            self.connect_label.setStyleSheet("background-color: lightgreen")
+            self.checkable_initializations()
+
+        else:
+            self.connect_label.setText('ошибка')
 
 
     def update_portList(self, array):
@@ -25,6 +41,7 @@ class Ui(QtWidgets.QMainWindow):
         if state == Qt.Checked:
             val = float(self.MC.data)
             self.V1.display(val)
+            #print('But now I am working')
         else:
             self.V1.display(0)
 
@@ -39,12 +56,14 @@ class Ui(QtWidgets.QMainWindow):
 class SerialPort:
     def __init__(self):
         self.COM_setup()
+        self.connected = False
 
     def COM_setup(self):
         self.serial = QSerialPort()   #Creating object of class QSerialPort
         self.serial.setBaudRate(QSerialPort.Baud9600)
         self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
         del self.ports[0]
+        #self.ports.append('COM5')
 
 
 
@@ -52,15 +71,16 @@ class SerialPort:
         port = window.portList.currentText()
         self.serial.setPortName(port)
         self.serial.setDataTerminalReady(True)
-        self.serial.open(QIODevice.ReadWrite)
-        window.connect_label.setText('подключено')
-        self.serial.readyRead.connect(self.onRead)
+        self.connected = self.serial.open(QIODevice.ReadWrite)
+
+        if self.connected:
+            self.serial.readyRead.connect(self.onRead)
 
 
 
     def onRead(self):
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-
+        print('onRead is working')
 
 
 class MyThread(QThread):
@@ -80,5 +100,5 @@ class MyThread(QThread):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    window = Ui()
+    window = MainWindow()
     app.exec_()
