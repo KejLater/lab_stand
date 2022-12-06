@@ -10,8 +10,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def initializations(self):
-        self.setWindowTitle("Поебень")
-        #self.MC_connected = False
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList(self.MC.ports)
 
@@ -22,7 +20,14 @@ class MainWindow(QtWidgets.QMainWindow):
     def checkable_initializations(self):
 
         self.V1_checkbox.stateChanged.connect(self.update_V1)
-        self.V2_checkbox.stateChanged.connect(self.update_V2)  # test function
+        self.V2_checkbox.stateChanged.connect(self.update_V2)
+        self.V3_checkbox.stateChanged.connect(self.update_V3)
+        self.V4_checkbox.stateChanged.connect(self.update_V4)
+
+        self.A1_checkbox.stateChanged.connect(self.update_A1)
+        self.A2_checkbox.stateChanged.connect(self.update_A2)
+        self.A3_checkbox.stateChanged.connect(self.update_A3)
+        self.A4_checkbox.stateChanged.connect(self.update_A4)
 
     def show_MC_connected(self):
         if self.MC.connected:
@@ -52,6 +57,47 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.V2.display(0)
 
+    def update_V3(self, state):    #test function
+        if state == Qt.Checked:
+            val = float(self.MC.data)
+            self.V3.display(val)
+        else:
+            self.V3.display(0)
+
+    def update_V4(self, state):    #test function
+        if state == Qt.Checked:
+            val = float(self.MC.data)
+            self.V4.display(val)
+        else:
+            self.V4.display(0)
+
+    def update_A1(self, state):    #test function
+        if state == Qt.Checked:
+            val = float(self.MC.data)
+            self.A1.display(val)
+        else:
+            self.A1.display(0)
+
+    def update_A2(self, state):    #test function
+        if state == Qt.Checked:
+            val = float(self.MC.data)
+            self.A2.display(val)
+        else:
+            self.A2.display(0)
+
+    def update_A3(self, state):    #test function
+        if state == Qt.Checked:
+            val = float(self.MC.data)
+            self.A3.display(val)
+        else:
+            self.A3.display(0)
+
+    def update_A4(self, state):    #test function
+        if state == Qt.Checked:
+            val = float(self.MC.data)
+            self.A4.display(-val)
+        else:
+            self.A4.display(0)
 
 class SerialPort:
     def __init__(self):
@@ -80,7 +126,7 @@ class SerialPort:
 
     def onRead(self):
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        print('onRead is working')
+        #print('onRead is working')
 
 
 class MyThread(QThread):
