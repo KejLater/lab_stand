@@ -13,8 +13,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList(self.MC.ports)
 
+        self.updatePorts.clicked.connect(self.update_portList)
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
-        self.connect_MC.clicked.connect(self.show_MC_connected)
+        self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
+
+        self.thread = MyThread()
+        self.thread.start()
 
 
     def checkable_initializations(self):
@@ -37,10 +41,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         else:
             self.connect_label.setText('ошибка')
+            self.connect_label.setStyleSheet("background-color: red")
 
 
     def update_portList(self, array):
-        self.portList.addItems(array)
+        self.portList.addItems(self.MC.ports)
 
     def update_V1(self, state):
         if state == Qt.Checked:
@@ -108,16 +113,21 @@ class SerialPort:
         self.serial = QSerialPort()   #Creating object of class QSerialPort
         self.serial.setBaudRate(QSerialPort.Baud9600)
         self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
+        #print(self.ports)
         del self.ports[0]
         #self.ports.append('COM5')
 
 
 
     def openChosenPort(self):
+        from time import sleep
+        if self.connected:
+            self.serial.close()
         port = window.portList.currentText()
         self.serial.setPortName(port)
         self.serial.setDataTerminalReady(True)
         self.connected = self.serial.open(QIODevice.ReadWrite)
+
 
         if self.connected:
             self.serial.readyRead.connect(self.onRead)
@@ -125,8 +135,10 @@ class SerialPort:
 
 
     def onRead(self):
+
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        #print('onRead is working')
+        #window.V1.display(float(self.data))
+        print('onRead is working')
 
 
 class MyThread(QThread):
@@ -139,8 +151,9 @@ class MyThread(QThread):
     def run(self):
         while True:
             self.val += 1  # Получаем определённые данные
-            self.mySignal.emit(self.val)  # Передаем данные для отображения
-            QThread.msleep(1000)
+            print('MyThread is working')
+            window.checkable_initializations()  # Передаем данные для отображения
+            QThread.msleep(100)
 
 
 if __name__ == "__main__":
