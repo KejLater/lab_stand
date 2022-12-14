@@ -46,7 +46,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.portList.addItems(self.MC.ports)
 
     def updateAll(self):
-
+        
         if self.V1_checkbox.isChecked():
             val = self.data_converter()["V1"]
             self.V1.display(val)
