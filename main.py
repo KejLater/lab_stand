@@ -4,6 +4,7 @@ from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
+        self.test = True
         super().__init__()
         uic.loadUi('interface.ui', self)
         self.initializations()    #just not to change __init__ anymore
@@ -17,13 +18,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
 
-        self.thread = MyThread()
-        self.thread.start()
+
+    def test_update_v1(self):
+        #print(type(self.MC.data))
+        self.V1.display(float(self.MC.data))
 
 
     def checkable_initializations(self):
 
-        self.V1_checkbox.stateChanged.connect(self.update_V1)
+        #self.V1_checkbox.stateChanged.connect(self.update_V1)
         self.V2_checkbox.stateChanged.connect(self.update_V2)
         self.V3_checkbox.stateChanged.connect(self.update_V3)
         self.V4_checkbox.stateChanged.connect(self.update_V4)
@@ -39,6 +42,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.connect_label.setStyleSheet("background-color: lightgreen")
             self.checkable_initializations()
 
+            self.thread = MyThread()
+            # self.thread.mySignal.connect(self.update_V1)      #true function
+            self.thread.mySignal.connect(self.test_update_v1)      #test function
+            self.thread.start()
+
+
         else:
             self.connect_label.setText('ошибка')
             self.connect_label.setStyleSheet("background-color: red")
@@ -48,6 +57,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.portList.addItems(self.MC.ports)
 
     def update_V1(self, state):
+        print("Trying to update V1")
         if state == Qt.Checked:
             val = float(self.MC.data)
             self.V1.display(val)
@@ -108,6 +118,7 @@ class SerialPort:
     def __init__(self):
         self.COM_setup()
         self.connected = False
+        self.data = 0
 
     def COM_setup(self):
         self.serial = QSerialPort()   #Creating object of class QSerialPort
@@ -138,7 +149,7 @@ class SerialPort:
 
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
         #window.V1.display(float(self.data))
-        print('onRead is working')
+        #print('onRead is working')
 
 
 class MyThread(QThread):
@@ -146,13 +157,13 @@ class MyThread(QThread):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.val = 0
+        self.value = 0
 
     def run(self):
         while True:
-            self.val += 1  # Получаем определённые данные
-            print('MyThread is working')
-            window.checkable_initializations()  # Передаем данные для отображения
+            self.mySignal.emit(self.value)
+            print(window.V1_checkbox.isChecked())
+            #print("MyThread is working")
             QThread.msleep(100)
 
 
