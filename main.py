@@ -19,33 +19,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
 
 
-    def test_update_v1(self):
-        #print(type(self.MC.data))
-        self.V1.display(float(self.MC.data))
 
 
-    def checkable_initializations(self):
-
-        #self.V1_checkbox.stateChanged.connect(self.update_V1)
-        self.V2_checkbox.stateChanged.connect(self.update_V2)
-        self.V3_checkbox.stateChanged.connect(self.update_V3)
-        self.V4_checkbox.stateChanged.connect(self.update_V4)
-
-        self.A1_checkbox.stateChanged.connect(self.update_A1)
-        self.A2_checkbox.stateChanged.connect(self.update_A2)
-        self.A3_checkbox.stateChanged.connect(self.update_A3)
-        self.A4_checkbox.stateChanged.connect(self.update_A4)
+    def data_converter(self):
+        array = self.MC.data.split('@')
+        return {"V1":float(array[0]), "V2":float(array[1])}
 
     def show_MC_connected(self):
         if self.MC.connected:
             self.connect_label.setText('подключено')
             self.connect_label.setStyleSheet("background-color: lightgreen")
-            self.checkable_initializations()
+
 
             self.thread = MyThread()
-            # self.thread.mySignal.connect(self.update_V1)      #true function
-            self.thread.mySignal.connect(self.test_update_v1)      #test function
+            self.thread.mySignal.connect(self.updateAll)
             self.thread.start()
+
 
 
         else:
@@ -56,60 +45,60 @@ class MainWindow(QtWidgets.QMainWindow):
     def update_portList(self, array):
         self.portList.addItems(self.MC.ports)
 
-    def update_V1(self, state):
-        print("Trying to update V1")
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+    def updateAll(self):
+
+        if self.V1_checkbox.isChecked():
+            val = self.data_converter()["V1"]
             self.V1.display(val)
             #print('But now I am working')
         else:
             self.V1.display(0)
 
-    def update_V2(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.V2_checkbox.isChecked():
+            val = self.data_converter()['V2']
             self.V2.display(val)
         else:
             self.V2.display(0)
 
-    def update_V3(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.V3_checkbox.isChecked():
+            val = self.data_converter()
             self.V3.display(val)
         else:
             self.V3.display(0)
 
-    def update_V4(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.V4_checkbox.isChecked():
+            val = self.data_converter()
             self.V4.display(val)
         else:
             self.V4.display(0)
 
-    def update_A1(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.A1_checkbox.isChecked():
+            val = self.data_converter()
             self.A1.display(val)
         else:
             self.A1.display(0)
 
-    def update_A2(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.A2_checkbox.isChecked():
+            val = self.data_converter()
             self.A2.display(val)
         else:
             self.A2.display(0)
 
-    def update_A3(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.A3_checkbox.isChecked():
+            val = self.data_converter()
             self.A3.display(val)
         else:
             self.A3.display(0)
 
-    def update_A4(self, state):    #test function
-        if state == Qt.Checked:
-            val = float(self.MC.data)
+
+        if self.A4_checkbox.isChecked():
+            val = self.data_converter()
             self.A4.display(-val)
         else:
             self.A4.display(0)
@@ -161,9 +150,8 @@ class MyThread(QThread):
 
     def run(self):
         while True:
+            print(window.MC.data)
             self.mySignal.emit(self.value)
-            print(window.V1_checkbox.isChecked())
-            #print("MyThread is working")
             QThread.msleep(100)
 
 
