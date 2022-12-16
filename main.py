@@ -2,6 +2,8 @@ from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 
+
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         self.test = True
@@ -11,19 +13,34 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def initializations(self):
-        self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
-        self.update_portList(self.MC.ports)
+        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4]
+        self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
+                       self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
 
+        self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
+
+        self.update_portList()
         self.updatePorts.clicked.connect(self.update_portList)
+
+
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
 
+    def graph(self, x, y):
+        from matplotlib import pyplot as plt
 
+        plt.scatter(x, y)
+        plt.grid()
+        plt.show()
 
 
     def data_converter(self):
-        array = self.MC.data.split('@')
-        return {"V1":float(array[0]), "V2":float(array[1])}
+        if '@' in self.MC.data:
+            array = self.MC.data.split('@')
+            return [float(n) for n in array]
+        else:
+            #print(2)
+            return [0 for _ in range(8)]
 
     def show_MC_connected(self):
         if self.MC.connected:
@@ -37,87 +54,43 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 
+
         else:
             self.connect_label.setText('ошибка')
             self.connect_label.setStyleSheet("background-color: red")
 
 
-    def update_portList(self, array):
+    def update_portList(self):
+        self.portList.clear()
+        self.MC.update_ports()
         self.portList.addItems(self.MC.ports)
 
     def updateAll(self):
-        
-        if self.V1_checkbox.isChecked():
-            val = self.data_converter()["V1"]
-            self.V1.display(val)
-            #print('But now I am working')
-        else:
-            self.V1.display(0)
+        #print(self.MC.data)
+        values = self.data_converter()
+        for i in range(len(values)):
+            if self.checkboxes[i].isChecked():
+                self.meters[i].display(values[i])
+                #self.meters[i].display(1)
+            else:
+                self.meters[i].display(0)
 
-
-        if self.V2_checkbox.isChecked():
-            val = self.data_converter()['V2']
-            self.V2.display(val)
-        else:
-            self.V2.display(0)
-
-
-        if self.V3_checkbox.isChecked():
-            val = self.data_converter()
-            self.V3.display(val)
-        else:
-            self.V3.display(0)
-
-
-        if self.V4_checkbox.isChecked():
-            val = self.data_converter()
-            self.V4.display(val)
-        else:
-            self.V4.display(0)
-
-
-        if self.A1_checkbox.isChecked():
-            val = self.data_converter()
-            self.A1.display(val)
-        else:
-            self.A1.display(0)
-
-
-        if self.A2_checkbox.isChecked():
-            val = self.data_converter()
-            self.A2.display(val)
-        else:
-            self.A2.display(0)
-
-
-        if self.A3_checkbox.isChecked():
-            val = self.data_converter()
-            self.A3.display(val)
-        else:
-            self.A3.display(0)
-
-
-        if self.A4_checkbox.isChecked():
-            val = self.data_converter()
-            self.A4.display(-val)
-        else:
-            self.A4.display(0)
 
 class SerialPort:
     def __init__(self):
         self.COM_setup()
         self.connected = False
-        self.data = 0
+        self.data = '0@0@0@0@0@0@0@0'
 
     def COM_setup(self):
         self.serial = QSerialPort()   #Creating object of class QSerialPort
         self.serial.setBaudRate(QSerialPort.Baud9600)
+        self.update_ports()
+
+
+    def update_ports(self):
         self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
-        #print(self.ports)
         del self.ports[0]
-        #self.ports.append('COM5')
-
-
 
     def openChosenPort(self):
         from time import sleep
@@ -132,13 +105,9 @@ class SerialPort:
         if self.connected:
             self.serial.readyRead.connect(self.onRead)
 
-
-
     def onRead(self):
-
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        #window.V1.display(float(self.data))
-        #print('onRead is working')
+        #print(self.data)
 
 
 class MyThread(QThread):
@@ -150,7 +119,6 @@ class MyThread(QThread):
 
     def run(self):
         while True:
-            print(window.MC.data)
             self.mySignal.emit(self.value)
             QThread.msleep(100)
 
