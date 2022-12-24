@@ -13,15 +13,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def initializations(self):
-        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4]
+        self.current_row = 0
+        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
         self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
+
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList()
         self.updatePorts.clicked.connect(self.update_portList)
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
-        self.graph_button.clicked.connect(self.graph)
+
+        self.add_values.clicked.connect(self.addData) #Adding numbers to the table
+        self.graph_button.clicked.connect(self.graph) #Build graph
 
     def graph(self):
         from matplotlib import pyplot as plt
@@ -30,6 +34,13 @@ class MainWindow(QtWidgets.QMainWindow):
         plt.plot(x, y)
         plt.grid()
         plt.show()
+
+    def addData(self):
+        from random import randint
+        for i in range(8):
+            value = self.meters[i].value()
+            self.tableWidget.setItem(self.current_row, i, QtWidgets.QTableWidgetItem(str(value+randint(-10, 10))))
+        self.current_row += 1
 
 
     def data_converter(self):

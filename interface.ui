@@ -944,8 +944,8 @@
      <rect>
       <x>355</x>
       <y>90</y>
-      <width>631</width>
-      <height>331</height>
+      <width>621</width>
+      <height>321</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -954,7 +954,13 @@
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
     <property name="dragEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="dragDropOverwriteMode">
      <bool>false</bool>
     </property>
     <property name="selectionMode">
