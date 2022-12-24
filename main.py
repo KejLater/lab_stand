@@ -16,20 +16,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4]
         self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
-
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
-
         self.update_portList()
         self.updatePorts.clicked.connect(self.update_portList)
-
-
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
+        self.graph_button.clicked.connect(self.graph)
 
-    def graph(self, x, y):
+    def graph(self):
         from matplotlib import pyplot as plt
-
-        plt.scatter(x, y)
+        x = [x for x in range(10)]
+        y = [y*y for y in x]
+        plt.plot(x, y)
         plt.grid()
         plt.show()
 
@@ -107,7 +105,7 @@ class SerialPort:
 
     def onRead(self):
         self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        #print(self.data)
+        print(self.data)
 
 
 class MyThread(QThread):
