@@ -949,7 +949,7 @@
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
+     <enum>Qt::ScrollBarAlwaysOn</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -970,7 +970,7 @@
      <bool>false</bool>
     </property>
     <property name="rowCount">
-     <number>10</number>
+     <number>0</number>
     </property>
     <property name="columnCount">
      <number>8</number>
@@ -981,16 +981,6 @@
     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
      <bool>false</bool>
     </attribute>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
     <column>
      <property name="text">
       <string>V1</string>

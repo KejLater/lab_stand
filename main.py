@@ -28,19 +28,25 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graph_button.clicked.connect(self.graph) #Build graph
 
     def graph(self):
+        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
         from matplotlib import pyplot as plt
-        x = [x for x in range(10)]
-        y = [y*y for y in x]
+        x = [x for x in range(0, 10)]
+        y = [y for y in x]
         plt.plot(x, y)
         plt.grid()
         plt.show()
 
     def addData(self):
         from random import randint
+        self.data = {}
+        self.tableWidget.insertRow(self.current_row)
         for i in range(8):
             value = self.meters[i].value()
-            self.tableWidget.setItem(self.current_row, i, QtWidgets.QTableWidgetItem(str(value+randint(-10, 10))))
+            self.tableWidget.setItem(self.current_row, i, QtWidgets.QTableWidgetItem(str(value)))
+
+
         self.current_row += 1
+
 
 
     def data_converter(self):
@@ -83,6 +89,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 #self.meters[i].display(1)
             else:
                 self.meters[i].display(0)
+
+
 
 
 class SerialPort:
