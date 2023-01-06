@@ -1022,6 +1022,214 @@
      </property>
     </column>
    </widget>
+   <widget class="QCheckBox" name="V1_y">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="V2_y">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="V3_y">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="V4_y">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="I1_y">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="I2_y">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="I3_y">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="I4_y">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="V1_x">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="V2_x">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="V3_x">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="V4_x">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="I1_x">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="I2_x">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="I3_x">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="I4_x">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>450</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

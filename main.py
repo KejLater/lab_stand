@@ -14,9 +14,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def initializations(self):
         self.current_row = 0
+
         self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
         self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
+
+        self.dict_table = {meter:[] for meter in self.meters}
 
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList()
@@ -28,25 +31,39 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graph_button.clicked.connect(self.graph) #Build graph
 
     def graph(self):
-        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
         from matplotlib import pyplot as plt
-        x = [x for x in range(0, 10)]
-        y = [y for y in x]
-        plt.plot(x, y)
+        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
+        n = 0
+        RBtns = [self.V1_x, self.V2_x, self.V3_x, self.V4_x, self.I1_x, self.I2_x, self.I3_x, self.I4_x]
+        CBxs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y, self.I1_y, self.I2_y, self.I3_y, self.I4_y]
+        connx = dict(zip(RBtns, self.meters))
+        conny = dict(zip(CBxs, self.meters))
+
+        for button in RBtns: #Choosing X
+            if button.isChecked():
+                x = self.dict_table[connx[button]]
+
+        for box in CBxs:
+            if box.isChecked():
+                y = self.dict_table[conny[box]]
+                plt.plot(x, y, color=colors[n])
+                n = n + 1
+
         plt.grid()
         plt.show()
 
     def addData(self):
-        from random import randint
-        self.data = {}
+        from random import randint, random
+
         self.tableWidget.insertRow(self.current_row)
         for i in range(8):
-            value = self.meters[i].value()
+            value = self.meters[i].value() + round(random(), 2) #TEST
             self.tableWidget.setItem(self.current_row, i, QtWidgets.QTableWidgetItem(str(value)))
+            self.dict_table[self.meters[i]].append(value)
 
 
         self.current_row += 1
-
+        #print(self.dict_table)
 
 
     def data_converter(self):
@@ -62,13 +79,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.connect_label.setText('подключено')
             self.connect_label.setStyleSheet("background-color: lightgreen")
 
-
             self.thread = MyThread()
             self.thread.mySignal.connect(self.updateAll)
             self.thread.start()
-
-
-
 
         else:
             self.connect_label.setText('ошибка')
