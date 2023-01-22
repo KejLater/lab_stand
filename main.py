@@ -31,33 +31,58 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graph_button.clicked.connect(self.graph) #Build graph
 
     def graph(self):
-        from matplotlib import pyplot as plt
-        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
-        n = 0
+
         RBtns = [self.V1_x, self.V2_x, self.V3_x, self.V4_x, self.I1_x, self.I2_x, self.I3_x, self.I4_x]
         CBxs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y, self.I1_y, self.I2_y, self.I3_y, self.I4_y]
         connx = dict(zip(RBtns, self.meters))
         conny = dict(zip(CBxs, self.meters))
+        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
+        n = 0
 
-        for button in RBtns: #Choosing X
-            if button.isChecked():
-                x = self.dict_table[connx[button]]
 
-        for box in CBxs:
-            if box.isChecked():
-                y = self.dict_table[conny[box]]
-                plt.plot(x, y, color=colors[n])
-                n = n + 1
+        if self.current_row and any([button.isChecked() for button in RBtns]) and any([box.isChecked() for box in CBxs]):
+            from matplotlib import pyplot as plt
+            fig, ax = plt.subplots()
 
-        plt.grid()
-        plt.show()
+            for button in RBtns: #Choosing X
+                if button.isChecked():
+                    x = self.dict_table[connx[button]]
+                    if 'V' in button.objectName():
+                        ax.set_xlabel(f'{button.objectName()[0:-2]}, В')
+                    elif "I" in button.objectName():
+                        ax.set_xlabel(f'{button.objectName()[0:-2]}, мА')
+
+
+            names = ''
+            for box in CBxs[0:4]:
+                if box.isChecked():
+                    y = self.dict_table[conny[box]]
+                    ax.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
+                    names = names + f'{box.objectName()[0:-2]}, '
+                    n = n + 1
+            ax.set_ylabel(f"{names} В")
+
+            ax1 = ax.twinx()
+            names=''
+            for box in CBxs[4:]:
+                if box.isChecked():
+                    y = self.dict_table[conny[box]]
+                    ax1.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
+                    names = names + f'{box.objectName()[0:-2]}, '
+                    n = n + 1
+            ax1.set_ylabel(f"{names} мА")
+
+            ax.legend()
+            ax1.legend()
+            ax.grid()
+            plt.show()
 
     def addData(self):
         from random import randint, random
 
         self.tableWidget.insertRow(self.current_row)
         for i in range(8):
-            value = self.meters[i].value() + round(random(), 2) #TEST
+            value = self.meters[i].value() #+ round(random(), 2) #TEST
             self.tableWidget.setItem(self.current_row, i, QtWidgets.QTableWidgetItem(str(value)))
             self.dict_table[self.meters[i]].append(value)
 
@@ -80,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.connect_label.setStyleSheet("background-color: lightgreen")
 
             self.thread = MyThread()
-            self.thread.mySignal.connect(self.updateAll)
+            self.thread.mySignal.connect(self.updateAll) 
             self.thread.start()
 
         else:
@@ -136,8 +161,10 @@ class SerialPort:
             self.serial.readyRead.connect(self.onRead)
 
     def onRead(self):
-        self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-        print(self.data)
+        if self.serial.canReadLine():
+            self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
+            #self.data = str(self.serial.readAll(), 'utf-8').strip()
+            print(self.data)
 
 
 class MyThread(QThread):
@@ -150,7 +177,7 @@ class MyThread(QThread):
     def run(self):
         while True:
             self.mySignal.emit(self.value)
-            QThread.msleep(100)
+            QThread.msleep(1000)
 
 
 if __name__ == "__main__":
