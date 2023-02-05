@@ -30,6 +30,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.add_values.clicked.connect(self.addData) #Adding numbers to the table
         self.graph_button.clicked.connect(self.graph) #Build graph
 
+
+
     def graph(self):
 
         RBtns = [self.V1_x, self.V2_x, self.V3_x, self.V4_x, self.I1_x, self.I2_x, self.I3_x, self.I4_x]
@@ -53,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
                         ax.set_xlabel(f'{button.objectName()[0:-2]}, мА')
 
 
-            names = ''
+            names = ' '
             for box in CBxs[0:4]:
                 if box.isChecked():
                     y = self.dict_table[conny[box]]
@@ -63,7 +65,7 @@ class MainWindow(QtWidgets.QMainWindow):
             ax.set_ylabel(f"{names} В")
 
             ax1 = ax.twinx()
-            names=''
+            names=' '
             for box in CBxs[4:]:
                 if box.isChecked():
                     y = self.dict_table[conny[box]]
@@ -75,6 +77,8 @@ class MainWindow(QtWidgets.QMainWindow):
             ax.legend()
             ax1.legend()
             ax.grid()
+            ax.axhline(y=0, color='black')
+            ax.axvline(color="black")
             plt.show()
 
     def addData(self):
@@ -99,6 +103,11 @@ class MainWindow(QtWidgets.QMainWindow):
             #print(2)
             return [0 for _ in range(8)]
 
+    def show_MC_disconnected(self):
+        if not self.MC.connected:
+            self.connect_label.setText('не подключено')
+            self.connect_label.setStyleSheet("background-color: red")
+
     def show_MC_connected(self):
         if self.MC.connected:
             self.connect_label.setText('подключено')
@@ -107,6 +116,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.thread = MyThread()
             self.thread.mySignal.connect(self.updateAll) 
             self.thread.start()
+
+            self.setVoltage.clicked.connect(lambda: self.MC.serialSend(self.inputVoltage.text()))
+
+            self.close.clicked.connect(self.MC.close)
+            self.close.clicked.connect(self.show_MC_disconnected)
+
+
 
         else:
             self.connect_label.setText('ошибка')
@@ -121,7 +137,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def updateAll(self):
         #print(self.MC.data)
         values = self.data_converter()
-        for i in range(len(values)):
+        for i in range(1, len(values)): #excluding V1
             if self.checkboxes[i].isChecked():
                 self.meters[i].display(values[i])
                 #self.meters[i].display(1)
@@ -165,6 +181,23 @@ class SerialPort:
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
             #self.data = str(self.serial.readAll(), 'utf-8').strip()
             print(self.data)
+
+    def close(self):
+        self.serial.close()
+        self.connected = False
+
+    def serialSend(self, data):
+        try:
+            float(data)
+            res = True
+        except:
+            res = False
+
+        if res and float(data) > 0 and float(data) < 4.5:
+            #print(data)
+            txs = ','.join(map(str, data)) + '\n'
+            self.serial.write(data.encode())
+
 
 
 class MyThread(QThread):

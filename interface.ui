@@ -1230,7 +1230,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="inputVoltage">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -1259,7 +1259,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="setVoltage">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -1270,6 +1270,19 @@
     </property>
     <property name="text">
      <string>Бахнуть</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="close">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>60</y>
+      <width>91</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Отключить</string>
     </property>
    </widget>
   </widget>
