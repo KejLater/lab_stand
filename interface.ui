@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Поебень</string>
+   <string>Program</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLCDNumber" name="V1">
@@ -1283,6 +1283,19 @@
     </property>
     <property name="text">
      <string>Отключить</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exportCSV">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>30</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Экспорт csv</string>
     </property>
    </widget>
   </widget>

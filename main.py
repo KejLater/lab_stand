@@ -27,8 +27,30 @@ class MainWindow(QtWidgets.QMainWindow):
         self.connect_MC.clicked.connect(self.MC.openChosenPort)
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
 
+        self.exportCSV.clicked.connect(self.export_csv)
+
         self.add_values.clicked.connect(self.addData) #Adding numbers to the table
         self.graph_button.clicked.connect(self.graph) #Build graph
+
+    def export_csv(self):
+        if self.current_row:
+            import csv
+            print(self.dict_table)
+
+            with open('test.csv', 'w') as csvfile:
+                writer = csv.writer(csvfile)
+                #writer.writerow([i.objectName() for i in self.dict_table.keys()])
+                key_list = [i.objectName() for i in self.dict_table.keys()]
+                kkk = self.dict_table.keys()
+
+
+                limit = len(key_list)
+
+                writer.writerow(key_list)
+
+
+                for i in range(limit):
+                    writer.writerow([self.dict_table[x][i] for x in kkk])
 
 
 
@@ -73,12 +95,12 @@ class MainWindow(QtWidgets.QMainWindow):
                     names = names + f'{box.objectName()[0:-2]}, '
                     n = n + 1
             ax1.set_ylabel(f"{names} мА")
-
-            ax.legend()
-            ax1.legend()
+            fig.legend()
+            #ax.legend()
+            #ax1.legend()
             ax.grid()
             ax.axhline(y=0, color='black')
-            ax.axvline(color="black")
+            #ax.axvline(color="black")
             plt.show()
 
     def addData(self):
@@ -137,7 +159,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def updateAll(self):
         #print(self.MC.data)
         values = self.data_converter()
-        for i in range(1, len(values)): #excluding V1
+        #print(values, 'обработано')
+        for i in range(0, len(values)): #excluding V1
             if self.checkboxes[i].isChecked():
                 self.meters[i].display(values[i])
                 #self.meters[i].display(1)
@@ -161,7 +184,7 @@ class SerialPort:
 
     def update_ports(self):
         self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
-        del self.ports[0]
+        #del self.ports[0]
 
     def openChosenPort(self):
         from time import sleep
@@ -180,7 +203,7 @@ class SerialPort:
         if self.serial.canReadLine():
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
             #self.data = str(self.serial.readAll(), 'utf-8').strip()
-            print(self.data)
+            #print(self.data, 'получено')
 
     def close(self):
         self.serial.close()
@@ -188,12 +211,12 @@ class SerialPort:
 
     def serialSend(self, data):
         try:
-            float(data)
+            int(data)
             res = True
         except:
             res = False
 
-        if res and float(data) > 0 and float(data) < 4.5:
+        if res:
             #print(data)
             txs = ','.join(map(str, data)) + '\n'
             self.serial.write(data.encode())
@@ -210,7 +233,7 @@ class MyThread(QThread):
     def run(self):
         while True:
             self.mySignal.emit(self.value)
-            QThread.msleep(1000)
+            QThread.msleep(10)
 
 
 if __name__ == "__main__":
