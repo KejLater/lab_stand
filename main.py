@@ -141,7 +141,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.connect_label.setStyleSheet("background-color: lightgreen")
 
             self.thread = MyThread()
-            self.thread.mySignal.connect(self.updateAll) 
+            self.thread.mySignal.connect(self.updateAll)
             self.thread.start()
 
             self.setVoltage.clicked.connect(lambda: self.MC.serialSend(self.inputVoltage.text()))
@@ -205,8 +205,10 @@ class SerialPort:
             self.serial.readyRead.connect(self.onRead)
 
     def onRead(self):
+
         if self.serial.canReadLine():
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
+
             #self.data = str(self.serial.readAll(), 'utf-8').strip()
             #print(self.data, 'получено')
 
@@ -233,11 +235,11 @@ class MyThread(QThread):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.value = 0
+
 
     def run(self):
         while True:
-            self.mySignal.emit(self.value)
+            self.mySignal.emit(0)
             QThread.msleep(10)
 
 
