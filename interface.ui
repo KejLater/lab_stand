@@ -948,6 +948,9 @@
       <height>321</height>
      </rect>
     </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::NoContextMenu</enum>
+    </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOn</enum>
     </property>
@@ -963,6 +966,9 @@
     <property name="dragDropOverwriteMode">
      <bool>false</bool>
     </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
+    </property>
     <property name="selectionMode">
      <enum>QAbstractItemView::NoSelection</enum>
     </property>
@@ -975,8 +981,11 @@
     <property name="columnCount">
      <number>8</number>
     </property>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>73</number>
+    </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>75</number>
+     <number>73</number>
     </attribute>
     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
      <bool>false</bool>
@@ -1003,22 +1012,22 @@
     </column>
     <column>
      <property name="text">
-      <string>I1</string>
+      <string>A1</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>I2</string>
+      <string>A2</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>I3</string>
+      <string>A3</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>I4</string>
+      <string>A4</string>
      </property>
     </column>
    </widget>
@@ -1074,7 +1083,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="I1_y">
+   <widget class="QCheckBox" name="A1_y">
     <property name="geometry">
      <rect>
       <x>690</x>
@@ -1087,7 +1096,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="I2_y">
+   <widget class="QCheckBox" name="A2_y">
     <property name="geometry">
      <rect>
       <x>770</x>
@@ -1100,7 +1109,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="I3_y">
+   <widget class="QCheckBox" name="A3_y">
     <property name="geometry">
      <rect>
       <x>840</x>
@@ -1113,117 +1122,13 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="I4_y">
+   <widget class="QCheckBox" name="A4_y">
     <property name="geometry">
      <rect>
       <x>910</x>
       <y>420</y>
       <width>21</width>
       <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="V1_x">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="V2_x">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="V3_x">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="V4_x">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="I1_x">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="I2_x">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="I3_x">
-    <property name="geometry">
-     <rect>
-      <x>840</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="I4_x">
-    <property name="geometry">
-     <rect>
-      <x>910</x>
-      <y>450</y>
-      <width>16</width>
-      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -1291,11 +1196,85 @@
       <x>750</x>
       <y>30</y>
       <width>75</width>
-      <height>23</height>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>Экспорт csv</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="remove_last">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>10</y>
+      <width>121</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Удалить последнее</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reset">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>40</y>
+      <width>121</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Очистить </string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="choose_X">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>460</y>
+      <width>41</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="V1_label_3">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>450</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oX:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="V1_label_4">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>410</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>

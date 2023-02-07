@@ -14,92 +14,111 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def initializations(self):
-        self.current_row = 0
-
+        self.V1.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
         self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
 
-        self.dict_table = {meter:[] for meter in self.meters}
+        #self.dict_table = {meter:[] for meter in self.meters}
         self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])
+
+        self.choose_X.addItems([meter.objectName() for meter in self.meters])
 
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList()
         self.updatePorts.clicked.connect(self.update_portList)
-        self.connect_MC.clicked.connect(self.MC.openChosenPort)
+        self.connect_MC.clicked.connect(lambda: self.MC.openChosenPort(self.portList.currentText()))
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
 
         self.exportCSV.clicked.connect(self.export_csv)
-
+        self.reset.clicked.connect(self.resetTable)
+        self.remove_last.clicked.connect(self.removeLast)
         self.add_values.clicked.connect(self.addData) #Adding numbers to the table
         self.graph_button.clicked.connect(self.graph) #Build graph
 
     def export_csv(self):
-        self.df.to_csv(r'test1.csv', index=False)
+        dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]
+        #print(dir)
+        self.df.to_csv(dir, index=False)
 
+    def clear_table(self): #Clear tables but not DataFrame
+        self.tableWidget.clear()
+        headers = self.df.columns.values.tolist()
+        self.tableWidget.setHorizontalHeaderLabels(headers)
+        self.tableWidget.setRowCount(0)
 
+    def resetTable(self): #Clearing both table and Dataframe
+        button = QtWidgets.QMessageBox.question(self, "Подтверждение", "Really?")
+        if button == QtWidgets.QMessageBox.Yes:
+            self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])
+            self.updateTable()
 
+    def removeLast(self):
+        if self.tableWidget.rowCount():
+            self.df.drop(labels=[len(self.df)-1], axis=0, inplace=True)
+            self.updateTable()
 
     def graph(self):
 
-        RBtns = [self.V1_x, self.V2_x, self.V3_x, self.V4_x, self.I1_x, self.I2_x, self.I3_x, self.I4_x]
-        CBxs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y, self.I1_y, self.I2_y, self.I3_y, self.I4_y]
-        connx = dict(zip(RBtns, self.meters))
+
+        CBxs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y, self.A1_y, self.A2_y, self.A3_y, self.A4_y]
+        Vs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y]
+        Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]
+
         conny = dict(zip(CBxs, self.meters))
         colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
+        names = ' '
         n = 0
 
 
-        if self.current_row and any([button.isChecked() for button in RBtns]) and any([box.isChecked() for box in CBxs]):
+        if self.tableWidget.rowCount() and any([box.isChecked() for box in CBxs]) and not(any([box.isChecked() for box in Vs])
+                                                                                          and any([box.isChecked() for box in Is])):
             from matplotlib import pyplot as plt
-            fig, ax = plt.subplots()
+            plt.axhline(y=0, color='black')
+            x = self.df[self.choose_X.currentText()]
 
-            for button in RBtns: #Choosing X
-                if button.isChecked():
-                    x = self.dict_table[connx[button]]
-                    if 'V' in button.objectName():
-                        ax.set_xlabel(f'{button.objectName()[0:-2]}, В')
-                    elif "I" in button.objectName():
-                        ax.set_xlabel(f'{button.objectName()[0:-2]}, мА')
+            if 'V' in self.choose_X.currentText():
+                plt.xlabel(f'{self.choose_X.currentText()}, В')
+            elif "A" in self.choose_X.currentText():
+                plt.xlabel(f'{self.choose_X.currentText()}, мА')
 
 
-            names = ' '
-            for box in CBxs[0:4]:
-                if box.isChecked():
-                    y = self.dict_table[conny[box]]
-                    ax.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
-                    names = names + f'{box.objectName()[0:-2]}, '
-                    n = n + 1
-            ax.set_ylabel(f"{names} В")
 
-            ax1 = ax.twinx()
-            names=' '
-            for box in CBxs[4:]:
-                if box.isChecked():
-                    y = self.dict_table[conny[box]]
-                    ax1.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
-                    names = names + f'{box.objectName()[0:-2]}, '
-                    n = n + 1
-            ax1.set_ylabel(f"{names} мА")
-            fig.legend()
-            #ax.legend()
-            #ax1.legend()
-            ax.grid()
-            ax.axhline(y=0, color='black')
-            #ax.axvline(color="black")
+            if any([box.isChecked() for box in Vs]):
+                for box in Vs:
+                    if box.isChecked():
+                        y = self.df[box.objectName()[0:-2]]
+
+                        plt.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
+                        names = names + f'{box.objectName()[0:-2]}, '
+                        n = n + 1
+                plt.ylabel(f"{names} В")
+
+            else:
+                for box in Is:
+                    if box.isChecked():
+                        y = self.df[box.objectName()[0:-2]]
+                        plt.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
+                        names = names + f'{box.objectName()[0:-2]}, '
+                        n = n + 1
+                plt.ylabel(f"{names} мА")
+            plt.legend()
+            plt.grid()
             plt.show()
 
     def addData(self):
         self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Add data from meters to DataFrame
-
+        self.updateTable()
+        #self.current_row += 1
 
     def updateTable(self):
+        self.clear_table()
         for i, row in self.df.iterrows():
-            self.tableWidget.setRowCount(self.current_row + 1)
+            self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)
 
             for j in range(self.tableWidget.columnCount()):
                 self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))
-        self.current_row += 1
+
 
 
 
@@ -172,11 +191,11 @@ class SerialPort:
         self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
         #del self.ports[0]
 
-    def openChosenPort(self):
+    def openChosenPort(self, port):
         from time import sleep
         if self.connected:
             self.serial.close()
-        port = window.portList.currentText()
+
         self.serial.setPortName(port)
         self.serial.setDataTerminalReady(True)
         self.connected = self.serial.open(QIODevice.ReadWrite)
