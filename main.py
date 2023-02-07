@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
+import pandas as pd
 
 
 
@@ -20,6 +21,7 @@ class MainWindow(QtWidgets.QMainWindow):
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
 
         self.dict_table = {meter:[] for meter in self.meters}
+        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])
 
         self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
         self.update_portList()
@@ -33,24 +35,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graph_button.clicked.connect(self.graph) #Build graph
 
     def export_csv(self):
-        if self.current_row:
-            import csv
-            print(self.dict_table)
+        self.df.to_csv(r'test1.csv', index=False)
 
-            with open('test.csv', 'w') as csvfile:
-                writer = csv.writer(csvfile)
-                #writer.writerow([i.objectName() for i in self.dict_table.keys()])
-                key_list = [i.objectName() for i in self.dict_table.keys()]
-                kkk = self.dict_table.keys()
-
-
-                limit = len(key_list)
-
-                writer.writerow(key_list)
-
-
-                for i in range(limit):
-                    writer.writerow([self.dict_table[x][i] for x in kkk])
 
 
 
@@ -104,17 +90,17 @@ class MainWindow(QtWidgets.QMainWindow):
             plt.show()
 
     def addData(self):
-        from random import randint, random
-
-        self.tableWidget.insertRow(self.current_row)
-        for i in range(8):
-            value = self.meters[i].value() #+ round(random(), 2) #TEST
-            self.tableWidget.setItem(self.current_row, i, QtWidgets.QTableWidgetItem(str(value)))
-            self.dict_table[self.meters[i]].append(value)
+        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Add data from meters to DataFrame
 
 
+    def updateTable(self):
+        for i, row in self.df.iterrows():
+            self.tableWidget.setRowCount(self.current_row + 1)
+
+            for j in range(self.tableWidget.columnCount()):
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))
         self.current_row += 1
-        #print(self.dict_table)
+
 
 
     def data_converter(self):

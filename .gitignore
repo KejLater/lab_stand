@@ -2,3 +2,4 @@ venv/
 .idea/
 aaa.py
 __pycache__/
+.csv
