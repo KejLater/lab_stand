@@ -1,3 +1,4 @@
+import sys, os
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
@@ -9,7 +10,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         self.test = True
         super().__init__()
-        uic.loadUi('interface.ui', self)
+        UIFile = os.path.join(sys._MEIPASS, 'interface.ui')
+        uic.loadUi(UIFile, self)
         self.initializations()    #just not to change __init__ anymore
         self.show()
 
@@ -162,9 +164,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.portList.addItems(self.MC.ports)
 
     def updateAll(self):
-        #print(self.MC.data)
         values = self.data_converter()
-        #print(values, 'обработано')
         for i in range(0, len(values)): #excluding V1
             if self.checkboxes[i].isChecked():
                 self.meters[i].display(values[i])
@@ -208,7 +208,7 @@ class SerialPort:
 
         if self.serial.canReadLine():
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-
+            return self.data
             #self.data = str(self.serial.readAll(), 'utf-8').strip()
             #print(self.data, 'получено')
 
@@ -244,7 +244,6 @@ class MyThread(QThread):
 
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     app.exec_()

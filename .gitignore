@@ -3,3 +3,6 @@ venv/
 aaa.py
 __pycache__/
 .csv
+.spec
+dist/
+build/
