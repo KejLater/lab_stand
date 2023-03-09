@@ -37,7 +37,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.exportCSV.clicked.connect(self.export_csv)
         self.reset.clicked.connect(self.resetTable)
-        self.remove_last.clicked.connect(self.removeLast)
+        self.remove_last.clicked.connect(self.removeLast) #Удаляет последний результат
         self.add_values.clicked.connect(self.addData) #Adding numbers to the table
         self.graph_button.clicked.connect(self.graph) #Build graph
 
