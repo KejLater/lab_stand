@@ -5,42 +5,7 @@ from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 import pandas as pd
 
 
-
-class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
-        self.test = True
-        super().__init__()
-        try:
-            UIFile = os.path.join(sys._MEIPASS, 'interface.ui')
-        except:
-            UIFile = 'interface.ui'
-        uic.loadUi(UIFile, self)
-        self.initializations()    #just not to change __init__ anymore
-        self.show()
-
-    def initializations(self):
-        self.V1.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
-        self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
-                       self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox]
-
-        #self.dict_table = {meter:[] for meter in self.meters}
-        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])
-
-        self.choose_X.addItems([meter.objectName() for meter in self.meters])
-
-        self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
-        self.update_portList()
-        self.updatePorts.clicked.connect(self.update_portList)
-        self.connect_MC.clicked.connect(lambda: self.MC.openChosenPort(self.portList.currentText()))
-        self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
-
-        self.exportCSV.clicked.connect(self.export_csv)
-        self.reset.clicked.connect(self.resetTable)
-        self.remove_last.clicked.connect(self.removeLast) #Удаляет последний результат
-        self.add_values.clicked.connect(self.addData) #Adding numbers to the table
-        self.graph_button.clicked.connect(self.graph) #Build graph
-#test comment
+class Data:
     def export_csv(self):
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]
         #print(dir)
@@ -62,6 +27,19 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.tableWidget.rowCount():
             self.df.drop(labels=[len(self.df)-1], axis=0, inplace=True)
             self.updateTable()
+
+    def addData(self):
+        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Add data from meters to DataFrame
+        self.updateTable()
+        #self.current_row += 1
+
+    def updateTable(self):
+        self.clear_table()
+        for i, row in self.df.iterrows():
+            self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)
+
+            for j in range(self.tableWidget.columnCount()):
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))
 
     def graph(self):
 
@@ -111,73 +89,6 @@ class MainWindow(QtWidgets.QMainWindow):
             plt.grid()
             plt.show()
 
-    def addData(self):
-        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Add data from meters to DataFrame
-        self.updateTable()
-        #self.current_row += 1
-
-    def updateTable(self):
-        self.clear_table()
-        for i, row in self.df.iterrows():
-            self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)
-
-            for j in range(self.tableWidget.columnCount()):
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))
-
-
-
-
-    def data_converter(self):
-        if '@' in self.MC.data:
-            array = self.MC.data.split('@')
-            return [float(n) for n in array]
-        else:
-            #print(2)
-            return [0 for _ in range(8)]
-
-    def show_MC_disconnected(self):
-        if not self.MC.connected:
-            self.connect_label.setText('не подключено')
-            self.connect_label.setStyleSheet("background-color: red")
-
-    def show_MC_connected(self):
-        if self.MC.connected:
-            self.connect_label.setText('подключено')
-            self.connect_label.setStyleSheet("background-color: lightgreen")
-
-            self.thread = MyThread()
-            self.thread.mySignal.connect(self.updateAll)
-            self.thread.start()
-
-            self.setVoltage.clicked.connect(lambda: self.MC.serialSend(self.inputVoltage.text()))
-
-            self.close.clicked.connect(self.MC.close)
-            self.close.clicked.connect(self.show_MC_disconnected)
-
-
-
-        else:
-            self.connect_label.setText('ошибка')
-            self.connect_label.setStyleSheet("background-color: red")
-
-
-    def update_portList(self):
-        self.portList.clear()
-        self.MC.update_ports()
-        self.portList.addItems(self.MC.ports)
-
-    def updateAll(self):
-        values = self.data_converter()
-        for i in range(0, len(values)): #excluding V1
-            if self.checkboxes[i].isChecked():
-                self.meters[i].display(values[i])
-                #self.meters[i].display(1)
-            else:
-                self.meters[i].display(0)
-
-
-
-
 class SerialPort:
     def __init__(self):
         self.COM_setup()
@@ -224,16 +135,97 @@ class SerialPort:
         self.connected = False
 
     def serialSend(self, data):
-        try:
-            int(data)
-            res = True
-        except:
-            res = False
+        txs = ','.join(map(str, data)) + '\n'
+        self.serial.write(data.encode())
 
-        if res:
-            #print(data)
-            txs = ','.join(map(str, data)) + '\n'
-            self.serial.write(data.encode())
+class MainWindow(QtWidgets.QMainWindow, Data):
+    def __init__(self):
+
+        super().__init__()
+        try:
+            UIFile = os.path.join(sys._MEIPASS, 'interface.ui') #It is for EXE packaging
+        except:
+            UIFile = 'interface.ui' #It is for pure Python
+        uic.loadUi(UIFile, self)
+        self.initializations()    #just not to change __init__ anymore
+        self.show()
+
+    def initializations(self):
+        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
+        self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
+                       self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox] #Checkboxes to choose if to siwtch volt/ampermeter pr not
+
+        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters]) #dataframe to save results
+
+        self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
+
+        self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
+        self.update_portList()
+        self.updatePorts.clicked.connect(self.update_portList)
+        self.connect_MC.clicked.connect(lambda: self.MC.openChosenPort(self.portList.currentText()))
+        self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
+
+        self.exportCSV.clicked.connect(self.export_csv) #csv export
+        self.reset.clicked.connect(self.resetTable) #clears table
+        self.remove_last.clicked.connect(self.removeLast) #removes the last result
+        self.add_values.clicked.connect(self.addData) #Adding numbers to the tabl
+        self.graph_button.clicked.connect(self.graph) #Build graph
+
+
+
+    def data_converter(self):
+        if '@' in self.MC.data:
+            array = self.MC.data.split('@')
+            return [float(n) for n in array]
+        else:
+            #print(2)
+            return [0 for _ in range(8)]
+
+    def show_MC_disconnected(self):
+        if not self.MC.connected:
+            self.connect_label.setText('не подключено')
+            self.connect_label.setStyleSheet("background-color: red")
+
+    def show_MC_connected(self):
+        if self.MC.connected:
+            self.connect_label.setText('подключено')
+            self.connect_label.setStyleSheet("background-color: lightgreen")
+
+            self.thread = MyThread()
+            self.thread.mySignal.connect(self.updateAll)
+            self.thread.start()
+
+            self.setVoltage.clicked.connect(lambda: self.MC.serialSend(self.inputVoltage.text()))
+
+            self.close.clicked.connect(self.MC.close)
+            self.close.clicked.connect(self.show_MC_disconnected)
+
+
+
+        else:
+            self.connect_label.setText('ошибка')
+            self.connect_label.setStyleSheet("background-color: red")
+
+
+    def update_portList(self):
+        self.portList.clear()
+        self.MC.update_ports()
+        self.portList.addItems(self.MC.ports)
+
+    def updateAll(self):
+        values = self.data_converter()
+
+        for i in range(0, len(values)): #excluding V1
+            if self.checkboxes[i].isChecked():
+                self.meters[i].display(values[i])
+                #self.meters[i].display(1)
+            else:
+                self.meters[i].display(0)
+
+
+
+
+
 
 
 
