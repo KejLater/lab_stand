@@ -1177,7 +1177,7 @@
      <string>Бахнуть</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="close">
+   <widget class="QPushButton" name="close_btn">
     <property name="geometry">
      <rect>
       <x>160</x>

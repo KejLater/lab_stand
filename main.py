@@ -91,32 +91,37 @@ class Data:
 
 class SerialPort:
     def __init__(self):
-        self.COM_setup()
-        self.connected = False
-        self.data = '0@0@0@0@0@0@0@0'
+        #self.COM_setup()
+        self.update_ports() #when proram opens, list of ports gets added to menu
+        self.connected = False #variable to track connection status
+        self.data = '0@0@0@0@0@0@0@0' #data for initialisation
 
-    def COM_setup(self):
-        self.serial = QSerialPort()   #Creating object of class QSerialPort
+    def COM_setup(self): #REMOVE
+        self.serial = QSerialPort()
         self.serial.setBaudRate(QSerialPort.Baud9600)
-        self.update_ports()
+        #self.update_ports()
 
 
     def update_ports(self):
+        self.portList.clear()
         self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
-        #del self.ports[0]
+        self.portList.addItems(self.ports)
+
 
     def openChosenPort(self, port):
         from time import sleep
         if self.connected:
             self.serial.close()
-
+        self.serial = QSerialPort()
+        self.serial.setBaudRate(QSerialPort.Baud9600)
         self.serial.setPortName(port)
         self.serial.setDataTerminalReady(True)
         self.connected = self.serial.open(QIODevice.ReadWrite)
-
-
+        #print(self.connected)
         if self.connected:
             self.serial.readyRead.connect(self.onRead)
+
+
 
     def onRead(self):
         #data = str(self.serial.readLine(), 'utf-8').strip()
@@ -131,6 +136,7 @@ class SerialPort:
             #print(self.data, 'получено')
 
     def close(self):
+
         self.serial.close()
         self.connected = False
 
@@ -138,15 +144,17 @@ class SerialPort:
         txs = ','.join(map(str, data)) + '\n'
         self.serial.write(data.encode())
 
-class MainWindow(QtWidgets.QMainWindow, Data):
+class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
     def __init__(self):
-
         super().__init__()
         try:
             UIFile = os.path.join(sys._MEIPASS, 'interface.ui') #It is for EXE packaging
         except:
             UIFile = 'interface.ui' #It is for pure Python
         uic.loadUi(UIFile, self)
+
+        SerialPort.__init__(self)
+
         self.initializations()    #just not to change __init__ anymore
         self.show()
 
@@ -154,40 +162,41 @@ class MainWindow(QtWidgets.QMainWindow, Data):
         self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
         self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox] #Checkboxes to choose if to siwtch volt/ampermeter pr not
-
         self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters]) #dataframe to save results
-
         self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
 
-        self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
-        self.update_portList()
-        self.updatePorts.clicked.connect(self.update_portList)
-        self.connect_MC.clicked.connect(lambda: self.MC.openChosenPort(self.portList.currentText()))
+        self.exportCSV.clicked.connect(self.export_csv)  # csv export #TODO
+        self.reset.clicked.connect(self.resetTable)  # clears table
+        self.remove_last.clicked.connect(self.removeLast)  # removes the last result
+        self.add_values.clicked.connect(self.addData)  # Adding numbers to the tabl
+        self.graph_button.clicked.connect(self.graph)  # Build graph
+
+        #print(self.ports)
+        #self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
+        #self.update_portList()
+        self.updatePorts.clicked.connect(self.update_ports) #update list of ports
+        #print(self.portList.currentText())
+        self.connect_MC.clicked.connect(lambda: self.openChosenPort(self.portList.currentText()))
         self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
 
-        self.exportCSV.clicked.connect(self.export_csv) #csv export
-        self.reset.clicked.connect(self.resetTable) #clears table
-        self.remove_last.clicked.connect(self.removeLast) #removes the last result
-        self.add_values.clicked.connect(self.addData) #Adding numbers to the tabl
-        self.graph_button.clicked.connect(self.graph) #Build graph
+
 
 
 
     def data_converter(self):
-        if '@' in self.MC.data:
-            array = self.MC.data.split('@')
+        if '@' in self.data:
+            array = self.data.split('@')
             return [float(n) for n in array]
         else:
-            #print(2)
             return [0 for _ in range(8)]
 
     def show_MC_disconnected(self):
-        if not self.MC.connected:
+        if not self.connected:
             self.connect_label.setText('не подключено')
             self.connect_label.setStyleSheet("background-color: red")
 
     def show_MC_connected(self):
-        if self.MC.connected:
+        if self.connected:
             self.connect_label.setText('подключено')
             self.connect_label.setStyleSheet("background-color: lightgreen")
 
@@ -195,12 +204,10 @@ class MainWindow(QtWidgets.QMainWindow, Data):
             self.thread.mySignal.connect(self.updateAll)
             self.thread.start()
 
-            self.setVoltage.clicked.connect(lambda: self.MC.serialSend(self.inputVoltage.text()))
+            self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))
 
-            self.close.clicked.connect(self.MC.close)
-            self.close.clicked.connect(self.show_MC_disconnected)
-
-
+            self.close_btn.clicked.connect(self.close)
+            self.close_btn.clicked.connect(self.show_MC_disconnected)
 
         else:
             self.connect_label.setText('ошибка')
@@ -209,8 +216,8 @@ class MainWindow(QtWidgets.QMainWindow, Data):
 
     def update_portList(self):
         self.portList.clear()
-        self.MC.update_ports()
-        self.portList.addItems(self.MC.ports)
+        #self.MC.update_ports()
+        self.portList.addItems(self.ports)
 
     def updateAll(self):
         values = self.data_converter()
