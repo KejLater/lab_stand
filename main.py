@@ -40,7 +40,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.remove_last.clicked.connect(self.removeLast) #Удаляет последний результат
         self.add_values.clicked.connect(self.addData) #Adding numbers to the table
         self.graph_button.clicked.connect(self.graph) #Build graph
-
+#test comment
     def export_csv(self):
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]
         #print(dir)
