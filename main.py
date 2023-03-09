@@ -10,7 +10,10 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         self.test = True
         super().__init__()
-        UIFile = os.path.join(sys._MEIPASS, 'interface.ui')
+        try:
+            UIFile = os.path.join(sys._MEIPASS, 'interface.ui')
+        except:
+            UIFile = 'interface.ui'
         uic.loadUi(UIFile, self)
         self.initializations()    #just not to change __init__ anymore
         self.show()
@@ -205,9 +208,13 @@ class SerialPort:
             self.serial.readyRead.connect(self.onRead)
 
     def onRead(self):
+        #data = str(self.serial.readLine(), 'utf-8').strip()
+        #print(data)
 
         if self.serial.canReadLine():
+            #print(type(self.serial.readLine()))
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
+            #print(self.data)
             return self.data
             #self.data = str(self.serial.readAll(), 'utf-8').strip()
             #print(self.data, 'получено')
