@@ -9,7 +9,8 @@ class Data:
     def export_csv(self):
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]
         #print(dir)
-        self.df.to_csv(dir, index=False)
+        if dir:
+            self.df.to_csv(dir, index=False)
 
     def clear_table(self): #Clear tables but not DataFrame
         self.tableWidget.clear()
@@ -141,8 +142,11 @@ class SerialPort:
         self.connected = False
 
     def serialSend(self, data):
+
+        data = int(float(data*1000))
         txs = ','.join(map(str, data)) + '\n'
         self.serial.write(data.encode())
+
 
 class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
     def __init__(self):
