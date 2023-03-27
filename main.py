@@ -143,7 +143,7 @@ class SerialPort:
 
     def serialSend(self, data):
 
-        data = int(float(data)*1000)
+        data = str(int(float(data)*1000))
         txs = ','.join(map(str, data)) + '\n'
         self.serial.write(data.encode())
 
