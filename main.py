@@ -137,15 +137,31 @@ class SerialPort:
             #print(self.data, 'получено')
 
     def close(self):
-
         self.serial.close()
         self.connected = False
 
-    def serialSend(self, data):
+    def multiplyString(self, string):
+        if '.' not in string:
+            string = string + '.0'
+        string = string.split('.')
 
-        data = str(int(float(data)*1000))
-        txs = ','.join(map(str, data)) + '\n'
-        self.serial.write(data.encode())
+        if len(string[1]) <= 3:
+            res = string[0] + string[1].rjust(3, "0")
+
+        else:
+            res = string[0] + string[1][0:3]
+
+        return res
+
+    def serialSend(self, data):
+        permittedSymbols = "0123456789-. "
+        data = data.replace(' ', '')
+        if all([symbol in permittedSymbols for symbol in data]) and data.count('-') in [0, 1] and data.count('.') in [0, 1]:
+            #print(data)
+            from struct import pack
+            data = self.multiplyString(data)
+            #txs = ','.join(map(str, data)) + '\n'
+            self.serial.write(pack("<H", data))
 
 
 class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
@@ -159,8 +175,20 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         SerialPort.__init__(self)
 
+        self.hotkeys() #Init hotkeys
         self.initializations()    #just not to change __init__ anymore
         self.show()
+
+    def hotkeys(self):
+        self.addData_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
+        self.addData_shortcut.activated.connect(self.addData)
+
+        self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
+        self.graph_shortcut.activated.connect(self.graph)
+
+        self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)
+        self.serialSend_shortcut.activated.connect(lambda: self.serialSend(self.inputVoltage.text()))
+
 
     def initializations(self):
         self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
@@ -190,9 +218,10 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
     def data_converter(self):
         if '@' in self.data:
             array = self.data.split('@')
-            return [float(n) for n in array]
+            #return [float(n) for n in array]
+            return array
         else:
-            return [0 for _ in range(8)]
+            return ["0" for _ in range(8)]
 
     def show_MC_disconnected(self):
         if not self.connected:
