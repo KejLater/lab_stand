@@ -146,22 +146,25 @@ class SerialPort:
         string = string.split('.')
 
         if len(string[1]) <= 3:
-            res = string[0] + string[1].rjust(3, "0")
+            res = string[0] + string[1].ljust(3, "0")
 
         else:
             res = string[0] + string[1][0:3]
 
-        return res
+        return int(res)
 
     def serialSend(self, data):
         permittedSymbols = "0123456789-. "
         data = data.replace(' ', '')
-        if all([symbol in permittedSymbols for symbol in data]) and data.count('-') in [0, 1] and data.count('.') in [0, 1]:
+        if all([symbol in permittedSymbols for symbol in data]) and data[1:].count('-') == 0 and data.count('.') in [0, 1] and data != '':
             #print(data)
             from struct import pack
             data = self.multiplyString(data)
+            print(data)
             #txs = ','.join(map(str, data)) + '\n'
-            self.serial.write(pack("<H", data))
+            #print(data.encode())
+            self.serial.write(pack("<i", data))
+            #self.serial.write(data.encode())
 
 
 class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
