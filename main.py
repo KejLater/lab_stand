@@ -17,7 +17,7 @@ class Data:
             #print(name)
 
             #self.df = self.df.sort_values(by=name, ascending=self.sorting_order)
-            self.df = self.df.sort_values(by=name, ignore_index=True)
+            self.df = self.df.sort_values(by=name, ignore_index=True, ascending=self.sorting_order)
             #print(self.sorting_order)
             self.sorting_order = not(self.sorting_order)
             #print(self.sorting_order)
@@ -145,21 +145,15 @@ class SerialPort:
 
 
     def onRead(self):
-        #data = str(self.serial.readLine(), 'utf-8').strip()
-        #print(data)
 
         if self.serial.canReadLine():
-            #print(type(self.serial.readLine()))
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-            #print("Serial send working")
-            return self.data
-            #self.data = str(self.serial.readAll(), 'utf-8').strip()
-            #print(self.data, 'получено')
+
 
     def close(self):
-        print(2)
+        #print(2)
         self.serial.close()
-        print(1)
+        #print(1)
         self.connected = False
 
     def multiplyString(self, string): #Not used
@@ -253,29 +247,20 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
     def auto_vac(self, begin, end, step):
         from numpy import linspace
-        #import time
-        #permittedSymbols = "0123456789. "
-        #begin = begin.replace(' ', '')
-        #begin = begin.replace(' ', '')
-        #begin = begin.replace(' ', '')
-
-        #if end > begin and begin != '' and end != '' and n != '': pass
-        voltages = linspace(float(begin), float(end), int(step))
+        import time
+        voltages = linspace(0, 10, 11)
+        #voltages = linspace(float(begin), float(end), int(step))
         voltages = [round(v, 2) for v in voltages]
 
         for voltage in voltages:
             self.serialSend(str(voltage))
-            QThread.msleep(100)
-            #time.sleep(1)
-            self.updateAll()
-            #print(self.data)
-            self.addData()
+            print(self.data)
 
 
     def data_converter(self):
         if '@' in self.data:
             array = self.data.split('@')
-            #return [float(n) for n in array]
+            return [round(float(n), 2) for n in array]
             return array
         else:
             return ["0" for _ in range(8)]
@@ -295,7 +280,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
             self.thread.start()
 
             self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))
-            #self.auto_launch.clicked.connect(lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
+            self.auto_launch.clicked.connect(lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
 
             self.close_btn.clicked.connect(self.close)
             self.close_btn.clicked.connect(self.show_MC_disconnected)
@@ -328,13 +313,26 @@ class MyThread(QThread):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
-
+        self.period = 10
 
     def run(self):
         while True:
             self.mySignal.emit(0)
             #print("MyThread working")
-            QThread.msleep(10)
+            QThread.msleep(self.period)
+
+class MyThreadForAuto(QThread):
+    mySignal = pyqtSignal(int)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        self.period = 10
+
+    def run(self):
+        while True:
+            self.mySignal.emit(0)
+            #print("MyThread working")
+            QThread.msleep(self.period)
 
 
 if __name__ == "__main__":
