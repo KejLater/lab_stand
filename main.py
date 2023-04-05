@@ -5,133 +5,118 @@ from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 import pandas as pd
 
 
-class Data:
+class Data:    # class for interaction with DataFrame (df) and tableWidget (table) where data is stored
+                # visible tableWidget (table) is just derivative of df
+                # instead of adding new data to table I clear it and fill again by function updateTable()
+
     def __init__(self):
-        self.sorting_order = True
+        self.sorting_order = True    # reverses sorting order
 
-    def sort_by(self, name):
-        #print(1)
-        if self.tableWidget.rowCount():
-            #print(self.tableWidget.rowCount())
+    def sort_by(self, name):    # sorts data in df
 
-            #print(name)
+        if self.tableWidget.rowCount():    # checks if table is not empty
 
-            #self.df = self.df.sort_values(by=name, ascending=self.sorting_order)
             self.df = self.df.sort_values(by=name, ignore_index=True, ascending=self.sorting_order)
-            #print(self.sorting_order)
-            self.sorting_order = not(self.sorting_order)
-            #print(self.sorting_order)
+            self.sorting_order = not(self.sorting_order)    # reverses sorting order during next call
+            self.updateTable()    #clears table and fills it with updated df
 
-            self.updateTable()
+    def export_csv(self):    # exports df to csv
 
-    def export_csv(self):
-        dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]
-        #print(dir)
-        if dir:
+        dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]    # calls dialogue window
+        if dir:    # checks if user did not cancel export
             self.df.to_csv(dir, index=False)
 
-    def clear_table(self): #Clear tables but not DataFrame
-        self.tableWidget.clear()
-        headers = self.df.columns.values.tolist()
-        self.tableWidget.setHorizontalHeaderLabels(headers)
-        self.tableWidget.setRowCount(0)
 
-    def resetTable(self): #Clearing both table and Dataframe
-        button = QtWidgets.QMessageBox.question(self, "Подтверждение", "Really?")
-        if button == QtWidgets.QMessageBox.Yes:
-            self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])
-            self.updateTable()
+    def clear_table(self):    # clears table but not df, adds column names to table
 
-    def removeLast(self): #Removes the last row from both dataframe and table
-        if self.tableWidget.rowCount():
-            self.df.drop(labels=[len(self.df)-1], axis=0, inplace=True)
-            self.updateTable()
-
-    def addData(self):
-        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Adds data from meters to DataFrame, turning string into float
-        self.updateTable()
-        #self.current_row += 1
-
-    def updateTable(self):
-        self.clear_table()
-        #print(self.df.iterrows())
-        for i, row in self.df.iterrows():
-            #print(i, row)
-            self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)
-
-            for j in range(self.tableWidget.columnCount()):
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))
-
-    def graph(self):
+        self.tableWidget.clear()    #clears table completly
+        headers = self.df.columns.values.tolist()    # exports names of columns for table from df
+        self.tableWidget.setHorizontalHeaderLabels(headers)    # adds columnss to table
+        self.tableWidget.setRowCount(0)    # makes RowCount equal to zero
 
 
-        CBxs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y, self.A1_y, self.A2_y, self.A3_y, self.A4_y]
-        Vs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y]
-        Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]
+    def resetTable(self):    # clears both table and df
 
-        conny = dict(zip(CBxs, self.meters))
-        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA', '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']
-        names = ' '
-        n = 0
+        button = QtWidgets.QMessageBox.question(self, "Подтверждение", "Really?")    # confirmation from user
+
+        if button == QtWidgets.QMessageBox.Yes:    # if user confirmed
+
+            self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])    # creates new df
+            self.updateTable()    # clears table and fills it with updated df
+
+    def removeLast(self):    # dropes the last row from both dataframe and table
+
+        if self.tableWidget.rowCount():    # checks if table is not empty
+
+            self.df = self.df.drop(labels=[len(self.df)-1], axis=0)
+            self.updateTable()    # clears table and fills it with updated df
+
+    def addData(self):    # adds line of values to the end of df
+
+        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters]    # adds data from meters to df
+        self.updateTable()    # clears table and fills it with updated df
 
 
-        if self.tableWidget.rowCount() and any([box.isChecked() for box in CBxs]) and not(any([box.isChecked() for box in Vs])
-                                                                                          and any([box.isChecked() for box in Is])):
+    def updateTable(self):    # clears table and fills it with updated df
+
+        self.clear_table()    # clears table but not df, adds column names to table
+
+        for i, row in self.df.iterrows():    # iterates the whole df
+
+            self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)    # adds new row to table
+
+            for j in range(self.tableWidget.columnCount()):    # iterates table
+
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))    # sets item [i, j]
+
+
+    def graph(self):    # creates mathplotlib thread with graph
+
+        if self.tableWidget.rowCount():    # checks if table is not empty
             from matplotlib import pyplot as plt
-            plt.axhline(y=0, color='black')
-            x = self.df[self.choose_X.currentText()]
 
-            if 'V' in self.choose_X.currentText():
+            plt.axhline(y=0, color='black')    # adds black line y=0
+
+            x = self.df[self.choose_X.currentText()]    # takes list of x values from df
+            y = self.df[self.choose_Y.currentText()]    # takes list of y values from df
+
+            if 'V' in self.choose_X.currentText():    # chooses volts or milliampers for x label
                 plt.xlabel(f'{self.choose_X.currentText()}, В')
             elif "A" in self.choose_X.currentText():
                 plt.xlabel(f'{self.choose_X.currentText()}, мА')
 
+            if 'V' in self.choose_Y.currentText():    # chooses volts or milliampers for y label
+                plt.ylabel(f'{self.choose_Y.currentText()}, В')
+            elif "A" in self.choose_X.currentText():
+                plt.ylabel(f'{self.choose_Y.currentText()}, мА')
 
-
-            if any([box.isChecked() for box in Vs]):
-                for box in Vs:
-                    if box.isChecked():
-                        y = self.df[box.objectName()[0:-2]]
-
-                        plt.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
-                        names = names + f'{box.objectName()[0:-2]}, '
-                        n = n + 1
-                plt.ylabel(f"{names} В")
-
-            else:
-                for box in Is:
-                    if box.isChecked():
-                        y = self.df[box.objectName()[0:-2]]
-                        plt.plot(x, y, color=colors[n], label=box.objectName()[0:-2])
-                        names = names + f'{box.objectName()[0:-2]}, '
-                        n = n + 1
-                plt.ylabel(f"{names} мА")
-            plt.legend()
-            plt.grid()
-            plt.show()
+            plt.plot(x, y)    # builds graph
+            plt.grid()    # adds grid to graph
+            plt.show()    # shows graph
 
 
 
+class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-port interaction
 
-
-
-
-class MainWindow(QtWidgets.QMainWindow, Data):
     def __init__(self):
-        super().__init__()
+
+        super().__init__()    # inherits Data class
+
         try:
-            UIFile = os.path.join(sys._MEIPASS, 'interface.ui') #It is for EXE packaging
-        except:
-            UIFile = 'interface.ui' #It is for pure Python
-        uic.loadUi(UIFile, self)
+            UIFile = os.path.join(sys._MEIPASS, 'interface.ui')    # this line works during compilation to .exe
 
-        #SerialPort.__init__(self)
+        except AttributeError:    # in pure Python sys raises this error
+            UIFile = 'interface.ui'    # path for pure Python
 
-        self.hotkeys() #Init hotkeys
-        self.initializations()    #just not to change __init__ anymore
+        uic.loadUi(UIFile, self)    # loads UI from .ui file
+
+        self.hotkeys()    # ties hotkeys to functions
+        self.initializations()    # ties buttons to functions
         self.show()
 
+
     def hotkeys(self):
+
         self.addData_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
         self.addData_shortcut.activated.connect(self.addData)
 
@@ -143,70 +128,101 @@ class MainWindow(QtWidgets.QMainWindow, Data):
 
 
     def initializations(self):
-        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
-        self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
-                       self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox] #Checkboxes to choose if to siwtch volt/ampermeter pr not
 
-        self.connected = False  # variable to track connection status
-        self.data = '0@0@0@0@0@0@0@0'  # data for initialisation
+        self.meters = [self.V1, self.V2, self.V3, self.V4,
+                       self.A1, self.A2, self.A3, self.A4]    # list of volt- and ampermeters (meters)
+        self.checkboxes = [self.V1_checkbox, self.V2_checkbox,
+                           self.V3_checkbox, self.V4_checkbox,
+                           self.A1_checkbox, self.A2_checkbox,
+                           self.A3_checkbox, self.A4_checkbox]     # checkboxes to siwtch meter off or on
 
-        self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
-        self.choose_sort.addItems([meter.objectName() for meter in self.meters])  #add V1, V2... to list where user chooses column to sort
+        self.connected = False    # variable to track connection status
+        self.data = '0@0@0@0@0@0@0@0'    # primary data for meters
 
-        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])  # dataframe to save results
-        self.exportCSV.clicked.connect(self.export_csv)  # csv export
-        self.reset.clicked.connect(self.resetTable)  # clears table
-        self.remove_last.clicked.connect(self.removeLast)  # removes the last result
-        self.add_values.clicked.connect(self.addData)  # Adding numbers to the tabl
-        self.graph_button.clicked.connect(self.graph)  # Build graph
-        self.sort_launch.clicked.connect(lambda: self.sort_by(self.choose_sort.currentText()))
+        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])    # creates df to save results
+        self.choose_X.addItems(
+            [meter.objectName() for meter in self.meters])    # adds V1, V2... to list where user chooses X
+        self.choose_Y.addItems(
+            [meter.objectName() for meter in self.meters])    # adds V1, V2... to list where user chooses Y
+        self.choose_sort.addItems(
+            [meter.objectName() for meter in self.meters])     # adds V1, V2... to list where user chooses column to sort
+        self.exportCSV.clicked.connect(self.export_csv)    # ties button to function
+        self.reset.clicked.connect(self.resetTable)    # ties button to function
+        self.remove_last.clicked.connect(self.removeLast)    # ties button to function
+        self.add_values.clicked.connect(self.addData)    # ties button to function
+        self.graph_button.clicked.connect(self.graph)    # ties button to function
+        self.sort_launch.clicked.connect(lambda: self.sort_by(self.choose_sort.currentText()))    # ties button to function
 
-        self.update_ports()  # when program opens, list of ports gets added to menu
-        self.updatePorts.clicked.connect(self.update_ports) #update list of ports whenever it needs
-        self.connect_MC.clicked.connect(lambda: self.openChosenPort(self.portList.currentText())) #open choosen port
-        self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection changes light and unlocks features
+        self.update_ports()    # when program opens, list of ports gets added to menu
+        self.updatePorts.clicked.connect(self.update_ports)   # button updates list of ports if user needs
 
-    def COM_setup(self): #REMOVE
-        self.serial = QSerialPort()
-        self.serial.setBaudRate(QSerialPort.Baud9600)
-        #self.update_ports()
+        self.connect_MC.clicked.connect(lambda: self.openChosenPort(self.portList.currentText()))   #open choosen port
+                                                                                                    # with speed 9600
+        self.close_btn.clicked.connect(self.close)    # ties button to function
 
-
-    def update_ports(self):
-        self.portList.clear()
-        self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]
-        self.portList.addItems(self.ports)
+        self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))    # ties button to function
+        self.auto_launch.clicked.connect(    # ties button to function
+            lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
 
 
-    def openChosenPort(self, port):
+    def update_ports(self):    # clears list of ports and adds available
+
+        self.portList.clear()    # clears widget list
+        self.ports = [port.portName() for port in QSerialPortInfo().availablePorts()]    # creates list of ports
+        self.portList.addItems(self.ports)    # adds list to widget
+
+
+    def openChosenPort(self, port):    # opens choosen by user port with BaudRate 9600 and changes title "Подключено"
+
         from time import sleep
-        if self.connected:
-            self.serial.close()
-        self.serial = QSerialPort()
-        self.serial.setBaudRate(QSerialPort.Baud9600)
-        self.serial.setPortName(port)
-        self.serial.setDataTerminalReady(True)
-        self.connected = self.serial.open(QIODevice.ReadWrite)
-        #print(self.connected)
-        if self.connected:
-            self.serial.readyRead.connect(self.onRead)
+        if self.connected:    # checks if port is conected
+
+            self.serial.close()    # closes port if True
+
+        self.serial = QSerialPort()    # creating object of class
+        self.serial.setBaudRate(QSerialPort.Baud9600)    # open port with speed 9600
+        self.serial.setPortName(port)    # sets name of port choose by user
+        self.serial.setDataTerminalReady(True)    # makes terminal ready
+        self.connected = self.serial.open(QIODevice.ReadWrite)    # opens port for interaction
+
+        if self.connected:    # checks if port is connected
+
+            self.serial.readyRead.connect(self.onRead)    # makes onRead constantly work if True
+            self.show_MC_connected()    # changes color and title to "Подключено" if True
 
 
+    def onRead(self):    # constantly reads data from port and makes meters update
 
-    def onRead(self):
+        if self.serial.canReadLine():    # checks if line can be read
+            self.data = str(self.serial.readLine(), 'utf-8').strip()    # turns bytes to utf-8 string withuot '\n'
+            self.updateAll()    # triggers update of meters
 
-        if self.serial.canReadLine():
-            self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-            self.updateAll()
+
+    def serialSend(self, data):    # send data to port
+
+        if self.connected:    # checks if port is connected
+
+            permittedSymbols = "0123456789. "    # permited symbols for input
+            data = data.replace(' ', '')    # replaces ' ' with ''
+            data = data.replace(',', '.')    # replaces "," with "."
+
+            if data.replace('.', '').isdigit() and data.count('.') in [0, 1] and data != '' and data[0] != '.':
+                                                                                        # checks if data is fine
+                import struct
+                data = int(float(data) * 1000)    # multiplies float on 1000
+                                                  # to send integer to COM-port with three symbols after period
+                self.serial.write(struct.pack("<H", data))    # sends unsigned int to port
 
 
     def close(self):
-        #print(2)
-        self.serial.close()
-        #print(1)
-        self.connected = False
 
-    def multiplyString(self, string): #Not used
+        if self.connected:    # checks if port is connected
+            self.serial.close()    # closes conection
+            self.connected = False    # turns status variable to False
+            self.show_MC_disconnected()    # makes changes to color and title
+
+
+    def multiplyString(self, string):    # this function is not used
         if '.' not in string:
             string = string + '.0'
         string = string.split('.')
@@ -219,22 +235,8 @@ class MainWindow(QtWidgets.QMainWindow, Data):
 
         return int(res)
 
-    def serialSend(self, data):
-        #print(data)
-        permittedSymbols = "0123456789. "
-        data = data.replace(' ', '')
-        data = data.replace(',', '.')
-        if data.replace('.', '').isdigit() and data.count('.') in [0, 1] and data != '' and data[0]!='.':
-            #print(data)
-            #print(data)
-            import struct
-            data = int(float(data)*1000)
-            #txs = ','.join(map(str, data)) + '\n'
-            #print(data.encode())
-            self.serial.write(struct.pack("<H", data))
-            #self.serial.write(data.encode())
 
-    def auto_vac(self, begin, end, step):
+    def auto_vac(self, begin, end, step):    # IN PROCESS
         from numpy import linspace
         import time
         voltages = linspace(0, 10, 11)
@@ -246,52 +248,50 @@ class MainWindow(QtWidgets.QMainWindow, Data):
             print(self.data)
 
 
-    def data_converter(self):
-        if '@' in self.data:
-            array = self.data.split('@')
-            return [round(float(n), 2) for n in array]
+    def data_converter(self):    # convertes string with seven @ to list
+
+        if '@' in self.data:    # checks if @ is in string
+            array = self.data.split('@')    # splits string
+            return [round(float(n), 2) for n in array]    # turns elements of list from str to rounded float
             return array
+
         else:
-            return ["0" for _ in range(8)]
+            return [0 for _ in range(8)]    # if @ are not in list returns list of 0
+
 
     def show_MC_disconnected(self):
+
         if not self.connected:
             self.connect_label.setText('не подключено')
             self.connect_label.setStyleSheet("background-color: red")
 
+
     def show_MC_connected(self):    #Init of functions which do not work without connection
+
         if self.connected:
             self.connect_label.setText('подключено')
             self.connect_label.setStyleSheet("background-color: lightgreen")
 
-            #self.thread = MyThread()
-            #self.thread.mySignal.connect(self.updateAll)
-            #self.thread.start()
-
             self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))
             self.auto_launch.clicked.connect(lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
-
-            self.close_btn.clicked.connect(self.close)
-            self.close_btn.clicked.connect(self.show_MC_disconnected)
 
         else:
             self.connect_label.setText('ошибка')
             self.connect_label.setStyleSheet("background-color: red")
 
 
-    def update_portList(self):
-        self.portList.clear()
-        #self.MC.update_ports()
-        self.portList.addItems(self.ports)
-
     def updateAll(self):
+
         values = self.data_converter()
 
         for i in range(0, len(values)): #excluding V1
+
             if self.checkboxes[i].isChecked():
+
                 self.meters[i].display(values[i])
-                #self.meters[i].display(1)
+
             else:
+
                 self.meters[i].display(0)
 
 
