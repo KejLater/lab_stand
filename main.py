@@ -6,6 +6,24 @@ import pandas as pd
 
 
 class Data:
+    def __init__(self):
+        self.sorting_order = True
+
+    def sort_by(self, name):
+        #print(1)
+        if self.tableWidget.rowCount():
+            #print(self.tableWidget.rowCount())
+
+            #print(name)
+
+            #self.df = self.df.sort_values(by=name, ascending=self.sorting_order)
+            self.df = self.df.sort_values(by=name, ignore_index=True)
+            #print(self.sorting_order)
+            self.sorting_order = not(self.sorting_order)
+            #print(self.sorting_order)
+
+            self.updateTable()
+
     def export_csv(self):
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]
         #print(dir)
@@ -24,19 +42,21 @@ class Data:
             self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])
             self.updateTable()
 
-    def removeLast(self):
+    def removeLast(self): #Removes the last row from both dataframe and table
         if self.tableWidget.rowCount():
             self.df.drop(labels=[len(self.df)-1], axis=0, inplace=True)
             self.updateTable()
 
     def addData(self):
-        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Add data from meters to DataFrame
+        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters] #Adds data from meters to DataFrame, turning string into float
         self.updateTable()
         #self.current_row += 1
 
     def updateTable(self):
         self.clear_table()
+        #print(self.df.iterrows())
         for i, row in self.df.iterrows():
+            #print(i, row)
             self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)
 
             for j in range(self.tableWidget.columnCount()):
@@ -131,16 +151,18 @@ class SerialPort:
         if self.serial.canReadLine():
             #print(type(self.serial.readLine()))
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
-            #print(self.data)
+            #print("Serial send working")
             return self.data
             #self.data = str(self.serial.readAll(), 'utf-8').strip()
             #print(self.data, 'получено')
 
     def close(self):
+        print(2)
         self.serial.close()
+        print(1)
         self.connected = False
 
-    def multiplyString(self, string):
+    def multiplyString(self, string): #Not used
         if '.' not in string:
             string = string + '.0'
         string = string.split('.')
@@ -154,16 +176,18 @@ class SerialPort:
         return int(res)
 
     def serialSend(self, data):
-        permittedSymbols = "0123456789-. "
+        #print(data)
+        permittedSymbols = "0123456789. "
         data = data.replace(' ', '')
-        if all([symbol in permittedSymbols for symbol in data]) and data[1:].count('-') == 0 and data.count('.') in [0, 1] and data != '':
+        data = data.replace(',', '.')
+        if data.replace('.', '').isdigit() and data.count('.') in [0, 1] and data != '' and data[0]!='.':
             #print(data)
-            from struct import pack
-            data = self.multiplyString(data)
-            print(data)
+            #print(data)
+            import struct
+            data = int(float(data)*1000)
             #txs = ','.join(map(str, data)) + '\n'
             #print(data.encode())
-            self.serial.write(pack("<i", data))
+            self.serial.write(struct.pack("<H", data))
             #self.serial.write(data.encode())
 
 
@@ -197,14 +221,25 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
         self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
                        self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox] #Checkboxes to choose if to siwtch volt/ampermeter pr not
-        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters]) #dataframe to save results
-        self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
 
-        self.exportCSV.clicked.connect(self.export_csv)  # csv export #TODO
+        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters]) #dataframe to save results
+        #self.tableWidget.selectionModel().selectionChanged.connect(self.on_selectionChanged) #TEST
+        #self.df = pd.read_csv(r"C:\Users\desktop\Downloads\test.csv")
+        #self.updateTable()
+        #print(self.tableWidget.itemAt(0, 0).text())
+        #self.df = pd.read_csv(r"C:\Users\desktop\Downloads\test.csv").sort_values(by="V2")
+        #print(self.df)
+        #self.updateTable()
+
+        self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
+        self.choose_sort.addItems([meter.objectName() for meter in self.meters])  #add V1, V2... to list where user chooses column to sort
+
+        self.exportCSV.clicked.connect(self.export_csv)  # csv export
         self.reset.clicked.connect(self.resetTable)  # clears table
         self.remove_last.clicked.connect(self.removeLast)  # removes the last result
         self.add_values.clicked.connect(self.addData)  # Adding numbers to the tabl
         self.graph_button.clicked.connect(self.graph)  # Build graph
+        self.sort_launch.clicked.connect(lambda: self.sort_by(self.choose_sort.currentText()))
 
         #print(self.ports)
         #self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
@@ -216,6 +251,25 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
 
 
+    def auto_vac(self, begin, end, step):
+        from numpy import linspace
+        #import time
+        #permittedSymbols = "0123456789. "
+        #begin = begin.replace(' ', '')
+        #begin = begin.replace(' ', '')
+        #begin = begin.replace(' ', '')
+
+        #if end > begin and begin != '' and end != '' and n != '': pass
+        voltages = linspace(float(begin), float(end), int(step))
+        voltages = [round(v, 2) for v in voltages]
+
+        for voltage in voltages:
+            self.serialSend(str(voltage))
+            QThread.msleep(100)
+            #time.sleep(1)
+            self.updateAll()
+            #print(self.data)
+            self.addData()
 
 
     def data_converter(self):
@@ -241,6 +295,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
             self.thread.start()
 
             self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))
+            #self.auto_launch.clicked.connect(lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
 
             self.close_btn.clicked.connect(self.close)
             self.close_btn.clicked.connect(self.show_MC_disconnected)
@@ -268,10 +323,6 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
 
 
-
-
-
-
 class MyThread(QThread):
     mySignal = pyqtSignal(int)
 
@@ -282,6 +333,7 @@ class MyThread(QThread):
     def run(self):
         while True:
             self.mySignal.emit(0)
+            #print("MyThread working")
             QThread.msleep(10)
 
 
