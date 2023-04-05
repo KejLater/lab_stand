@@ -110,12 +110,61 @@ class Data:
             plt.grid()
             plt.show()
 
-class SerialPort:
+
+
+
+
+
+
+class MainWindow(QtWidgets.QMainWindow, Data):
     def __init__(self):
-        #self.COM_setup()
-        self.update_ports() #when proram opens, list of ports gets added to menu
-        self.connected = False #variable to track connection status
-        self.data = '0@0@0@0@0@0@0@0' #data for initialisation
+        super().__init__()
+        try:
+            UIFile = os.path.join(sys._MEIPASS, 'interface.ui') #It is for EXE packaging
+        except:
+            UIFile = 'interface.ui' #It is for pure Python
+        uic.loadUi(UIFile, self)
+
+        #SerialPort.__init__(self)
+
+        self.hotkeys() #Init hotkeys
+        self.initializations()    #just not to change __init__ anymore
+        self.show()
+
+    def hotkeys(self):
+        self.addData_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
+        self.addData_shortcut.activated.connect(self.addData)
+
+        self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
+        self.graph_shortcut.activated.connect(self.graph)
+
+        self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)
+        self.serialSend_shortcut.activated.connect(lambda: self.serialSend(self.inputVoltage.text()))
+
+
+    def initializations(self):
+        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
+        self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
+                       self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox] #Checkboxes to choose if to siwtch volt/ampermeter pr not
+
+        self.connected = False  # variable to track connection status
+        self.data = '0@0@0@0@0@0@0@0'  # data for initialisation
+
+        self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
+        self.choose_sort.addItems([meter.objectName() for meter in self.meters])  #add V1, V2... to list where user chooses column to sort
+
+        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters])  # dataframe to save results
+        self.exportCSV.clicked.connect(self.export_csv)  # csv export
+        self.reset.clicked.connect(self.resetTable)  # clears table
+        self.remove_last.clicked.connect(self.removeLast)  # removes the last result
+        self.add_values.clicked.connect(self.addData)  # Adding numbers to the tabl
+        self.graph_button.clicked.connect(self.graph)  # Build graph
+        self.sort_launch.clicked.connect(lambda: self.sort_by(self.choose_sort.currentText()))
+
+        self.update_ports()  # when program opens, list of ports gets added to menu
+        self.updatePorts.clicked.connect(self.update_ports) #update list of ports whenever it needs
+        self.connect_MC.clicked.connect(lambda: self.openChosenPort(self.portList.currentText())) #open choosen port
+        self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection changes light and unlocks features
 
     def COM_setup(self): #REMOVE
         self.serial = QSerialPort()
@@ -148,6 +197,7 @@ class SerialPort:
 
         if self.serial.canReadLine():
             self.data = str(self.serial.readLine(), 'utf-8').strip()    #Turning bytes to str withuot '\n'
+            self.updateAll()
 
 
     def close(self):
@@ -184,67 +234,6 @@ class SerialPort:
             self.serial.write(struct.pack("<H", data))
             #self.serial.write(data.encode())
 
-
-class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
-    def __init__(self):
-        super().__init__()
-        try:
-            UIFile = os.path.join(sys._MEIPASS, 'interface.ui') #It is for EXE packaging
-        except:
-            UIFile = 'interface.ui' #It is for pure Python
-        uic.loadUi(UIFile, self)
-
-        SerialPort.__init__(self)
-
-        self.hotkeys() #Init hotkeys
-        self.initializations()    #just not to change __init__ anymore
-        self.show()
-
-    def hotkeys(self):
-        self.addData_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
-        self.addData_shortcut.activated.connect(self.addData)
-
-        self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
-        self.graph_shortcut.activated.connect(self.graph)
-
-        self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)
-        self.serialSend_shortcut.activated.connect(lambda: self.serialSend(self.inputVoltage.text()))
-
-
-    def initializations(self):
-        self.meters = [self.V1, self.V2, self.V3, self.V4, self.A1, self.A2, self.A3, self.A4] #List of volt- and ampermeters
-        self.checkboxes = [self.V1_checkbox, self.V2_checkbox, self.V3_checkbox, self.V4_checkbox,
-                       self.A1_checkbox, self.A2_checkbox, self.A3_checkbox, self.A4_checkbox] #Checkboxes to choose if to siwtch volt/ampermeter pr not
-
-        self.df = pd.DataFrame(columns=[meter.objectName() for meter in self.meters]) #dataframe to save results
-        #self.tableWidget.selectionModel().selectionChanged.connect(self.on_selectionChanged) #TEST
-        #self.df = pd.read_csv(r"C:\Users\desktop\Downloads\test.csv")
-        #self.updateTable()
-        #print(self.tableWidget.itemAt(0, 0).text())
-        #self.df = pd.read_csv(r"C:\Users\desktop\Downloads\test.csv").sort_values(by="V2")
-        #print(self.df)
-        #self.updateTable()
-
-        self.choose_X.addItems([meter.objectName() for meter in self.meters]) #add V1, V2... to list where user chooses X
-        self.choose_sort.addItems([meter.objectName() for meter in self.meters])  #add V1, V2... to list where user chooses column to sort
-
-        self.exportCSV.clicked.connect(self.export_csv)  # csv export
-        self.reset.clicked.connect(self.resetTable)  # clears table
-        self.remove_last.clicked.connect(self.removeLast)  # removes the last result
-        self.add_values.clicked.connect(self.addData)  # Adding numbers to the tabl
-        self.graph_button.clicked.connect(self.graph)  # Build graph
-        self.sort_launch.clicked.connect(lambda: self.sort_by(self.choose_sort.currentText()))
-
-        #print(self.ports)
-        #self.MC = SerialPort()    #Creating SerialPort object to connect MicroController
-        #self.update_portList()
-        self.updatePorts.clicked.connect(self.update_ports) #update list of ports
-        #print(self.portList.currentText())
-        self.connect_MC.clicked.connect(lambda: self.openChosenPort(self.portList.currentText()))
-        self.connect_MC.clicked.connect(self.show_MC_connected)     #After successful connection change light and unlock LCDs
-
-
-
     def auto_vac(self, begin, end, step):
         from numpy import linspace
         import time
@@ -270,14 +259,14 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
             self.connect_label.setText('не подключено')
             self.connect_label.setStyleSheet("background-color: red")
 
-    def show_MC_connected(self):
+    def show_MC_connected(self):    #Init of functions which do not work without connection
         if self.connected:
             self.connect_label.setText('подключено')
             self.connect_label.setStyleSheet("background-color: lightgreen")
 
-            self.thread = MyThread()
-            self.thread.mySignal.connect(self.updateAll)
-            self.thread.start()
+            #self.thread = MyThread()
+            #self.thread.mySignal.connect(self.updateAll)
+            #self.thread.start()
 
             self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))
             self.auto_launch.clicked.connect(lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
@@ -305,34 +294,6 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
             else:
                 self.meters[i].display(0)
 
-
-
-
-class MyThread(QThread):
-    mySignal = pyqtSignal(int)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-        self.period = 10
-
-    def run(self):
-        while True:
-            self.mySignal.emit(0)
-            #print("MyThread working")
-            QThread.msleep(self.period)
-
-class MyThreadForAuto(QThread):
-    mySignal = pyqtSignal(int)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-        self.period = 10
-
-    def run(self):
-        while True:
-            self.mySignal.emit(0)
-            #print("MyThread working")
-            QThread.msleep(self.period)
 
 
 if __name__ == "__main__":
