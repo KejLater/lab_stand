@@ -7,60 +7,61 @@ from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 import pandas as pd
 
 
-class Data:    # class for interaction with DataFrame (df) and tableWidget (table) where data is stored
-                # visible tableWidget (table) is just derivative of df
-                # instead of adding new data to table I clear it and fill again by function updateTable()
+class Data:    # class for interaction with DataFrame (DF) and tableWidget (table) where data is stored
+                # visible tableWidget (table) is just derivative of DF
+                # instead of adding new data to table I clear it and fill again by function update_tableWidget()
 
     def __init__(self):
 
-        self.sorting_order = True    # reverses sorting order
-        self.meter_names = ['V1', 'V2', 'V3', 'V4', 'A1', 'A2', 'A3', 'A4']    # names for columns
-        self.df = pd.DataFrame(columns=self.meter_names)  # creates df to save results
+        self.sortingOrder = True    # reverses sorting order
+        self.meterNames = ['V1', 'V2', 'V3', 'V4', 'A1', 'A2', 'A3', 'A4']    # names for columns
+        self.DF = pd.DataFrame(columns=self.meterNames)  # creates DF to save results
 
-    def sort_by(self, name):    # sorts data in df
+    def sort_df_by_column(self, name):    # sorts data in DF
 
         if self.tableWidget.rowCount():    # checks if table is not empty
 
-            self.df = self.df.sort_values(by=name, ignore_index=True, ascending=self.sorting_order)
-            self.sorting_order = not(self.sorting_order)    # reverses sorting order during next call
-            self.updateTable()    #clears table and fills it with updated df
+            self.DF = self.DF.sort_values(by=name, ignore_index=True, ascending=self.sortingOrder)
+            self.sortingOrder = not(self.sortingOrder)    # reverses sorting order during next call
+            self.update_tableWidget()    #clears table and fills it with updated DF
 
 
-    def export_csv(self):    # exports df to csv
+    def export_df_to_csv(self):    # exports DF to csv
 
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]    # calls dialogue window
         if dir:    # checks if user did not cancel export
-            self.df.to_csv(dir, index=False)
+            self.DF.to_csv(dir, index=False)
 
 
-    def resetTable(self):    # clears both table and df
+    def reset_df_and_table(self):    # clears both table and DF
 
         button = QtWidgets.QMessageBox.question(self, "Подтверждение", "Really?")    # confirmation from user
 
         if button == QtWidgets.QMessageBox.Yes:    # if user confirmed
 
-            self.df = pd.DataFrame(columns=self.meter_names)    # creates new df
-            self.updateTable()    # clears table and fills it with updated df
+            self.DF = pd.DataFrame(columns=self.meterNames)    # creates new DF
+            self.update_tableWidget()    # clears table and fills it with updated DF
 
-    def removeLast(self):    # dropes the last row from both dataframe and table
+
+    def remove_last_from_df(self):    # dropes the last row from both dataframe and table
 
         if self.tableWidget.rowCount():    # checks if table is not empty
 
-            self.df = self.df.drop(labels=[len(self.df)-1], axis=0)
-            self.updateTable()    # clears table and fills it with updated df
+            self.DF = self.DF.drop(labels=[len(self.DF)-1], axis=0)
+            self.update_tableWidget()    # clears table and fills it with updated DF
 
-    def addData(self):    # adds line of values to the end of df
+    def add_data_to_df(self):    # adds line of values to the end of DF
 
-        self.df.loc[len(self.df)] = [meter.value() for meter in self.meters]    # adds data from meters to df
-        self.updateTable()    # clears table and fills it with updated df
+        self.DF.loc[len(self.DF)] = [meter.value() for meter in self.meters]    # adds data from meters to DF
+        self.update_tableWidget()    # clears table and fills it with updated DF
 
 
-    def updateTable(self):    # clears table and fills it with updated df
+    def update_tableWidget(self):    # clears table and fills it with updated DF
 
-        self.tableWidget.clearContents()  # clears table completly but not df
+        self.tableWidget.clearContents()  # clears table completly but not DF
         self.tableWidget.setRowCount(0)  # makes rowCount (hor dimension) equal to zero
 
-        for i, row in self.df.iterrows():    # iterates the whole df
+        for i, row in self.DF.iterrows():    # iterates the whole DF
 
             self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)    # adds new row to table
 
@@ -69,15 +70,15 @@ class Data:    # class for interaction with DataFrame (df) and tableWidget (tabl
                 self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))    # sets item [i, j]
 
 
-    def graph(self):    # creates mathplotlib thread with graph
+    def build_graph(self):    # creates mathplotlib thread with graph
 
         if self.tableWidget.rowCount():    # checks if table is not empty
             from matplotlib import pyplot as plt
 
             plt.axhline(y=0, color='black')    # adds black line y=0
 
-            x = self.df[self.choose_X.currentText()]    # takes list of x values from df
-            y = self.df[self.choose_Y.currentText()]    # takes list of y values from df
+            x = self.DF[self.choose_X.currentText()]    # takes list of x values from DF
+            y = self.DF[self.choose_Y.currentText()]    # takes list of y values from DF
 
             if 'V' in self.choose_X.currentText():    # chooses volts or milliampers for x label
                 plt.xlabel(f'{self.choose_X.currentText()}, В')
@@ -109,24 +110,24 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
 
         uic.loadUi(UIFile, self)    # loads UI from .ui file
 
-        self.hotkeys()    # ties hotkeys to functions
-        self.initializations()    # ties buttons to functions
+        self.init_hotkeys()    # ties hotkeys to functions
+        self.init_functions()    # ties buttons to functions
         self.show()
 
 
-    def hotkeys(self):
+    def init_hotkeys(self):    # ties hotkeys to functions
 
-        self.addData_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
-        self.addData_shortcut.activated.connect(self.addData)
+        self.add_data_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
+        self.add_data_shortcut.activated.connect(self.add_data_to_df)
 
-        self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
-        self.graph_shortcut.activated.connect(self.graph)
+        self.build_graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
+        self.build_graph_shortcut.activated.connect(self.build_graph)
 
-        self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)
-        self.serialSend_shortcut.activated.connect(lambda: self.serialSend(self.inputVoltage.text()))
+        self.send_to_port_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)
+        self.send_to_port_shortcut.activated.connect(lambda: self.send_to_port(self.inputVoltage.text()))
 
 
-    def initializations(self):
+    def init_functions(self):    # ties buttons to functions
 
         self.meters = [self.V1, self.V2, self.V3, self.V4,
                        self.A1, self.A2, self.A3, self.A4]    # list of volt- and ampermeters (meters)
@@ -138,26 +139,26 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
         self.connected = False    # variable to track connection status
         self.data = '0@0@0@0@0@0@0@0'    # primary data for meters
 
-        self.choose_X.addItems(self.meter_names)    # adds V1, V2... to list where user chooses X
-        self.choose_Y.addItems(self.meter_names)    # adds V1, V2... to list where user chooses Y
-        self.choose_sort.addItems(self.meter_names)     # adds V1, V2... to list where user chooses column to sort
-        self.exportCSV.clicked.connect(self.export_csv)    # ties button to function
-        self.reset.clicked.connect(self.resetTable)    # ties button to function
-        self.remove_last.clicked.connect(self.removeLast)    # ties button to function
-        self.add_values.clicked.connect(self.addData)    # ties button to function
-        self.graph_button.clicked.connect(self.graph)    # ties button to function
-        self.sort_launch.clicked.connect(lambda: self.sort_by(self.choose_sort.currentText()))    # ties button to function
+        self.choose_X.addItems(self.meterNames)    # adds V1, V2... to list where user chooses X
+        self.choose_Y.addItems(self.meterNames)    # adds V1, V2... to list where user chooses Y
+        self.choose_sort.addItems(self.meterNames)     # adds V1, V2... to list where user chooses column to sort
+        self.exportCSV.clicked.connect(self.export_df_to_csv)    # ties button to function
+        self.reset.clicked.connect(self.reset_df_and_table)    # ties button to function
+        self.remove_last.clicked.connect(self.remove_last_from_df)    # ties button to function
+        self.add_values.clicked.connect(self.add_data_to_df)    # ties button to function
+        self.graph_button.clicked.connect(self.build_graph)    # ties button to function
+        self.sort_launch.clicked.connect(lambda: self.sort_df_by_column(self.choose_sort.currentText()))    # ties button to function
 
         self.update_ports()    # when program opens, list of ports gets added to menu
         self.updatePorts.clicked.connect(self.update_ports)   # button updates list of ports if user needs
 
-        self.connect_MC.clicked.connect(lambda: self.openChosenPort(self.portList.currentText()))   #open choosen port
+        self.connect_MC.clicked.connect(lambda: self.open_selected_port(self.portList.currentText()))   #open choosen port
                                                                                                     # with speed 9600
-        self.close_btn.clicked.connect(self.close)    # ties button to function
+        self.close_btn.clicked.connect(self.close_port)    # ties button to function
 
-        self.setVoltage.clicked.connect(lambda: self.serialSend(self.inputVoltage.text()))    # ties button to function
+        self.setVoltage.clicked.connect(lambda: self.send_to_port(self.inputVoltage.text()))    # ties button to function
         self.auto_launch.clicked.connect(    # ties button to function
-            lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
+            lambda: self.build_auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
 
 
     def update_ports(self):    # clears list of ports and adds available
@@ -167,12 +168,12 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
         self.portList.addItems(self.ports)    # adds list to widget
 
 
-    def openChosenPort(self, port):    # opens choosen by user port with BaudRate 9600 and changes title "Подключено"
+    def open_selected_port(self, port):    # opens choosen by user port with BaudRate 9600 and changes title "Подключено"
 
         from time import sleep
         if self.connected:    # checks if port is conected
 
-            self.serial.close()    # closes port if True
+            self.serial.close_port()    # closes port if True
 
         self.serial = QSerialPort()    # creating object of class
         self.serial.setBaudRate(QSerialPort.Baud9600)    # open port with speed 9600
@@ -182,7 +183,7 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
 
         if self.connected:    # checks if port is connected
 
-            self.serial.readyRead.connect(self.onRead)    # makes onRead constantly work if True
+            self.serial.readyRead.connect(self.read_port)    # makes read_port constantly work if True
 
             self.connect_label.setText('подключено')    # changes color and title to "Подключено" if True
             self.connect_label.setStyleSheet("background-color: lightgreen")
@@ -192,14 +193,14 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
             self.connect_label.setStyleSheet("background-color: red")
 
 
-    def onRead(self):    # constantly reads data from port and makes meters update
+    def read_port(self):    # constantly reads data from port and makes meters update
 
         if self.serial.canReadLine():    # checks if line can be read
             self.data = str(self.serial.readLine(), 'utf-8').strip()    # turns bytes to utf-8 string withuot '\n'
             self.updateAll()    # triggers update of meters
 
 
-    def serialSend(self, data):    # send data to port
+    def send_to_port(self, data):    # send data to port
 
         if self.connected:    # checks if port is connected
 
@@ -215,10 +216,10 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
                 self.serial.write(struct.pack("<H", data))    # sends unsigned int to port
 
 
-    def close(self):
+    def close_port(self):
 
         if self.connected:    # checks if port is connected
-            self.serial.close()    # closes conection
+            self.serial.close_port()    # closes conection
             self.connected = False    # turns status variable to False
 
             if not self.connected:
@@ -230,7 +231,7 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
                 self.connect_label.setStyleSheet("background-color: red")
 
 
-    def multiplyString(self, string):    # this function is not used
+    def multiply_string(self, string):    # this function is not used
         if '.' not in string:
             string = string + '.0'
         string = string.split('.')
@@ -244,7 +245,7 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
         return int(res)
 
 
-    def auto_vac(self, begin, end, step):    # IN PROCESS
+    def build_auto_vac(self, begin, end, step):    # IN PROCESS
         from numpy import linspace
         import time
         voltages = linspace(0, 10, 11)
@@ -252,11 +253,11 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
         voltages = [round(v, 2) for v in voltages]
 
         for voltage in voltages:
-            self.serialSend(str(voltage))
+            self.send_to_port(str(voltage))
             print(self.data)
 
 
-    def data_converter(self):    # convertes string with seven @ to list
+    def convert_data_from_port(self):    # convertes string with seven @ to list
 
         if self.data.count("@") == 7:    # checks if seven @ are in string
             array = self.data.split('@')    # splits string
@@ -268,7 +269,7 @@ class MainWindow(QtWidgets.QMainWindow, Data):    # class with program and COM-p
 
     def updateAll(self):    # updates meters switched by user
 
-        values = self.data_converter()    # gets kist with eight floats
+        values = self.convert_data_from_port()    # gets kist with eight floats
 
         for i in range(0, len(values)):    # iterates values by index
 
