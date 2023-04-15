@@ -1031,6 +1031,110 @@
      </property>
     </column>
    </widget>
+   <widget class="QCheckBox" name="V1_y">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="V2_y">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="V3_y">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="V4_y">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="A1_y">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="A2_y">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="A3_y">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="A4_y">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>420</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <widget class="QLineEdit" name="inputVoltage">
     <property name="geometry">
      <rect>
@@ -1125,7 +1229,7 @@
      <string>Очистить </string>
     </property>
    </widget>
-   <widget class="QComboBox" name="choose_Y">
+   <widget class="QComboBox" name="choose_X">
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -1154,7 +1258,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oX:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="V1_label_4">
@@ -1170,7 +1274,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oX:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="auto_begin">
@@ -1276,7 +1380,7 @@
    <widget class="QComboBox" name="choose_sort">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>470</x>
       <y>490</y>
       <width>41</width>
       <height>24</height>
@@ -1295,20 +1399,20 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>310</x>
       <y>490</y>
-      <width>141</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Отсортировать по:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;Отсортировать по:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="sort_launch">
     <property name="geometry">
      <rect>
-      <x>740</x>
+      <x>530</x>
       <y>490</y>
       <width>91</width>
       <height>24</height>
@@ -1316,22 +1420,6 @@
     </property>
     <property name="text">
      <string>Сортировать</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="choose_X">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>420</y>
-      <width>41</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-      <strikeout>false</strikeout>
-     </font>
     </property>
    </widget>
   </widget>
