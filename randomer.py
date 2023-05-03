@@ -72,11 +72,14 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]  # list of checkboxes for Y axis for A1-A4
         CBxs = Vs + Is
 
+        Vs_logic = any([box.isChecked() for box in Vs])
+        Is_logic = any([box.isChecked() for box in Is])
+
         colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA',
                   '#1E90FF', '#800080', '#FF3E96', '#7F7F7F'] # eight possible colors for lines
         label = ''  # string for X and Y labels
 
-        if len(self.DF) and any([box.isChecked() for box in CBxs]):
+        if len(self.DF) and (Vs_logic ^ Is_logic):
 
             from matplotlib import pyplot as plt
             plt.axhline(y=0, color='black', linewidth=0.5)
