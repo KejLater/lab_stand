@@ -1,5 +1,5 @@
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
+from PyQt5.QtCore import QIODevice
 class SerialPort:  # class for interaction with port
 
     def __init__(self):
@@ -54,13 +54,14 @@ class SerialPort:  # class for interaction with port
         else:  # makes UI show error if port is still opened
             self.show_port_error()
 
-    def send_to_port(self, data):
+    def send_to_port(self, data):  # sends data to port
 
-        permittedSymbols = "0123456789. "
-        data = data.replace(' ', '')
-        data = data.replace(',', '.')
+        data = data.replace(' ', '')  # removes spaces
+        data = data.replace(',', '.')  # replaces , with .
+        permittedSymbols = "0123456789. "  # string with permitted symbols
+
         if data.replace('.', '').isdigit() and data.count('.') in [0, 1] and data != '' and data[0] != '.':
 
             import struct
             data = int(float(data) * 1000)
-            self.serial.write(struct.pack("<H", data))
+            self.serial.write(struct.pack("<H", data))  # sending data to port as two bytes
