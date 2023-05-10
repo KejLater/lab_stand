@@ -22,7 +22,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
 
     def export_df_to_csv(self):  # exports DF to csv
-
+        # import os  # for handling error
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]  # calls dialogue window
         if dir:  # checks if user did not cancel export
             self.DF.to_csv(dir, index=False, decimal=',', sep=';')

@@ -61,9 +61,11 @@ class SerialPort:  # class for interaction with port
             data = data.replace(' ', '')  # removes spaces
             data = data.replace(',', '.')  # replaces , with .
             permittedSymbols = "0123456789. "  # string with permitted symbols
-            print(data)
+            #print('Исходные данные: ', data)
             if data.replace('.', '').isdigit() and data.count('.') in [0, 1] and data != '' and data[0] != '.':
                 print(data)
                 import struct
                 data = int(float(data) * 1000)
+                #print('Байты: ', struct.pack("<H", data))
+                #print()
                 self.serial.write(struct.pack("<H", data))  # sending data to port as two bytes

@@ -8,7 +8,7 @@ from port_interaction import SerialPort
 
 class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
-    def __init__(self):
+    def __init__(self):  # pyinstaller.exe --onefile --add-data="interface.ui;." --noconsole main.py
         super().__init__()
 
         try:
@@ -31,8 +31,11 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
         self.graph_shortcut.activated.connect(self.build_graph)  # adds shortcut
 
-        self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)  # adds shortcut
-        self.serialSend_shortcut.activated.connect(lambda: self.send_to_port(self.inputVoltage.text()))
+        #self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)  # adds shortcut
+        #self.serialSend_shortcut.activated.connect(lambda: self.send_to_port(self.inputVoltage.text()))
+
+        self.serialSend_shortcut1 = QtWidgets.QShortcut(QtGui.QKeySequence(Qt.EnterKeyGo ), self)  # adds shortcut
+        self.serialSend_shortcut1.activated.connect(lambda: self.send_to_port(self.inputVoltage.text()))
 
 
     def initializations(self):
@@ -45,7 +48,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
                            self.A3_checkbox, self.A4_checkbox]  # checkboxes to siwtch meter off or on
 
         self.choose_X.addItems(self.meterNames)  # adds V1, V2... A4 to list where user chooses X for graph
-        self.choose_sort.addItems(self.meterNames)  # adds names to sorting list
+        #self.choose_sort.addItems(self.meterNames)  # adds names to sorting list
 
         self.thread = MyThread()  # starts Thread to read data
         self.thread.mySignal.connect(self.update_meters)
@@ -56,7 +59,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.remove_last.clicked.connect(self.remove_last_from_df)  # removes the last result
         self.add_values.clicked.connect(self.add_data_to_df)  # Adding numbers to the tabl
         self.graph_button.clicked.connect(self.build_graph)  # Build build_graph
-        self.sort_launch.clicked.connect(lambda: self.sort_df_by_column(self.choose_sort.currentText()))
+        self.sort_launch.clicked.connect(lambda: self.sort_df_by_column(self.choose_X.currentText()))
 
         self.updatePorts.clicked.connect(self.update_ports)  # updates list of ports
         self.connect_MC.clicked.connect(lambda: self.open_selected_port(self.portList.currentText()))  # opens port

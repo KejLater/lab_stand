@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1099</width>
-    <height>718</height>
+    <height>640</height>
    </rect>
   </property>
   <property name="font">
@@ -1277,43 +1277,11 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="choose_sort">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>490</y>
-      <width>41</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-      <strikeout>false</strikeout>
-     </font>
-    </property>
-   </widget>
-   <widget class="QLabel" name="V1_label_8">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>490</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;Отсортировать по:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="sort_launch">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>490</y>
+      <x>490</x>
+      <y>460</y>
       <width>91</width>
       <height>24</height>
      </rect>
