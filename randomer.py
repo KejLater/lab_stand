@@ -8,15 +8,18 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
     def __init__(self):
         self.sortingOrder = True  # reverses sorting order
-        self.meterNames = ['V1', 'V2', 'V3', 'V4', 'A1', 'A2', 'A3', 'A4']  # label for columns
-        self.DF = pd.DataFrame(columns=self.meterNames)  # creates DF to store results
+        self.meterNames = ['V1', 'V2', 'V3', 'V4', 'A1', 'A2', 'A3', 'A4', 'N']  # label for columns
+        self.DF = pd.DataFrame(columns=self.meterNames).astype(float)  # creates DF to store results
+        self.DF['N'] = self.DF['N'].astype(int)
+        self.N = 1
 
+        
 
     def sort_df_by_column(self, name):  # sorts data in DF
 
         if len(self.DF):  # checks if DF is not empty
 
-            self.DF = self.DF.sort_values(by=name, ignore_index=True, ascending=self.sortingOrder)
+            self.DF = self.DF.sort_values(by=name, ascending=self.sortingOrder)
             self.sortingOrder = not (self.sortingOrder)  # reverses sorting order for next call
             self.update_tableWidget()  # clears table and fills it with updated DF
 
@@ -48,22 +51,41 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
     def add_data_to_df(self):  # adds line of values to the end of DF
 
-        self.DF.loc[len(self.DF)] = [meter.value() for meter in self.meters]  # adds data from meters to DF
+        self.DF.loc[len(self.DF)] = [meter.value() for meter in self.meters] + [self.N]  # adds data from meters to DF
+
+        self.N = self.N + 1
         self.update_tableWidget()  # clears table and fills it with updated DF
 
+
+    def remove_by_N(self, n):
+        print(int(float(n)) in self.DF['N'])
+        if int(float(n)) in self.DF['N']:
+
+            self.DF = self.DF.drop(self.DF[self.DF['N'] == int(float(n))].index)
+            self.DF = self.DF.reset_index(drop=True)
+
+            self.update_tableWidget()
 
     def update_tableWidget(self):  # clears table and fills it with updated DF
 
         self.tableWidget.clearContents()  # clears table completly but not DF
         self.tableWidget.setRowCount(0)  # makes rowCount (horizontal dimension) equal to zero
 
-        for i, row in self.DF.iterrows():  # iterates the whole DF
+        for i in range(self.DF.shape[0]):  # iterates the whole DF
 
             self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)  # adds new row to table
 
-            for j in range(self.tableWidget.columnCount()):  # iterates table by column
+            for j in range(self.DF.shape[1]):  # iterates table by column
 
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(row[j])))  # sets item [i, j]
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(f"{self.DF.iloc[i].iloc[j]}"))  # sets item [i, j]
+
+        self.update_N()
+
+
+    def update_N(self):
+
+        self.choose_delete.clear()
+        self.choose_delete.addItems(self.DF['N'].astype(str).tolist())
 
 
     def build_graph(self):
@@ -72,14 +94,11 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]  # list of checkboxes for Y axis for A1-A4
         CBxs = Vs + Is
 
-        Vs_logic = any([box.isChecked() for box in Vs])
-        Is_logic = any([box.isChecked() for box in Is])
-
         colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA',
-                  '#1E90FF', '#800080', '#FF3E96', '#7F7F7F'] # eight possible colors for lines
+                    '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']  # eight possible colors for lines
         label = ''  # string for X and Y labels
 
-        if len(self.DF) and (Vs_logic ^ Is_logic):
+        if len(self.DF) and any([box.isChecked() for box in CBxs]):
 
             from matplotlib import pyplot as plt
             plt.axhline(y=0, color='black', linewidth=0.5)
