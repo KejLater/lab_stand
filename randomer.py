@@ -13,7 +13,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         self.DF['N'] = self.DF['N'].astype(int)
         self.N = 1
 
-        
+
 
     def sort_df_by_column(self, name):  # sorts data in DF
 
