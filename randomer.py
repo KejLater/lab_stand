@@ -14,12 +14,11 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         self.N = 1
 
 
-
     def sort_df_by_column(self, name):  # sorts data in DF
 
         if len(self.DF):  # checks if DF is not empty
 
-            self.DF = self.DF.sort_values(by=name, ascending=self.sortingOrder)
+            self.DF = self.DF.sort_values(by=name, ascending=self.sortingOrder, ignore_index=True)
             self.sortingOrder = not (self.sortingOrder)  # reverses sorting order for next call
             self.update_tableWidget()  # clears table and fills it with updated DF
 
@@ -58,15 +57,17 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
 
     def remove_by_N(self, n):
-        print(int(float(n)) in self.DF['N'])
-        if int(float(n)) in self.DF['N']:
+        if len(self.DF):
+            if int(float(n)) in self.DF['N'].astype(int).tolist():
 
-            self.DF = self.DF.drop(self.DF[self.DF['N'] == int(float(n))].index)
-            self.DF = self.DF.reset_index(drop=True)
+                self.DF = self.DF.drop(self.DF[self.DF['N'].astype(int) == int(float(n))].index)
 
-            self.update_tableWidget()
+                self.update_tableWidget()
+
 
     def update_tableWidget(self):  # clears table and fills it with updated DF
+
+        self.DF = self.DF.reset_index(drop=True)
 
         self.tableWidget.clearContents()  # clears table completly but not DF
         self.tableWidget.setRowCount(0)  # makes rowCount (horizontal dimension) equal to zero
@@ -77,7 +78,12 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
             for j in range(self.DF.shape[1]):  # iterates table by column
 
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(f"{self.DF.iloc[i].iloc[j]}"))  # sets item [i, j]
+                if j == 8:
+                    self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
+                        f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
+                else:
+                    self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
+                        f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
 
         self.update_N()
 
@@ -85,7 +91,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
     def update_N(self):
 
         self.choose_delete.clear()
-        self.choose_delete.addItems(self.DF['N'].astype(str).tolist())
+        self.choose_delete.addItems(self.DF['N'].astype(int).astype(str).tolist())
 
 
     def build_graph(self):
