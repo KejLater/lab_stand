@@ -48,8 +48,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
                            self.A3_checkbox, self.A4_checkbox]  # checkboxes to siwtch meter off or on
 
         self.choose_X.addItems(self.meterNames)  # adds V1, V2... A4 to list where user chooses X for graph
-
-        self.update_N()
+        #self.choose_sort.addItems(self.meterNames)  # adds names to sorting list
 
         self.thread = MyThread()  # starts Thread to read data
         self.thread.mySignal.connect(self.update_meters)
@@ -68,9 +67,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         self.setVoltage.clicked.connect(lambda: self.send_to_port(self.inputVoltage.text()))  # sends data to port
         #self.auto_launch.clicked.connect(
-        #lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
-
-        self.delete_n.clicked.connect(lambda: self.remove_by_N(self.choose_delete.currentText()))
+            #lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
 
     '''
     def auto_vac(self, begin, end, step):
