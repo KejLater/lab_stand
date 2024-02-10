@@ -37,6 +37,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         if button == QtWidgets.QMessageBox.Yes:  # if user confirmed
 
             self.DF = pd.DataFrame(columns=self.meterNames)  # creates new DF rewriting variable
+            self.N = 1
             self.update_tableWidget()  # clears table and fills it with updated DF
 
 
