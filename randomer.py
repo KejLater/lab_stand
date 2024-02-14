@@ -59,9 +59,9 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
     def remove_by_N(self, n):
         if len(self.DF):
-            if int(float(n)) in self.DF['N'].astype(int).tolist():
+            if int(n) in self.DF['N'].astype(int).tolist():
 
-                self.DF = self.DF.drop(self.DF[self.DF['N'].astype(int) == int(float(n))].index)
+                self.DF = self.DF.drop(self.DF[self.DF['N'].astype(int) == int(n)].index)
 
                 self.update_tableWidget()
 
@@ -77,14 +77,13 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
             self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)  # adds new row to table
 
-            for j in range(self.DF.shape[1]):  # iterates table by column
+            for j in range(self.DF.shape[1]-1):  # iterates table by column
 
-                if j == 8:
-                    self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
-                        f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
-                else:
-                    self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
-                        f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
+                f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
+
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
+                f"{int(self.DF.iloc[i].iloc[8])}"))  # sets item [i, j]
 
         self.update_N()
 
