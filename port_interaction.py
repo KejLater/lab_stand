@@ -60,7 +60,7 @@ class SerialPort:  # class for interaction with port
 
         if self.serial.isOpen():
 
-            data = data.replace(',', '.')  # replaces , with .
-            data = int(float(data) * 1000)
+            data = data.replace(',', '')  # replaces , with ''
+            data = int(data) * 10
             self.serial.write(struct.pack("<H", data))  # sending data to port as two bytes
 

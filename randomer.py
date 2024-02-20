@@ -82,7 +82,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
                 self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
                 f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
 
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
+            self.tableWidget.setItem(i, 8, QtWidgets.QTableWidgetItem(
                 f"{int(self.DF.iloc[i].iloc[8])}"))  # sets item [i, j]
 
         self.update_N()
@@ -107,32 +107,24 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         if len(self.DF) and any([box.isChecked() for box in CBxs]):
 
             from matplotlib import pyplot as plt
-            plt.axhline(y=0, color='black', linewidth=0.5)
+
+            fig, axV = plt.subplots()
+            axA = axV.twinx()
+            axV.axhline(y=0, color='black', linewidth=0.5)
+            axA.axhline(y=0, color='black', linewidth=0.5)
 
             x = self.DF[self.choose_X.currentText()]
+
+
+
+
 
             if 'V' in self.choose_X.currentText():  # chooses if volts or mA are in label
                 plt.xlabel(f'{self.choose_X.currentText()}, В')
             elif "A" in self.choose_X.currentText():
                 plt.xlabel(f'{self.choose_X.currentText()}, мА')
-
-            if any([box.isChecked() for box in Vs]):
-                for box in Vs:
-                    if box.isChecked():
-                        y = self.DF[box.objectName()[0:-2]]
-                        plt.plot(x, y, colors.pop(), label=box.objectName()[0:-2], marker='o', markersize=4)
-                        label = label + f'{box.objectName()[0:-2]}, '
-
-                plt.ylabel(f"{label} В")
             else:
-                for box in Is:
-                    if box.isChecked():
-                        y = self.DF[box.objectName()[0:-2]]
-                        plt.plot(x, y, colors.pop(), label=box.objectName()[0:-2], marker='o', markersize=4)
-                        label = label + f'{box.objectName()[0:-2]}, '
+                plt.xlabel('N')
 
-                plt.ylabel(f"{label} мА")
-            plt.legend()
-            plt.grid()
-            plt.show()
+
 

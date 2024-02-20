@@ -1346,7 +1346,10 @@
      </font>
     </property>
     <property name="inputMethodHints">
-     <set>Qt::ImhDigitsOnly</set>
+     <set>Qt::ImhDigitsOnly|Qt::ImhFormattedNumbersOnly</set>
+    </property>
+    <property name="decimals">
+     <number>2</number>
     </property>
     <property name="minimum">
      <double>-99.000000000000000</double>

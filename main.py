@@ -67,36 +67,9 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.close_btn.clicked.connect(self.close_port)  # closes port
 
         self.setVoltage.clicked.connect(lambda: self.send_to_port(self.inputVoltage.text()))  # sends data to port
-        #self.auto_launch.clicked.connect(
-        #lambda: self.auto_vac(self.auto_begin.text(), self.auto_end.text(), self.auto_step.text()))
 
         self.delete_n.clicked.connect(lambda: self.remove_by_N(self.choose_delete.currentText()))
 
-    '''
-    def auto_vac(self, begin, end, step):
-        from numpy import linspace
-        #import time
-        #permittedSymbols = "0123456789. "
-        #begin = begin.replace(' ', '')
-        #begin = begin.replace(' ', '')
-        #begin = begin.replace(' ', '')
-
-        #if end > begin and begin != '' and end != '' and n != '': pass
-
-        import time
-        voltages = linspace(0, 10, 11)
-        #voltages = linspace(float(begin), float(end), int(step))
-        voltages = [round(v, 2) for v in voltages]
-
-        self.thread.terminate()
-        for voltage in voltages:
-            #self.send_to_port(str(voltage))
-            #self.data = '0@0@0@0@0@0@0@0'
-
-            self.update_meters()
-            self.add_data_to_df()
-        self.thread.start()
-    '''
 
 
     def convert_data_from_port(self):
