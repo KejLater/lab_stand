@@ -1143,27 +1143,14 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="inputVoltage">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>530</y>
-      <width>41</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="V1_label_2">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>520</y>
+      <x>200</x>
+      <y>510</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1341,6 +1328,28 @@
       <pointsize>11</pointsize>
       <strikeout>false</strikeout>
      </font>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="inputVoltage">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>510</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhDigitsOnly</set>
+    </property>
+    <property name="minimum">
+     <double>-99.000000000000000</double>
     </property>
    </widget>
   </widget>
