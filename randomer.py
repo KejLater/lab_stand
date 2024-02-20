@@ -111,20 +111,39 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
             fig, axV = plt.subplots()
             axA = axV.twinx()
             axV.axhline(y=0, color='black', linewidth=0.5)
+            axV.set_ylabel('V, В')
             axA.axhline(y=0, color='black', linewidth=0.5)
+            axA.set_ylabel('I, мА')
+
+            graphs = []    # var to install legend
 
             x = self.DF[self.choose_X.currentText()]
 
-
-
-
-
             if 'V' in self.choose_X.currentText():  # chooses if volts or mA are in label
-                plt.xlabel(f'{self.choose_X.currentText()}, В')
+                axV.set_xlabel(f'{self.choose_X.currentText()}, В')
             elif "A" in self.choose_X.currentText():
-                plt.xlabel(f'{self.choose_X.currentText()}, мА')
+                axV.set_xlabel(f'{self.choose_X.currentText()}, мА')
             else:
                 plt.xlabel('N')
 
+            for box in Vs:
+
+                if box.isChecked():
+
+                    y = self.DF[box.objectName()[0:-2]]
+                    line = axV.plot(x, y, colors.pop(), label=box.objectName()[0:-2], marker='o', markersize=4)
+                    graphs.append(line[0])
 
 
+            for box in Is:
+
+                if box.isChecked():
+
+                    y = self.DF[box.objectName()[0:-2]]
+                    line = axA.plot(x, y, colors.pop(), label=box.objectName()[0:-2], marker='o', markersize=4)
+                    graphs.append(line[0])
+
+            axV.legend(graphs, [l.get_label() for l in graphs])
+            axV.grid()
+            axA.grid()
+            plt.show()

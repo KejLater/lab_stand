@@ -416,7 +416,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="connect_MC">
+   <widget class="QPushButton" name="connect_mc_button">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -900,7 +900,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="updatePorts">
+   <widget class="QPushButton" name="update_ports_button">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -926,7 +926,7 @@
      <string>Построить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="add_values">
+   <widget class="QPushButton" name="add_values_button">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -1159,7 +1159,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="setVoltage">
+   <widget class="QPushButton" name="set_voltage_button">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -1172,7 +1172,7 @@
      <string>Бахнуть!</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="close_btn">
+   <widget class="QPushButton" name="close_port_button">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -1185,7 +1185,7 @@
      <string>Отключить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="exportCSV">
+   <widget class="QPushButton" name="export_csv_button">
     <property name="geometry">
      <rect>
       <x>744</x>
@@ -1198,7 +1198,7 @@
      <string>Экспорт csv</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="remove_last">
+   <widget class="QPushButton" name="remove_last_button">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -1211,7 +1211,7 @@
      <string>Удалить последнее</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="reset">
+   <widget class="QPushButton" name="reset_button">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -1272,7 +1272,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="sort_launch">
+   <widget class="QPushButton" name="sort_launch_button">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -1301,7 +1301,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;N =&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="delete_n">
+   <widget class="QPushButton" name="delete_n_button">
     <property name="geometry">
      <rect>
       <x>520</x>

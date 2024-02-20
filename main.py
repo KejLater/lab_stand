@@ -55,20 +55,22 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.thread.mySignal.connect(self.update_meters)
         self.thread.start()
 
-        self.exportCSV.clicked.connect(self.export_df_to_csv)  # csv export
-        self.reset.clicked.connect(self.reset_df_and_table)  # clears table
-        self.remove_last.clicked.connect(self.remove_last_from_df)  # removes the last result
-        self.add_values.clicked.connect(self.add_data_to_df)  # Adding numbers to the tabl
+
+        # buttons
+        self.export_csv_button.clicked.connect(self.export_df_to_csv)  # csv export
+        self.reset_button.clicked.connect(self.reset_df_and_table)  # clears table
+        self.remove_last_button.clicked.connect(self.remove_last_from_df)  # removes the last result
+        self.add_values_button.clicked.connect(self.add_data_to_df)  # Adding numbers to the tabl
         self.graph_button.clicked.connect(self.build_graph)  # Build build_graph
-        self.sort_launch.clicked.connect(lambda: self.sort_df_by_column(self.choose_X.currentText()))
+        self.sort_launch_button.clicked.connect(lambda: self.sort_df_by_column(self.choose_X.currentText()))
 
-        self.updatePorts.clicked.connect(self.update_ports)  # updates list of ports
-        self.connect_MC.clicked.connect(lambda: self.open_selected_port(self.portList.currentText()))  # opens port
-        self.close_btn.clicked.connect(self.close_port)  # closes port
+        self.update_ports_button.clicked.connect(self.update_ports)  # updates list of ports
+        self.connect_mc_button.clicked.connect(lambda: self.open_selected_port(self.portList.currentText()))  # opens port
+        self.close_port_button.clicked.connect(self.close_port)  # closes port
 
-        self.setVoltage.clicked.connect(lambda: self.send_to_port(self.inputVoltage.text()))  # sends data to port
+        self.set_voltage_button.clicked.connect(lambda: self.send_to_port(self.inputVoltage.text()))  # sends data to port
 
-        self.delete_n.clicked.connect(lambda: self.remove_by_N(self.choose_delete.currentText()))
+        self.delete_n_button.clicked.connect(lambda: self.remove_by_N(self.choose_delete.currentText()))
 
 
 
