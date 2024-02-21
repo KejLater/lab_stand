@@ -1224,7 +1224,7 @@
      <string>Очистить </string>
     </property>
    </widget>
-   <widget class="QComboBox" name="choose_X">
+   <widget class="QComboBox" name="choose_X_list">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -1314,7 +1314,7 @@
      <string>Удалить</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="choose_delete">
+   <widget class="QComboBox" name="choose_delete_list">
     <property name="geometry">
      <rect>
       <x>440</x>

@@ -47,9 +47,9 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
                            self.A1_checkbox, self.A2_checkbox,
                            self.A3_checkbox, self.A4_checkbox]  # checkboxes to siwtch meter off or on
 
-        self.choose_X.addItems(self.meterNames)  # adds V1, V2... A4 to list where user chooses X for graph
+        self.choose_X_list.addItems(self.meterNames)  # adds V1, V2... A4 to list where user chooses X for graph
 
-        self.update_N()
+        self.update_choose_delete_list()
 
         self.thread = MyThread()  # starts Thread to read data
         self.thread.mySignal.connect(self.update_meters)
@@ -62,7 +62,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.remove_last_from_df_button.clicked.connect(self.remove_last_from_df)  # removes the last result
         self.add_data_to_df_button.clicked.connect(self.add_data_to_df)  # Adding numbers to the tabl
         self.build_graph_button.clicked.connect(self.build_graph)  # Build build_graph
-        self.sort_df_by_column_button.clicked.connect(lambda: self.sort_df_by_column(self.choose_X.currentText()))
+        self.sort_df_by_column_button.clicked.connect(lambda: self.sort_df_by_column(self.choose_X_list.currentText()))
 
         self.update_choose_port_list_button.clicked.connect(self.update_choose_port_list)  # updates list of ports
         self.open_selected_port_button.clicked.connect(lambda: self.open_selected_port(self.choose_port_list.currentText()))  # opens port
@@ -70,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         self.set_voltage_button.clicked.connect(lambda: self.send_to_port(self.input_voltage.text()))  # sends data to port
 
-        self.delete_by_N_button.clicked.connect(lambda: self.delete_by_N(self.choose_delete.currentText()))
+        self.delete_by_N_button.clicked.connect(lambda: self.delete_by_N(self.choose_delete_list.currentText()))
 
 
 

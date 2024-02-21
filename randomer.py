@@ -7,7 +7,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
              # len(delf.DF) - number of rows
 
     def __init__(self):
-        self.sortingOrder = True  # reverses sorting order
+        self.sortingOrder = False  # reverses sorting order
         self.meterNames = ['V1', 'V2', 'V3', 'V4', 'A1', 'A2', 'A3', 'A4', 'N']  # label for columns
         self.DF = pd.DataFrame(columns=self.meterNames).astype(float)  # creates DF to store results
         self.DF['N'] = self.DF['N'].astype(int)
@@ -85,13 +85,13 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
             self.table_widget.setItem(i, 8, QtWidgets.QTableWidgetItem(
                 f"{int(self.DF.iloc[i].iloc[8])}"))  # sets item [i, j]
 
-        self.update_N()
+        self.update_choose_delete_list()
 
 
-    def update_N(self):
+    def update_choose_delete_list(self):
 
-        self.choose_delete.clear()
-        self.choose_delete.addItems(self.DF['N'].astype(int).astype(str).tolist())
+        self.choose_delete_list.clear()
+        self.choose_delete_list.addItems(self.DF['N'].astype(int).astype(str).tolist())
 
 
     def build_graph(self):
@@ -117,12 +117,12 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
             graphs = []    # var to install legend
 
-            x = self.DF[self.choose_X.currentText()]
+            x = self.DF[self.choose_X_list.currentText()]
 
-            if 'V' in self.choose_X.currentText():  # chooses if volts or mA are in label
-                axV.set_xlabel(f'{self.choose_X.currentText()}, В')
-            elif "A" in self.choose_X.currentText():
-                axV.set_xlabel(f'{self.choose_X.currentText()}, мА')
+            if 'V' in self.choose_X_list.currentText():  # chooses if volts or mA are in label
+                axV.set_xlabel(f'{self.choose_X_list.currentText()}, В')
+            elif "A" in self.choose_X_list.currentText():
+                axV.set_xlabel(f'{self.choose_X_list.currentText()}, мА')
             else:
                 axV.set_xlabel('N')
 
