@@ -23,7 +23,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
             self.update_tableWidget()  # clears table and fills it with updated DF
 
 
-    def export_df_to_csv(self):  # exports DF to csv
+    def export_csv(self):  # exports DF to csv
         # import os  # for handling error
         dir = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File', filter='*.csv')[0]  # calls dialogue window
         if dir:  # checks if user did not cancel export
@@ -57,7 +57,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         self.update_tableWidget()  # clears table and fills it with updated DF
 
 
-    def remove_by_N(self, n):
+    def delete_by_N(self, n):
         if len(self.DF):
             if int(n) in self.DF['N'].astype(int).tolist():
 

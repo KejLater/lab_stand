@@ -416,7 +416,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="connect_mc_button">
+   <widget class="QPushButton" name="open_selected_port_button">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -913,7 +913,7 @@
      <string>Обновить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="graph_button">
+   <widget class="QPushButton" name="build_graph_button">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -926,7 +926,7 @@
      <string>Построить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="add_values_button">
+   <widget class="QPushButton" name="add_data_to_df_button">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -1198,7 +1198,7 @@
      <string>Экспорт csv</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="remove_last_button">
+   <widget class="QPushButton" name="remove_last_from_df_button">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -1211,7 +1211,7 @@
      <string>Удалить последнее</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="reset_button">
+   <widget class="QPushButton" name="reset_df_and_table_button">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -1272,7 +1272,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="sort_launch_button">
+   <widget class="QPushButton" name="sort_df_by_column_button">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -1301,7 +1301,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;N =&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="delete_n_button">
+   <widget class="QPushButton" name="delete_by_N_button">
     <property name="geometry">
      <rect>
       <x>520</x>
