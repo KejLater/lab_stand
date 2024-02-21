@@ -5,13 +5,13 @@ class SerialPort:  # class for interaction with port
     def __init__(self):
 
         self.serial = QSerialPort()  # creates object of class to deal with connections
-        self.update_ports()    # updates list of available ports
+        self.update_choose_port_list()    # updates list of available ports
         self.data = '0@0@0@0@0@0@0@0'    # data for initialisation
 
 
-    def update_ports(self):  # updates list of available ports
-        self.portList.clear()  # clears widget
-        self.portList.addItems([port.portName() for port in QSerialPortInfo().availablePorts()])  # adds ports
+    def update_choose_port_list(self):  # updates list of available ports
+        self.choose_port_list.clear()  # clears widget
+        self.choose_port_list.addItems([port.portName() for port in QSerialPortInfo().availablePorts()])  # adds ports
                                                                                                   # to widget
 
 
@@ -28,7 +28,7 @@ class SerialPort:  # class for interaction with port
             self.serial.open(QIODevice.ReadWrite)  # opens port for interaction
 
         else:  # updates port list if chosen port lost
-            self.update_ports()
+            self.update_choose_port_list()
 
         if self.serial.isOpen():  # makes fuction read data from port and changes UI if successful
             self.serial.readyRead.connect(self.read_port)

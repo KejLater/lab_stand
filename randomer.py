@@ -1,8 +1,8 @@
 import pandas as pd
 from PyQt5 import QtWidgets
 
-class Data:  # class for interaction with DataFrame (DF) and tableWidget (table) where data is stored
-             # visible tableWidget (table) is just derivative of DF
+class Data:  # class for interaction with DataFrame (DF) and table_widget (table) where data is stored
+             # visible table_widget (table) is just derivative of DF
              # instead of adding new data to table I clear it and fill again by function update_tableWidget()
              # len(delf.DF) - number of rows
 
@@ -20,7 +20,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
             self.DF = self.DF.sort_values(by=name, ascending=self.sortingOrder, ignore_index=True)
             self.sortingOrder = not (self.sortingOrder)  # reverses sorting order for next call
-            self.update_tableWidget()  # clears table and fills it with updated DF
+            self.update_table_widget()  # clears table and fills it with updated DF
 
 
     def export_csv(self):  # exports DF to csv
@@ -38,7 +38,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
             self.DF = pd.DataFrame(columns=self.meterNames)  # creates new DF rewriting variable
             self.N = 1
-            self.update_tableWidget()  # clears table and fills it with updated DF
+            self.update_table_widget()  # clears table and fills it with updated DF
 
 
     def remove_last_from_df(self):  # dropes the last row from both dataframe and table
@@ -46,7 +46,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         if len(self.DF):  # checks if table is not empty
 
             self.DF = self.DF.drop(labels=[len(self.DF) - 1], axis=0)
-            self.update_tableWidget()  # clears table and fills it with updated DF
+            self.update_table_widget()  # clears table and fills it with updated DF
 
 
     def add_data_to_df(self):  # adds line of values to the end of DF
@@ -54,7 +54,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
         self.DF.loc[len(self.DF)] = [meter.value() for meter in self.meters] + [self.N]  # adds data from meters to DF
 
         self.N = self.N + 1
-        self.update_tableWidget()  # clears table and fills it with updated DF
+        self.update_table_widget()  # clears table and fills it with updated DF
 
 
     def delete_by_N(self, n):
@@ -63,26 +63,26 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
 
                 self.DF = self.DF.drop(self.DF[self.DF['N'].astype(int) == int(n)].index)
 
-                self.update_tableWidget()
+                self.update_table_widget()
 
 
-    def update_tableWidget(self):  # clears table and fills it with updated DF
+    def update_table_widget(self):  # clears table and fills it with updated DF
 
         self.DF = self.DF.reset_index(drop=True)
 
-        self.tableWidget.clearContents()  # clears table completly but not DF
-        self.tableWidget.setRowCount(0)  # makes rowCount (horizontal dimension) equal to zero
+        self.table_widget.clearContents()  # clears table completly but not DF
+        self.table_widget.setRowCount(0)  # makes rowCount (horizontal dimension) equal to zero
 
         for i in range(self.DF.shape[0]):  # iterates the whole DF
 
-            self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)  # adds new row to table
+            self.table_widget.setRowCount(self.table_widget.rowCount() + 1)  # adds new row to table
 
             for j in range(self.DF.shape[1]-1):  # iterates table by column
 
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(
+                self.table_widget.setItem(i, j, QtWidgets.QTableWidgetItem(
                 f"{int(self.DF.iloc[i].iloc[j])}"))  # sets item [i, j]
 
-            self.tableWidget.setItem(i, 8, QtWidgets.QTableWidgetItem(
+            self.table_widget.setItem(i, 8, QtWidgets.QTableWidgetItem(
                 f"{int(self.DF.iloc[i].iloc[8])}"))  # sets item [i, j]
 
         self.update_N()
@@ -124,7 +124,7 @@ class Data:  # class for interaction with DataFrame (DF) and tableWidget (table)
             elif "A" in self.choose_X.currentText():
                 axV.set_xlabel(f'{self.choose_X.currentText()}, мА')
             else:
-                plt.xlabel('N')
+                axV.set_xlabel('N')
 
             for box in Vs:
 

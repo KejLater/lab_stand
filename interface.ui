@@ -406,7 +406,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;мА&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="portList">
+   <widget class="QComboBox" name="choose_port_list">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -900,7 +900,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="update_ports_button">
+   <widget class="QPushButton" name="update_choose_port_list_button">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -939,7 +939,7 @@
      <string>Добавить</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="table_widget">
     <property name="geometry">
      <rect>
       <x>435</x>
@@ -1330,7 +1330,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="inputVoltage">
+   <widget class="QDoubleSpinBox" name="input_voltage">
     <property name="geometry">
      <rect>
       <x>90</x>

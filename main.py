@@ -32,10 +32,10 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.graph_shortcut.activated.connect(self.build_graph)  # adds shortcut
 
         #self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)  # adds shortcut
-        #self.serialSend_shortcut.activated.connect(lambda: self.send_to_port(self.inputVoltage.text()))
+        #self.serialSend_shortcut.activated.connect(lambda: self.send_to_port(self.input_voltage.text()))
 
         self.serialSend_shortcut1 = QtWidgets.QShortcut(QtGui.QKeySequence(Qt.EnterKeyGo ), self)  # adds shortcut
-        self.serialSend_shortcut1.activated.connect(lambda: self.send_to_port(self.inputVoltage.text()))
+        self.serialSend_shortcut1.activated.connect(lambda: self.send_to_port(self.input_voltage.text()))
 
 
     def initializations(self):
@@ -64,11 +64,11 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.build_graph_button.clicked.connect(self.build_graph)  # Build build_graph
         self.sort_df_by_column_button.clicked.connect(lambda: self.sort_df_by_column(self.choose_X.currentText()))
 
-        self.update_ports_button.clicked.connect(self.update_ports)  # updates list of ports
-        self.open_selected_port_button.clicked.connect(lambda: self.open_selected_port(self.portList.currentText()))  # opens port
+        self.update_choose_port_list_button.clicked.connect(self.update_choose_port_list)  # updates list of ports
+        self.open_selected_port_button.clicked.connect(lambda: self.open_selected_port(self.choose_port_list.currentText()))  # opens port
         self.close_port_button.clicked.connect(self.close_port)  # closes port
 
-        self.set_voltage_button.clicked.connect(lambda: self.send_to_port(self.inputVoltage.text()))  # sends data to port
+        self.set_voltage_button.clicked.connect(lambda: self.send_to_port(self.input_voltage.text()))  # sends data to port
 
         self.delete_by_N_button.clicked.connect(lambda: self.delete_by_N(self.choose_delete.currentText()))
 
