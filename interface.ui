@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1133</width>
-    <height>640</height>
+    <height>804</height>
    </rect>
   </property>
   <property name="font">
@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Program</string>
+   <string>Обязательно бахнет. И не раз. Весь мир в труху. Но потом.</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLCDNumber" name="V1">
@@ -1353,6 +1353,643 @@
     </property>
     <property name="minimum">
      <double>-99.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_0">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>560</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_1">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>600</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_2">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>640</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_3">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>680</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="set_io_button">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>730</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Обязательно бахнет. И не раз. Весь мир в труху. Но потом.</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_0_list">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>570</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_1_list">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>610</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_2_list">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>650</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_3_list">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>690</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_5">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>600</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_4">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>560</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_6">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>640</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_5_list">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>610</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_4_list">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>570</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_6_list">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>650</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_7">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>680</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_7_list">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>690</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_12">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>560</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_9">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>600</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_13">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>600</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_8">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>560</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_12_list">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>570</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_15">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>680</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_10">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>640</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_9_list">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>610</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_13_list">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>610</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_15_list">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>690</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_8_list">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>570</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_10_list">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>650</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_11">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>680</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_11_list">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>690</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_14_list">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>650</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_14">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>640</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_23">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>680</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_24">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>560</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_18_list">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>650</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_21">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>600</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_21_list">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>610</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_19_list">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>690</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_22_list">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>650</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_17">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>600</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_19">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>680</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_23_list">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>690</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_16_list">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>570</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_20">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>560</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_20_list">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>570</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_22">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>640</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcd_io_18">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>640</y>
+      <width>31</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="digitCount">
+     <number>1</number>
+    </property>
+    <property name="mode">
+     <enum>QLCDNumber::Bin</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="io_17_list">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>610</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
     </property>
    </widget>
   </widget>
