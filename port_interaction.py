@@ -6,7 +6,7 @@ class SerialPort:  # class for interaction with port
 
         self.serial = QSerialPort()  # creates object of class to deal with connections
         self.update_choose_port_list()    # updates list of available ports
-        self.data = '0@0@0@0@0@0@0@0'    # data for initialisation
+        self.data = []    # data for initialisation
 
 
     def update_choose_port_list(self):  # updates list of available ports
@@ -32,7 +32,7 @@ class SerialPort:  # class for interaction with port
 
         if self.serial.isOpen():  # makes fuction read data from port and changes UI if successful
 
-            #self.serial.readyRead.connect(self.read_port)
+            self.serial.readyRead.connect(self.read_port)
             self.show_port_opened()
 
         else:  # makes UI show error if problems occured
@@ -118,8 +118,8 @@ class SerialPort:  # class for interaction with port
 
         formS = "<H6BH4BH"
 
-        #if self.serial.isOpen():
-        if True:
+        if self.serial.isOpen():
+        #if True:
 
             data = data.replace(',', '')  # replaces , with ''
             data = int(data) * 10
