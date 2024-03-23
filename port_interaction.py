@@ -95,13 +95,79 @@ class SerialPort:  # class for interaction with port
         else:  # makes UI show error if port is still opened
             self.show_port_error()
 
-    def send_to_port(self, data):  # sends data to port
+    def send_to_port(self, data):  # sends data to port  #TODO
 
         import struct
 
-        if self.serial.isOpen():
+        import crccheck
+
+        packet_len = 43
+
+        magic = 0xe621
+
+        portAconf = 0
+        portBconf = 0
+        portCconf = 0
+
+        portAdata = 0
+        portBdata = 0
+        portCdata = 0
+
+        debug0 = 7
+        debug1 = 8
+        debug2 = 9
+        debug3 = 10
+
+        formS = "<H6BH4BH"
+
+        #if self.serial.isOpen():
+        if True:
 
             data = data.replace(',', '')  # replaces , with ''
             data = int(data) * 10
-            self.serial.write(struct.pack("<H", data))  # sending data to port as two bytes
+            data = struct.pack("<H", data)  # transform data into uint16
+
+            data = 0xFF
+
+            for i in range(8):
+                if self.iosA[i].currentText() == '0':
+                    portAconf = portAconf + 2 ** i
+
+                elif self.iosA[i].currentText() == '1':
+                    portAconf = portAconf + 2 ** i
+                    portAdata = portAdata + 2 ** i
+
+            for i in range(8):
+                if self.iosB[i].currentText() == '0':
+                    portBconf = portBconf + 2 ** i
+
+                elif self.iosB[i].currentText() == '1':
+                    portBconf = portBconf + 2 ** i
+                    portBdata = portBdata + 2 ** i
+
+            for i in range(8):
+                if self.iosC[i].currentText() == '0':
+                    portCconf = portCconf + 2 ** i
+
+                elif self.iosC[i].currentText() == '1':
+                    portCconf = portCconf + 2 ** i
+                    portCdata = portCdata + 2 ** i
+
+            print(bin(portAconf), bin(portBconf), bin(portCconf))
+            print(bin(portAdata), bin(portBdata), bin(portCdata))
+
+            crc_calc = crccheck.crc.Crc(width=16, poly=0x8005, initvalue=0x0000, reflect_input=True,
+                                            reflect_output=True,
+                                            xor_output=0x0000)
+            print(2)
+            package = bytearray(
+                    [(magic >> 8 & 0xFF), (magic & 0xFF), portAconf, portBconf, portCconf, portAdata, portBdata,
+                     portCdata, (data >> 8 & 0xFF), (data & 0xFF), debug0, debug1, debug2, debug3])
+            print(1)
+            crc = crc_calc.calc(package)
+
+            mail = struct.pack(formS, magic, portAconf, portBconf, portCconf, portAdata, portBdata,
+                                   portCdata, data, debug0, debug1, debug2, debug3, crc)
+
+            #self.serial.write(mail)
 
