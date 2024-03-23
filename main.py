@@ -1,7 +1,7 @@
 import sys, os
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
-from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
+#from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 
 from randomer import Data
 from port_interaction import SerialPort
@@ -18,9 +18,13 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         uic.loadUi(UIFile, self)  # loads UI from .ui
         SerialPort.__init__(self)  # inherites SerialPort class
+        Data.__init__(self)
 
         self.hotkeys()  # init hotkeys
         self.initializations()  # init fnctions
+
+        self.init_io()
+
         self.show()
 
 
@@ -31,8 +35,8 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
         self.graph_shortcut.activated.connect(self.build_graph)  # adds shortcut
 
-        #self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Enter"), self)  # adds shortcut
-        #self.serialSend_shortcut.activated.connect(lambda: self.send_to_port(self.input_voltage.text()))
+        self.serialSend_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Return"), self)  # adds shortcut
+        self.serialSend_shortcut.activated.connect(lambda: self.send_to_port(self.input_voltage.text()))
 
         self.serialSend_shortcut1 = QtWidgets.QShortcut(QtGui.QKeySequence(Qt.EnterKeyGo ), self)  # adds shortcut
         self.serialSend_shortcut1.activated.connect(lambda: self.send_to_port(self.input_voltage.text()))
@@ -72,6 +76,95 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         self.delete_by_N_button.clicked.connect(lambda: self.delete_by_N(self.choose_delete_list.currentText()))
 
+    def init_io(self):  # inits lists to choose status of port and ties btn to func #TODO
+
+        self.iosA = [self.io_0_list, self.io_1_list, self.io_2_list, self.io_3_list, self.io_4_list,
+                    self.io_5_list, self.io_6_list, self.io_7_list]
+
+        self.iosB = [self.io_8_list, self.io_9_list, self.io_10_list, self.io_11_list, self.io_12_list,
+                     self.io_13_list, self.io_14_list, self.io_15_list]
+
+        self.iosC = [self.io_16_list, self.io_17_list, self.io_18_list, self.io_19_list, self.io_20_list,
+                     self.io_21_list, self.io_22_list, self.io_23_list]
+
+        self.ios = self.iosA + self.iosB + self.iosC
+
+        for io in self.ios:
+            #io.addItems(('0', '1', 'R'))
+            #io.addItems(('0', '1', 'R'))
+            io.addItems(('R', '1', '0'))
+
+        self.set_io_button.clicked.connect(self.set_io)
+
+
+    def set_io(self):  # TODO
+
+        import crccheck
+        import struct
+
+        packet_len = 43
+
+        magic = 0xe621
+
+        adc = 0
+
+        portAconf = 0
+        portBconf = 0
+        portCconf = 0
+
+        portAdata = 0
+        portBdata = 0
+        portCdata = 0
+
+        debug0 = 7
+        debug1 = 8
+        debug2 = 9
+        debug3 = 10
+
+        formS = "<H6BH4BH"
+
+        for i in range(8):
+            if self.iosA[i].currentText() == '0':
+                portAconf = portAconf + 2 ** i
+
+            elif self.iosA[i].currentText() == '1':
+                portAconf = portAconf + 2 ** i
+                portAdata = portAdata + 2 ** i
+
+        for i in range(8):
+            if self.iosB[i].currentText() == '0':
+                portBconf = portBconf + 2 ** i
+
+            elif self.iosB[i].currentText() == '1':
+                portBconf = portBconf + 2 ** i
+                portBdata = portBdata + 2 ** i
+
+        for i in range(8):
+            if self.iosC[i].currentText() == '0':
+                portCconf = portCconf + 2 ** i
+
+            elif self.iosC[i].currentText() == '1':
+                portCconf = portCconf + 2 ** i
+                portCdata = portCdata + 2 ** i
+
+        print(bin(portAconf), bin(portBconf), bin(portCconf))
+        print(bin(portAdata), bin(portBdata), bin(portCdata))
+
+
+        crc_calc = crccheck.crc.Crc(width=16, poly=0x8005, initvalue=0x0000, reflect_input=True,
+                                    reflect_output=True,
+                                    xor_output=0x0000)
+
+        package = bytearray(
+            [(magic >> 8 & 0xFF), (magic & 0xFF), portAconf, portBconf, portCconf, portAdata, portBdata,
+             portCdata, (adc >> 8 & 0xFF), (adc & 0xFF), debug0, debug1, debug2, debug3])
+
+        crc = crc_calc.calc(package)
+
+        mail = struct.pack(formS, magic, portAconf, portBconf, portCconf, portAdata, portBdata,
+                           portCdata, adc, debug0, debug1, debug2, debug3, crc)
+
+        self.serial.write(mail)
 
 
     def convert_data_from_port(self):
