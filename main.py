@@ -90,7 +90,15 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.ios = self.iosA + self.iosB + self.iosC
 
         self.io_reset_list.clear()
-        self.io_reset_list.addItems(('R', '1', '0'))
+
+        if letter == 'R':
+            self.io_reset_list.addItems(('R', '1', '0'))
+
+        elif letter == '0':
+            self.io_reset_list.addItems(('0', 'R', '1'))
+
+        elif letter == '1':
+            self.io_reset_list.addItems(('1', 'R', '0'))
 
         if letter == 'R':
             for io in self.ios:
@@ -134,7 +142,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         values = self.convert_data_from_port()
         for i in range(8):
             if self.checkboxes[i].isChecked():
-                self.meters[i].display(values[i])
+                self.meters[i].display(values[i+1])
 
             else:
                 self.meters[i].display(0)

@@ -122,6 +122,7 @@ class SerialPort:  # class for interaction with port
         #if True:
 
             data = data.replace(',', '')  # replaces , with ''
+            data = data.replace('.', '')  # replaces , with ''
             data = int(data) * 10
             data = struct.pack("<H", data)  # transform data into uint16
 
@@ -166,6 +167,7 @@ class SerialPort:  # class for interaction with port
 
             mail = struct.pack(formS, magic, portAconf, portBconf, portCconf, portAdata, portBdata,
                                    portCdata, data, debug0, debug1, debug2, debug3, crc)
-
-            #self.serial.write(mail)
+            print(0)
+        
+            self.serial.write(mail)
 
