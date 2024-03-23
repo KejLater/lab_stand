@@ -47,41 +47,39 @@ class SerialPort:  # class for interaction with port
         from typing import Tuple, List
         import struct
 
-        formR = "<H8fH"
-        packet_len = 36
+        formR = "<H8f7BH"
+        packet_len = 43
 
-        def skip_to_header(s) -> Tuple[bytes, int]:
-            buff_size = 36
-            buff = s.read(buff_size)
+        # checks if data is readable
+        buff_size = 43
+        buff = self.serial.read(buff_size)
+        header_pos = buff.find(b'\x27\xff')
+        while header_pos < 0:
+            buff = self.serial.read(buff_size)
             header_pos = buff.find(b'\x27\xff')
-            while header_pos < 0:
-                buff = s.read(buff_size)
-                header_pos = buff.find(b'\x27\xff')
-            return buff[header_pos:], header_pos
+        skipped = header_pos
+        packet_bin = buff[header_pos:]
+        packet_bin += self.serial.read((packet_len - len(buff[header_pos:])))
+        a = struct.unpack(formR, packet_bin)
+        crc_in = a[-1]
+        crc_calc = crccheck.crc.Crc(width=16, poly=0x8005, initvalue=0x0000, reflect_input=True,
+                                    reflect_output=True,
+                                    xor_output=0x0000)
+        crc_out = crc_calc.calc(packet_bin[:-2])
 
-        if self.serial.canReadLine():  # checks if data is readable
+        # print(packet_bin[:-2].hex())
+        print(hex(crc_in))
+        print(hex(crc_out))
+        # print(struct.unpack("<H", packet_bin[:2]))
+        if crc_in != crc_out:
+            print(a)
+            print("BAD CRC")
+            print()
+        else:
+            print(a)
+            print()
 
-            #self.data = str(self.serial.readLine(), 'utf-8').strip()    # turns bytes to str withuot '\n'
-            rem, skipped = skip_to_header(self.serial)
-            packet_bin = rem
-            packet_bin += s.read(packet_len - len(rem))
-            a = struct.unpack(form, packet_bin)
-            crc_in = a[-1]
-            crc_calc = crccheck.crc.Crc(width=16, poly=0x8005, initvalue=0x0000, reflect_input=True,
-                                        reflect_output=True, xor_output=0x0000)
-            crc_out = crc_calc.calc(packet_bin[:-2])
-
-            # print(packet_bin[:-2].hex())
-            print(hex(crc_in))
-            print(hex(crc_out))
-            # print(struct.unpack("<H", packet_bin[:2]))
-            if crc_in != crc_out:
-                print(a)
-                print("BAD CRC")
-                print()
-            else:
-                print(a)
-                print()
+        self.data = a    # turns bytes to str withuot '\n'
 
 
     def close_port(self):  # closes port

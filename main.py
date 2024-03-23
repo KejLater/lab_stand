@@ -76,7 +76,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         self.reset_io_button.clicked.connect(lambda: self.init_io(self.io_reset_list.currentText()))  # reset of pins list, NOT values
 
-    def init_io(self, letter='R'):  # inits lists to choose status of port and ties btn to func 
+    def init_io(self, letter='R'):  # inits lists to choose status of port and ties btn to func
 
         self.iosA = [self.io_0_list, self.io_1_list, self.io_2_list, self.io_3_list, self.io_4_list,
                     self.io_5_list, self.io_6_list, self.io_7_list]
@@ -111,13 +111,8 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
 
     def convert_data_from_port(self):
-        
-        if self.data.count("@") == 7:  # checks if seven @ are in string
-            array = self.data.split('@')  # splits string
-            return [float(n) for n in array]  # turns elements of list from str to float
 
-        else:
-            return [0 for _ in range(8)]  # if @ are not in list returns list of 0
+            return list(self.data)
 
 
     def show_port_closed(self):  # changes UI if port closed
