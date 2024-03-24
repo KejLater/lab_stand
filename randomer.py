@@ -118,7 +118,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
 
             x = self.DF[self.choose_X_list.currentText()]
-            
+
             axV.set_xlabel(self.choose_X_list.currentText() +
                            meases[self.choose_X_list.currentIndex()])  # chooses if volts or mA are in label
 

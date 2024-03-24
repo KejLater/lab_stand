@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1262</width>
-    <height>825</height>
+    <width>1352</width>
+    <height>765</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="font">
    <font>
@@ -20,6 +26,9 @@
   <property name="windowTitle">
    <string>Обязательно бахнет. И не раз. Весь мир в труху. Но потом.</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::GroupedDragging</set>
   </property>
@@ -27,8 +36,8 @@
    <widget class="QLCDNumber" name="V1">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>130</y>
+      <x>80</x>
+      <y>150</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -51,8 +60,8 @@
    <widget class="QLCDNumber" name="V3">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>210</y>
+      <x>80</x>
+      <y>230</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -72,8 +81,8 @@
    <widget class="QLCDNumber" name="V2">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>170</y>
+      <x>80</x>
+      <y>190</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -93,8 +102,8 @@
    <widget class="QLCDNumber" name="V4">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>250</y>
+      <x>80</x>
+      <y>270</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -114,8 +123,8 @@
    <widget class="QLCDNumber" name="A1">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>300</y>
+      <x>80</x>
+      <y>320</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -135,8 +144,8 @@
    <widget class="QLCDNumber" name="A2">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>340</y>
+      <x>80</x>
+      <y>360</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -156,8 +165,8 @@
    <widget class="QLCDNumber" name="A3">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>380</y>
+      <x>80</x>
+      <y>400</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -177,8 +186,8 @@
    <widget class="QLCDNumber" name="A4">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>420</y>
+      <x>80</x>
+      <y>440</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -198,11 +207,18 @@
    <widget class="QCheckBox" name="V1_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>140</y>
+      <x>50</x>
+      <y>160</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -211,11 +227,18 @@
    <widget class="QCheckBox" name="V2_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>180</y>
+      <x>50</x>
+      <y>200</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -224,11 +247,18 @@
    <widget class="QCheckBox" name="V3_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>220</y>
+      <x>50</x>
+      <y>240</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -237,11 +267,18 @@
    <widget class="QCheckBox" name="V4_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>260</y>
+      <x>50</x>
+      <y>280</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -250,11 +287,18 @@
    <widget class="QCheckBox" name="A1_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>310</y>
+      <x>50</x>
+      <y>330</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -263,11 +307,18 @@
    <widget class="QCheckBox" name="A2_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>350</y>
+      <x>50</x>
+      <y>370</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -276,11 +327,18 @@
    <widget class="QCheckBox" name="A3_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>390</y>
+      <x>50</x>
+      <y>410</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -289,11 +347,18 @@
    <widget class="QCheckBox" name="A4_checkbox">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>430</y>
+      <x>50</x>
+      <y>450</y>
       <width>16</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -305,11 +370,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>130</y>
+      <x>310</x>
+      <y>150</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -321,11 +393,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>170</y>
+      <x>310</x>
+      <y>190</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -337,11 +416,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>210</y>
+      <x>310</x>
+      <y>230</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -353,11 +439,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>250</y>
+      <x>310</x>
+      <y>270</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -369,11 +462,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>300</y>
+      <x>310</x>
+      <y>320</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;мА&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -385,11 +485,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>340</y>
+      <x>310</x>
+      <y>360</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;мА&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -401,11 +508,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>380</y>
+      <x>310</x>
+      <y>400</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;мА&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -417,11 +531,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>420</y>
+      <x>310</x>
+      <y>440</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;мА&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -430,21 +551,35 @@
    <widget class="QComboBox" name="choose_port_list">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>30</y>
-      <width>69</width>
-      <height>24</height>
+      <x>58</x>
+      <y>43</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QPushButton" name="open_selected_port_button">
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>30</y>
-      <width>91</width>
-      <height>24</height>
+      <y>43</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>10</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>Подключить</string>
@@ -453,10 +588,10 @@
    <widget class="QLabel" name="connect_label">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>30</y>
-      <width>101</width>
-      <height>24</height>
+      <x>280</x>
+      <y>40</y>
+      <width>131</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="palette">
@@ -903,8 +1038,8 @@
     </property>
     <property name="font">
      <font>
-      <family>Times New Roman</family>
-      <pointsize>11</pointsize>
+      <family>Century Gothic</family>
+      <pointsize>12</pointsize>
       <strikeout>false</strikeout>
      </font>
     </property>
@@ -924,11 +1059,18 @@
    <widget class="QPushButton" name="update_choose_port_list_button">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>60</y>
-      <width>69</width>
-      <height>24</height>
+      <x>58</x>
+      <y>80</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>Обновить</string>
@@ -937,11 +1079,18 @@
    <widget class="QPushButton" name="build_graph_button">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>90</y>
-      <width>91</width>
+      <x>1210</x>
+      <y>400</y>
+      <width>101</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>Построить</string>
@@ -950,11 +1099,18 @@
    <widget class="QPushButton" name="add_data_to_df_button">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>50</y>
-      <width>81</width>
+      <x>80</x>
+      <y>490</y>
+      <width>131</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>15</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>Добавить</string>
@@ -963,11 +1119,18 @@
    <widget class="QTableWidget" name="table_widget">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>170</y>
+      <x>500</x>
+      <y>100</y>
       <width>691</width>
-      <height>321</height>
+      <height>331</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="contextMenuPolicy">
      <enum>Qt::NoContextMenu</enum>
@@ -1063,11 +1226,18 @@
    <widget class="QCheckBox" name="V1_y">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>140</y>
+      <x>530</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1076,11 +1246,18 @@
    <widget class="QCheckBox" name="V2_y">
     <property name="geometry">
      <rect>
-      <x>544</x>
-      <y>140</y>
+      <x>604</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1089,11 +1266,18 @@
    <widget class="QCheckBox" name="V3_y">
     <property name="geometry">
      <rect>
-      <x>617</x>
-      <y>140</y>
+      <x>677</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1102,11 +1286,18 @@
    <widget class="QCheckBox" name="V4_y">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>140</y>
+      <x>750</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1115,11 +1306,18 @@
    <widget class="QCheckBox" name="A1_y">
     <property name="geometry">
      <rect>
-      <x>763</x>
-      <y>140</y>
+      <x>823</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1128,11 +1326,18 @@
    <widget class="QCheckBox" name="A2_y">
     <property name="geometry">
      <rect>
-      <x>835</x>
-      <y>140</y>
+      <x>895</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1141,11 +1346,18 @@
    <widget class="QCheckBox" name="A3_y">
     <property name="geometry">
      <rect>
-      <x>908</x>
-      <y>140</y>
+      <x>968</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1154,11 +1366,18 @@
    <widget class="QCheckBox" name="A4_y">
     <property name="geometry">
      <rect>
-      <x>981</x>
-      <y>140</y>
+      <x>1041</x>
+      <y>70</y>
       <width>21</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -1170,11 +1389,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>510</y>
+      <x>190</x>
+      <y>580</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;В&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1183,16 +1409,16 @@
    <widget class="QPushButton" name="set_voltage_button">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>560</y>
-      <width>141</width>
+      <x>80</x>
+      <y>630</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Century Gothic</family>
-      <pointsize>13</pointsize>
+      <pointsize>14</pointsize>
       <strikeout>false</strikeout>
      </font>
     </property>
@@ -1204,60 +1430,8 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>60</y>
-      <width>91</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Отключить</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="export_csv_button">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>50</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Экспорт csv</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="remove_last_from_df_button">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>50</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Удалить последнее</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="reset_df_and_table_button">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>90</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Очистить </string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="choose_X_list">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>93</y>
-      <width>81</width>
+      <y>80</y>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
@@ -1268,6 +1442,86 @@
       <strikeout>false</strikeout>
      </font>
     </property>
+    <property name="text">
+     <string>Отключить</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="export_csv_button">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>320</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Экспорт csv</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="remove_last_from_df_button">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>530</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>8</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Удалить последнее</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reset_df_and_table_button">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>360</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Очистить </string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="choose_X_list">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>23</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
    </widget>
    <widget class="QLabel" name="V1_label_3">
     <property name="enabled">
@@ -1275,11 +1529,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>90</y>
+      <x>450</x>
+      <y>20</y>
       <width>41</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oX:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1291,11 +1552,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>130</y>
+      <x>450</x>
+      <y>60</y>
       <width>41</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;oY:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1304,11 +1572,18 @@
    <widget class="QPushButton" name="sort_df_by_column_button">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>340</y>
-      <width>91</width>
-      <height>24</height>
+      <x>1210</x>
+      <y>280</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>Сортировать</string>
@@ -1320,11 +1595,18 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>500</y>
+      <x>450</x>
+      <y>440</y>
       <width>41</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>10</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;N =&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1333,11 +1615,18 @@
    <widget class="QPushButton" name="delete_by_N_button">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>500</y>
+      <x>610</x>
+      <y>440</y>
       <width>91</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>13</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>Удалить</string>
@@ -1346,8 +1635,8 @@
    <widget class="QComboBox" name="choose_delete_list">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>500</y>
+      <x>500</x>
+      <y>440</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -1355,7 +1644,7 @@
     <property name="font">
      <font>
       <family>Century Gothic</family>
-      <pointsize>11</pointsize>
+      <pointsize>9</pointsize>
       <strikeout>false</strikeout>
      </font>
     </property>
@@ -1363,8 +1652,8 @@
    <widget class="QDoubleSpinBox" name="input_voltage">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>510</y>
+      <x>80</x>
+      <y>580</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -1372,7 +1661,7 @@
     <property name="font">
      <font>
       <family>Century Gothic</family>
-      <pointsize>14</pointsize>
+      <pointsize>20</pointsize>
       <strikeout>false</strikeout>
      </font>
     </property>
@@ -1392,11 +1681,18 @@
    <widget class="QLCDNumber" name="lcd_io_0">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>570</y>
+      <x>500</x>
+      <y>500</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1408,11 +1704,18 @@
    <widget class="QLCDNumber" name="lcd_io_1">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>610</y>
+      <x>500</x>
+      <y>540</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1424,11 +1727,18 @@
    <widget class="QLCDNumber" name="lcd_io_2">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>650</y>
+      <x>500</x>
+      <y>580</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1440,11 +1750,18 @@
    <widget class="QLCDNumber" name="lcd_io_3">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>690</y>
+      <x>500</x>
+      <y>620</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1456,11 +1773,18 @@
    <widget class="QPushButton" name="reset_io_button">
     <property name="geometry">
      <rect>
-      <x>1060</x>
-      <y>740</y>
+      <x>1120</x>
+      <y>670</y>
       <width>131</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>15</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="text">
      <string>335</string>
@@ -1469,51 +1793,86 @@
    <widget class="QComboBox" name="io_0_list">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>570</y>
+      <x>540</x>
+      <y>500</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_1_list">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>610</y>
+      <x>540</x>
+      <y>540</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_2_list">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>650</y>
+      <x>540</x>
+      <y>580</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_3_list">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>690</y>
+      <x>540</x>
+      <y>620</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_5">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>610</y>
+      <x>610</x>
+      <y>540</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1525,11 +1884,18 @@
    <widget class="QLCDNumber" name="lcd_io_4">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>570</y>
+      <x>610</x>
+      <y>500</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1541,11 +1907,18 @@
    <widget class="QLCDNumber" name="lcd_io_6">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>650</y>
+      <x>610</x>
+      <y>580</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1557,41 +1930,69 @@
    <widget class="QComboBox" name="io_5_list">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>611</y>
+      <x>650</x>
+      <y>541</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_4_list">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>571</y>
+      <x>650</x>
+      <y>501</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_6_list">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>651</y>
+      <x>650</x>
+      <y>581</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_7">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>690</y>
+      <x>610</x>
+      <y>620</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1603,21 +2004,35 @@
    <widget class="QComboBox" name="io_7_list">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>691</y>
+      <x>650</x>
+      <y>621</y>
       <width>61</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_12">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>570</y>
+      <x>890</x>
+      <y>500</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1629,11 +2044,18 @@
    <widget class="QLCDNumber" name="lcd_io_9">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>610</y>
+      <x>780</x>
+      <y>540</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1645,11 +2067,18 @@
    <widget class="QLCDNumber" name="lcd_io_13">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>610</y>
+      <x>890</x>
+      <y>540</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1661,11 +2090,18 @@
    <widget class="QLCDNumber" name="lcd_io_8">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>570</y>
+      <x>780</x>
+      <y>500</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1677,21 +2113,35 @@
    <widget class="QComboBox" name="io_12_list">
     <property name="geometry">
      <rect>
-      <x>870</x>
-      <y>571</y>
+      <x>930</x>
+      <y>501</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_15">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>690</y>
+      <x>890</x>
+      <y>620</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1703,11 +2153,18 @@
    <widget class="QLCDNumber" name="lcd_io_10">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>650</y>
+      <x>780</x>
+      <y>580</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1719,61 +2176,103 @@
    <widget class="QComboBox" name="io_9_list">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>611</y>
+      <x>820</x>
+      <y>541</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_13_list">
     <property name="geometry">
      <rect>
-      <x>870</x>
-      <y>611</y>
+      <x>930</x>
+      <y>541</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_15_list">
     <property name="geometry">
      <rect>
-      <x>870</x>
-      <y>691</y>
+      <x>930</x>
+      <y>621</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_8_list">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>571</y>
+      <x>820</x>
+      <y>501</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_10_list">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>651</y>
+      <x>820</x>
+      <y>581</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_11">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>690</y>
+      <x>780</x>
+      <y>620</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1785,31 +2284,52 @@
    <widget class="QComboBox" name="io_11_list">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>691</y>
+      <x>820</x>
+      <y>621</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_14_list">
     <property name="geometry">
      <rect>
-      <x>870</x>
-      <y>651</y>
+      <x>930</x>
+      <y>581</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_14">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>650</y>
+      <x>890</x>
+      <y>580</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1821,11 +2341,18 @@
    <widget class="QLCDNumber" name="lcd_io_23">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>689</y>
+      <x>1160</x>
+      <y>619</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1837,11 +2364,18 @@
    <widget class="QLCDNumber" name="lcd_io_16">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>569</y>
+      <x>1050</x>
+      <y>499</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1853,21 +2387,35 @@
    <widget class="QComboBox" name="io_18_list">
     <property name="geometry">
      <rect>
-      <x>1030</x>
-      <y>650</y>
+      <x>1090</x>
+      <y>580</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_21">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>609</y>
+      <x>1160</x>
+      <y>539</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1879,41 +2427,69 @@
    <widget class="QComboBox" name="io_21_list">
     <property name="geometry">
      <rect>
-      <x>1140</x>
-      <y>610</y>
+      <x>1200</x>
+      <y>540</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_19_list">
     <property name="geometry">
      <rect>
-      <x>1030</x>
-      <y>690</y>
+      <x>1090</x>
+      <y>620</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_22_list">
     <property name="geometry">
      <rect>
-      <x>1140</x>
-      <y>650</y>
+      <x>1200</x>
+      <y>580</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_17">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>609</y>
+      <x>1050</x>
+      <y>539</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1925,11 +2501,18 @@
    <widget class="QLCDNumber" name="lcd_io_19">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>689</y>
+      <x>1050</x>
+      <y>619</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1941,31 +2524,52 @@
    <widget class="QComboBox" name="io_23_list">
     <property name="geometry">
      <rect>
-      <x>1140</x>
-      <y>690</y>
+      <x>1200</x>
+      <y>620</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_16_list">
     <property name="geometry">
      <rect>
-      <x>1030</x>
-      <y>570</y>
+      <x>1090</x>
+      <y>500</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_20">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>569</y>
+      <x>1160</x>
+      <y>499</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -1977,21 +2581,35 @@
    <widget class="QComboBox" name="io_20_list">
     <property name="geometry">
      <rect>
-      <x>1140</x>
-      <y>570</y>
+      <x>1200</x>
+      <y>500</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QLCDNumber" name="lcd_io_22">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>649</y>
+      <x>1160</x>
+      <y>579</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -2003,11 +2621,18 @@
    <widget class="QLCDNumber" name="lcd_io_18">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>649</y>
+      <x>1050</x>
+      <y>579</y>
       <width>31</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>9</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="digitCount">
      <number>1</number>
@@ -2019,31 +2644,52 @@
    <widget class="QComboBox" name="io_17_list">
     <property name="geometry">
      <rect>
-      <x>1030</x>
-      <y>610</y>
+      <x>1090</x>
+      <y>540</y>
       <width>51</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QComboBox" name="io_reset_list">
     <property name="geometry">
      <rect>
-      <x>970</x>
-      <y>740</y>
+      <x>1030</x>
+      <y>670</y>
       <width>71</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
    </widget>
    <widget class="QListWidget" name="sort_data_list">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>170</y>
+      <x>1210</x>
+      <y>100</y>
       <width>51</width>
-      <height>161</height>
+      <height>171</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>8</pointsize>
+      <strikeout>false</strikeout>
+     </font>
     </property>
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -2088,8 +2734,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1262</width>
-     <height>23</height>
+     <width>1352</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

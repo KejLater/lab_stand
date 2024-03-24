@@ -1,6 +1,7 @@
 import sys, os
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice
+import qdarktheme
 # from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 
 from randomer import Data
@@ -11,7 +12,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
     def __init__(self):  # pyinstaller.exe --onefile --add-data="interface.ui;." --noconsole main.py
         super().__init__()
-
+        qdarktheme.setup_theme()  # makes app dark
         try:
             UIFile = os.path.join(sys._MEIPASS, 'interface.ui')  # packages to exe
         except AttributeError:
