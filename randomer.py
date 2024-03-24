@@ -17,7 +17,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
     def sort_df_by_column(self, name):  # sorts data in DF
 
         if len(self.DF):  # checks if DF is not empty
-
+            
             self.DF = self.DF.sort_values(by=name, ascending=self.sortingOrder, ignore_index=True)
             self.sortingOrder = not (self.sortingOrder)  # reverses sorting order for next call
             self.update_table_widget()  # clears table and fills it with updated DF

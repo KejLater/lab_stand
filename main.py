@@ -51,20 +51,25 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         self.choose_X_list.addItems(self.meterNames)  # adds V1, V2... A4 to list where user chooses X for graph
 
+        self.sort_data_list.addItems(self.meterNames)  # adds meterNames to sorting list
+
         self.update_choose_delete_list()  # updates list of N to delete, not mandatory here
 
         self.thread = MyThread()  # starts Thread to read data
         self.thread.mySignal.connect(self.update_meters)
         self.thread.start()
 
+
     def buttons(self):  # init buttons
 
         self.export_csv_button.clicked.connect(self.export_csv)  # csv export
         self.reset_df_and_table_button.clicked.connect(self.reset_df_and_table)  # clears table
         self.remove_last_from_df_button.clicked.connect(self.remove_last_from_df)  # removes the last result
-        self.add_data_to_df_button.clicked.connect(self.add_data_to_df)  # Adding numbers to the tabl
-        self.build_graph_button.clicked.connect(self.build_graph)  # Build build_graph
-        self.sort_df_by_column_button.clicked.connect(lambda: self.sort_df_by_column(self.choose_X_list.currentText()))
+        self.add_data_to_df_button.clicked.connect(self.add_data_to_df)  # adding numbers to the tabl
+        self.build_graph_button.clicked.connect(self.build_graph)  # build build_graph
+        self.sort_df_by_column_button.clicked.connect(
+            lambda: self.sort_df_by_column( [
+                self.sort_data_list.item(x).text() for x in range(self.sort_data_list.count())] ))  # sort values in table
 
         self.update_choose_port_list_button.clicked.connect(self.update_choose_port_list)  # updates list of ports
         self.open_selected_port_button.clicked.connect(
