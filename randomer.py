@@ -96,13 +96,12 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
     def build_graph(self):
 
+        meases = [', В']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
+
         Vs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y]  # list of checkboxes for Y axis for V1-V4
         Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]  # list of checkboxes for Y axis for A1-A4
         CBxs = Vs + Is
 
-        colors = ['#FF7F50', '#A52A2A', '#458B00', '#20B2AA',
-                    '#1E90FF', '#800080', '#FF3E96', '#7F7F7F']  # eight possible colors for lines
-        label = ''  # string for X and Y labels
 
         if len(self.DF) and any([box.isChecked() for box in CBxs]):
 
@@ -111,41 +110,41 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
             fig, axV = plt.subplots()
             axA = axV.twinx()
             axV.axhline(y=0, color='black', linewidth=0.5)
-            axV.set_ylabel('V, В')
             axA.axhline(y=0, color='black', linewidth=0.5)
+            axV.set_ylabel('V, В')
             axA.set_ylabel('I, мА')
-
-            graphs = []    # var to install legend
-
-            x = self.DF[self.choose_X_list.currentText()]
-
-            if 'V' in self.choose_X_list.currentText():  # chooses if volts or mA are in label
-                axV.set_xlabel(f'{self.choose_X_list.currentText()}, В')
-            elif "A" in self.choose_X_list.currentText():
-                axV.set_xlabel(f'{self.choose_X_list.currentText()}, мА')
-            else:
-                axV.set_xlabel('N')
-
-            for box in Vs:
-
-                if box.isChecked():
-
-                    y = self.DF[box.objectName()[0:-2]]
-                    line = axV.plot(x, y, colors.pop(), label=box.objectName()[0:-2], marker='o', markersize=4)
-                    graphs.append(line[0])
-
-
-            for box in Is:
-
-                if box.isChecked():
-
-                    y = self.DF[box.objectName()[0:-2]]
-                    line = axA.plot(x, y, colors.pop(), label=box.objectName()[0:-2], marker='o', markersize=4)
-                    graphs.append(line[0])
-
-            axV.legend(graphs, [l.get_label() for l in graphs])
             axV.grid()
             axA.grid()
+
+
+            x = self.DF[self.choose_X_list.currentText()]
+            
+            axV.set_xlabel(self.choose_X_list.currentText() +
+                           meases[self.choose_X_list.currentIndex()])  # chooses if volts or mA are in label
+
+
+            y_V1 = self.DF['V1']
+            y_V2 = self.DF['V2']
+            y_V3 = self.DF['V3']
+            y_V4 = self.DF['V4']
+
+            y_A1 = self.DF['A1']
+            y_A2 = self.DF['A2']
+            y_A3 = self.DF['A3']
+            y_A4 = self.DF['A4']
+
+            N = self.DF['N']
+
+            line_V1 = axV.plot(x, y_V1, c='#FF7F50', label='V1', marker='o', markersize=4, visible=Vs[0].isChecked())
+            line_V2 = axV.plot(x, y_V2, c='#A52A2A', label='V2', marker='o', markersize=4, visible=Vs[1].isChecked())
+            line_V3 = axV.plot(x, y_V3, c='#458B00', label='V3', marker='o', markersize=4, visible=Vs[2].isChecked())
+            line_V4 = axV.plot(x, y_V4, c='#20B2AA', label='V4', marker='o', markersize=4, visible=Vs[3].isChecked())
+            axV.legend(loc='upper left')
+
+            line_A1 = axA.plot(x, y_A1, c='#1E90FF', label='A1', marker='o', markersize=4, visible=Is[0].isChecked())
+            line_A2 = axA.plot(x, y_A2, c='#800080', label='A2', marker='o', markersize=4, visible=Is[1].isChecked())
+            line_A3 = axA.plot(x, y_A3, c='#FF3E96', label='A3', marker='o', markersize=4, visible=Is[2].isChecked())
+            line_A4 = axA.plot(x, y_A4, c='#7F7F7F', label='A4', marker='o', markersize=4, visible=Is[3].isChecked())
+            axA.legend(loc='upper right')
+
             plt.show()
-
-
