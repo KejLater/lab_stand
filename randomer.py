@@ -94,6 +94,63 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
         self.choose_delete_list.addItems(self.DF['N'].astype(int).astype(str).tolist())
 
 
+    def build_graph_one_window(self):
+
+        meases = [', В']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
+
+        Vs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y]  # list of checkboxes for Y axis for V1-V4
+        Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]  # list of checkboxes for Y axis for A1-A4
+        CBxs = Vs + Is
+
+        from matplotlib import pyplot as plt
+        import matplotlib.animation as animation
+
+        fig, axV = plt.subplots()
+        axA = axV.twinx()
+
+        def animate(i):
+            x = self.DF[self.choose_X_list.currentText()]
+
+            y_V1 = self.DF['V1']
+            y_V2 = self.DF['V2']
+            y_V3 = self.DF['V3']
+            y_V4 = self.DF['V4']
+
+            y_A1 = self.DF['A1']
+            y_A2 = self.DF['A2']
+            y_A3 = self.DF['A3']
+            y_A4 = self.DF['A4']
+
+            N = self.DF['N']
+
+
+            axV.clear()
+            axA.clear()
+            axV.grid()
+            axA.grid()
+            axV.set_ylabel('V, В')
+            axV.axhline(y=0, color='black', linewidth=0.5)
+            line_V1 = axV.plot(x, y_V1, c='#FF7F50', label='V1', marker='o', markersize=4, visible=Vs[0].isChecked())
+            line_V2 = axV.plot(x, y_V2, c='#A52A2A', label='V2', marker='o', markersize=4, visible=Vs[1].isChecked())
+            line_V3 = axV.plot(x, y_V3, c='#458B00', label='V3', marker='o', markersize=4, visible=Vs[2].isChecked())
+            line_V4 = axV.plot(x, y_V4, c='#20B2AA', label='V4', marker='o', markersize=4, visible=Vs[3].isChecked())
+            axV.legend(loc='upper left')
+            axV.set_xlabel(self.choose_X_list.currentText() +
+                           meases[self.choose_X_list.currentIndex()])  # chooses if volts or mA are in label
+
+
+            axA.set_ylabel('I, мА')
+            axA.axhline(y=0, color='black', linewidth=0.5)
+            line_A1 = axA.plot(x, y_A1, c='#1E90FF', label='A1', marker='o', markersize=4, visible=Is[0].isChecked())
+            line_A2 = axA.plot(x, y_A2, c='#800080', label='A2', marker='o', markersize=4, visible=Is[1].isChecked())
+            line_A3 = axA.plot(x, y_A3, c='#FF3E96', label='A3', marker='o', markersize=4, visible=Is[2].isChecked())
+            line_A4 = axA.plot(x, y_A4, c='#7F7F7F', label='A4', marker='o', markersize=4, visible=Is[3].isChecked())
+            axA.legend(loc='upper right')
+
+
+        self.ani = animation.FuncAnimation(fig, animate, interval=500)
+        plt.show()
+
     def build_graph(self):
 
         meases = [', В']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
@@ -102,53 +159,51 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
         Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]  # list of checkboxes for Y axis for A1-A4
         CBxs = Vs + Is
 
+        from matplotlib import pyplot as plt
+        import matplotlib.animation as animation
 
-        if len(self.DF) and any([box.isChecked() for box in CBxs]):
-
-            from matplotlib import pyplot as plt
-            import matplotlib.animation as animation
-
-            fig, axV = plt.subplots()
-            axA = axV.twinx()
-
-            def animate(i):
-                x = self.DF[self.choose_X_list.currentText()]
-
-                y_V1 = self.DF['V1']
-                y_V2 = self.DF['V2']
-                y_V3 = self.DF['V3']
-                y_V4 = self.DF['V4']
-
-                y_A1 = self.DF['A1']
-                y_A2 = self.DF['A2']
-                y_A3 = self.DF['A3']
-                y_A4 = self.DF['A4']
-
-                N = self.DF['N']
+        fig, (axV, axA) = plt.subplots(nrows=2, ncols=1, sharex=True)
 
 
-                axV.clear()
-                axA.clear()
-                axV.grid()
-                axV.set_ylabel('V, В')
-                axV.axhline(y=0, color='black', linewidth=0.5)
-                line_V1 = axV.plot(x, y_V1, c='#FF7F50', label='V1', marker='o', markersize=4, visible=Vs[0].isChecked())
-                line_V2 = axV.plot(x, y_V2, c='#A52A2A', label='V2', marker='o', markersize=4, visible=Vs[1].isChecked())
-                line_V3 = axV.plot(x, y_V3, c='#458B00', label='V3', marker='o', markersize=4, visible=Vs[2].isChecked())
-                line_V4 = axV.plot(x, y_V4, c='#20B2AA', label='V4', marker='o', markersize=4, visible=Vs[3].isChecked())
-                axV.legend(loc='upper left')
-                axV.set_xlabel(self.choose_X_list.currentText() +
-                               meases[self.choose_X_list.currentIndex()])  # chooses if volts or mA are in label
+        def animate(i):
+            x = self.DF[self.choose_X_list.currentText()]
 
-                axA.grid()
-                axA.set_ylabel('I, мА')
-                axA.axhline(y=0, color='black', linewidth=0.5)
-                line_A1 = axA.plot(x, y_A1, c='#1E90FF', label='A1', marker='o', markersize=4, visible=Is[0].isChecked())
-                line_A2 = axA.plot(x, y_A2, c='#800080', label='A2', marker='o', markersize=4, visible=Is[1].isChecked())
-                line_A3 = axA.plot(x, y_A3, c='#FF3E96', label='A3', marker='o', markersize=4, visible=Is[2].isChecked())
-                line_A4 = axA.plot(x, y_A4, c='#7F7F7F', label='A4', marker='o', markersize=4, visible=Is[3].isChecked())
-                axA.legend(loc='upper right')
+            y_V1 = self.DF['V1']
+            y_V2 = self.DF['V2']
+            y_V3 = self.DF['V3']
+            y_V4 = self.DF['V4']
+
+            y_A1 = self.DF['A1']
+            y_A2 = self.DF['A2']
+            y_A3 = self.DF['A3']
+            y_A4 = self.DF['A4']
+
+            N = self.DF['N']
 
 
-            self.ani = animation.FuncAnimation(fig, animate, interval=500)
-            plt.show()
+            axV.clear()
+            axA.clear()
+            axV.grid()
+            axA.grid()
+            axV.set_ylabel('V, В')
+            axV.axhline(y=0, color='black', linewidth=0.5)
+            line_V1 = axV.plot(x, y_V1, c='#FF7F50', label='V1', marker='o', markersize=4, visible=Vs[0].isChecked())
+            line_V2 = axV.plot(x, y_V2, c='#A52A2A', label='V2', marker='o', markersize=4, visible=Vs[1].isChecked())
+            line_V3 = axV.plot(x, y_V3, c='#458B00', label='V3', marker='o', markersize=4, visible=Vs[2].isChecked())
+            line_V4 = axV.plot(x, y_V4, c='#20B2AA', label='V4', marker='o', markersize=4, visible=Vs[3].isChecked())
+            axV.legend()
+            axA.set_xlabel(self.choose_X_list.currentText() +
+                           meases[self.choose_X_list.currentIndex()])  # chooses if volts or mA are in label
+
+
+            axA.set_ylabel('I, мА')
+            axA.axhline(y=0, color='black', linewidth=0.5)
+            line_A1 = axA.plot(x, y_A1, c='#1E90FF', label='A1', marker='o', markersize=4, visible=Is[0].isChecked())
+            line_A2 = axA.plot(x, y_A2, c='#800080', label='A2', marker='o', markersize=4, visible=Is[1].isChecked())
+            line_A3 = axA.plot(x, y_A3, c='#FF3E96', label='A3', marker='o', markersize=4, visible=Is[2].isChecked())
+            line_A4 = axA.plot(x, y_A4, c='#7F7F7F', label='A4', marker='o', markersize=4, visible=Is[3].isChecked())
+            axA.legend()
+
+
+        self.ani = animation.FuncAnimation(fig, animate, interval=500)
+        plt.show()
