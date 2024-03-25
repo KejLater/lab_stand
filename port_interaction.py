@@ -22,7 +22,7 @@ class SerialPort:  # class for interaction with port
 
         if selected_port in [port.portName() for port in QSerialPortInfo().availablePorts()]:  # checks if port lost
 
-            self.serial.setBaudRate(QSerialPort.Baud115200)  # sets BaudRate
+            self.serial.setBaudRate(12000000)  # sets mbps
             self.serial.setPortName(selected_port)  # selects port
             self.serial.setDataTerminalReady(True)  # prepares port
             self.serial.open(QIODevice.ReadWrite)  # opens port for interaction
