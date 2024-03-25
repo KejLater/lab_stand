@@ -94,7 +94,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
         self.choose_delete_list.addItems(self.DF['N'].astype(int).astype(str).tolist())
 
 
-    def build_graph_one_window(self):
+    def build_graph_one_window(self):  # plots I and V in the same subplot, not used now
 
         meases = [', В']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
 
@@ -151,7 +151,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
         self.ani = animation.FuncAnimation(fig, animate, interval=500)
         plt.show()
 
-    def build_graph(self):
+    def build_graph(self):  # plots I and V in 2 vertical subplots, is in use now
 
         meases = [', В']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
 
