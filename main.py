@@ -10,13 +10,15 @@ from port_interaction import SerialPort
 
 class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
-    def __init__(self):  # pyinstaller.exe --onefile --add-data="interface.ui;." --noconsole main.py
+    def __init__(self):  # pyinstaller.exe --onefile --add-data="interface.ui;." --icon=icon.svg --noconsole main.py
         super().__init__()
         qdarktheme.setup_theme()  # makes app dark
         try:
             UIFile = os.path.join(sys._MEIPASS, 'interface.ui')  # packages to exe
         except AttributeError:
             UIFile = 'interface.ui'  # executes it if launched in python
+
+        #self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
         uic.loadUi(UIFile, self)  # loads UI from .ui
         SerialPort.__init__(self)  # inherites SerialPort class

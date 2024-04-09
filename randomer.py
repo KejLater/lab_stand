@@ -104,6 +104,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
         from matplotlib import pyplot as plt
         import matplotlib.animation as animation
+        plt.rcParams["font.family"] = "Century Gothic"
 
         fig, axV = plt.subplots()
         axA = axV.twinx()
@@ -161,6 +162,9 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
         from matplotlib import pyplot as plt
         import matplotlib.animation as animation
+
+        plt.rcParams["font.family"] = "Century Gothic"
+
 
         fig, (axV, axA) = plt.subplots(nrows=2, ncols=1, sharex=True)
 
