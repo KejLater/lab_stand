@@ -36,6 +36,10 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.add_data_to_df_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+A"), self)
         self.add_data_to_df_shortcut.activated.connect(self.add_data_to_df)  # adds shortcut
 
+        self.zero_voltage_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+Z"), self)
+        self.zero_voltage_shortcut.activated.connect(
+            lambda: (self.send_to_port("0"), self.input_voltage.setValue(0)))  # adds shortcut
+
         self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
         self.graph_shortcut.activated.connect(self.build_graph)  # adds shortcut
 
@@ -82,7 +86,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.set_voltage_button.clicked.connect(
             lambda: self.send_to_port(self.input_voltage.text()))  # sends pins and voltage to port
         self.zero_voltage_button.clicked.connect(
-            lambda: (self.send_to_port("0"), self.input_voltage.setValue(0))) # sends pins and voltage to port
+            lambda: (self.send_to_port("0"), self.input_voltage.setValue(0))) # sets voltage and widget to 0
 
         self.delete_by_N_button.clicked.connect(
             lambda: self.delete_by_N(self.choose_delete_list.currentText()))  # delete N button
