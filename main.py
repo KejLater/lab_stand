@@ -81,6 +81,8 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         self.set_voltage_button.clicked.connect(
             lambda: self.send_to_port(self.input_voltage.text()))  # sends pins and voltage to port
+        self.zero_voltage_button.clicked.connect(
+            lambda: (self.send_to_port("0"), self.input_voltage.setValue(0))) # sends pins and voltage to port
 
         self.delete_by_N_button.clicked.connect(
             lambda: self.delete_by_N(self.choose_delete_list.currentText()))  # delete N button
