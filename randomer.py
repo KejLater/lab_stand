@@ -83,7 +83,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
                 f"{self.DF.iloc[i].iloc[j]}"))  # sets item [i, j]
 
             self.table_widget.setItem(i, 8, QtWidgets.QTableWidgetItem(
-                f"{self.DF.iloc[i].iloc[8]}"))  # sets item [i, j]
+                f"{int(self.DF.iloc[i].iloc[8])}"))  # sets item [i, j]
 
         self.update_choose_delete_list()
 
