@@ -154,7 +154,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
     def build_graph(self):  # plots I and V in 2 vertical subplots, is in use now
 
-        meases = [', В']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
+        meases = [', мВ']*4 + [', мА']*4 + ['']  # needed to be added to xlabel
 
         Vs = [self.V1_y, self.V2_y, self.V3_y, self.V4_y]  # list of checkboxes for Y axis for V1-V4
         Is = [self.A1_y, self.A2_y, self.A3_y, self.A4_y]  # list of checkboxes for Y axis for A1-A4

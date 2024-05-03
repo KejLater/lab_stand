@@ -33,7 +33,7 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
     def hotkeys(self):  # ties hotkeys to functions
 
-        self.add_data_to_df_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+D"), self)
+        self.add_data_to_df_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+A"), self)
         self.add_data_to_df_shortcut.activated.connect(self.add_data_to_df)  # adds shortcut
 
         self.graph_shortcut = QtWidgets.QShortcut(QtGui.QKeySequence("Ctrl+G"), self)
