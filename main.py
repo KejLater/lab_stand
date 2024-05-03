@@ -154,7 +154,12 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
         for i in range(8):  # checks if checkox is checked and displays corresponding LCD value
             if self.checkboxes[i].isChecked():
-                self.meters[i].display(values[i + 1])
+
+                if i in (0, 1, 2, 3):  # mV have no digits after comma
+                    self.meters[i].display(round(values[i + 1]))
+
+                if i in (4, 5, 6, 7):  # mA have 3 didgits after comma
+                    self.meters[i].display(round(values[i + 1]))
 
             else:  # if checkbox is not checked displays 0
                 self.meters[i].display(0)
