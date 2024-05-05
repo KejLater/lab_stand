@@ -118,6 +118,7 @@ class SerialPort:  # class for interaction with port
             data = int(data) * 10
 
             for i in range(8):  # iterates ports 0-7
+
                 if self.iosA[i].currentText() == '0':  # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
                     portAconf = portAconf + 2 ** i
 
@@ -127,6 +128,7 @@ class SerialPort:  # class for interaction with port
 
 
             for i in range(8):  # iterates ports 8-15
+
                 if self.iosB[i].currentText() == '0':  # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
                     portBconf = portBconf + 2 ** i
 
@@ -136,6 +138,7 @@ class SerialPort:  # class for interaction with port
 
 
             for i in range(8):  # iterates ports 16-23
+
                 if self.iosC[i].currentText() == '0':  # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
                     portCconf = portCconf + 2 ** i
 

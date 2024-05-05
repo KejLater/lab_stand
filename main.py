@@ -67,18 +67,19 @@ class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
         self.thread.start()
 
 
-    def buttons(self):  # init buttons
+    def buttons(self):  # init buttons, everything is called via lambda to prevent .clicked from returning bool
+                        # to make decorators in Data work correctly (and to put arguments, if needed)
 
-        self.export_csv_button.clicked.connect(self.export_csv)  # csv export
-        self.reset_df_and_table_button.clicked.connect(self.reset_df_and_table)  # clears table
-        self.remove_last_from_df_button.clicked.connect(self.remove_last_from_df)  # removes the last result
-        self.add_data_to_df_button.clicked.connect(self.add_data_to_df)  # adding numbers to the tabl
-        self.build_graph_button.clicked.connect(self.build_graph)  # build build_graph
+        self.export_csv_button.clicked.connect(lambda: self.export_csv())  # csv export
+        self.reset_df_and_table_button.clicked.connect(lambda: self.reset_df_and_table())  # clears table
+        self.remove_last_from_df_button.clicked.connect(lambda: self.remove_last_from_df())  # removes the last result
+        self.add_data_to_df_button.clicked.connect(lambda: self.add_data_to_df())  # adding numbers to the tabl
+        self.build_graph_button.clicked.connect(lambda: self.build_graph())  # build build_graph
         self.sort_df_by_column_button.clicked.connect(
             lambda: self.sort_df_by_column( [
                 self.sort_data_list.item(x).text() for x in range(self.sort_data_list.count())] ))  # sort values in table
 
-        self.update_choose_port_list_button.clicked.connect(self.update_choose_port_list)  # updates list of ports
+        self.update_choose_port_list_button.clicked.connect(lambda: self.update_choose_port_list())  # updates list of ports
         self.open_selected_port_button.clicked.connect(
             lambda: self.open_selected_port(self.choose_port_list.currentText()))  # opens port
         self.close_port_button.clicked.connect(self.close_port)  # closes port

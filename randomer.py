@@ -1,5 +1,9 @@
 import pandas as pd
 from PyQt5 import QtWidgets
+import functools
+
+
+
 
 class Data:  # class for interaction with DataFrame (DF) and table_widget (table) where data is stored
              # visible table_widget (table) is just derivative of DF
@@ -13,14 +17,23 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
         self.DF['N'] = self.DF['N'].astype(int)
         self.N = 1
 
+    def _update_table_widget_decorator(func):  # it is needed to avoid calling update_table_widget() every time
+        def wrapper(*args, **kwargs):
+            self = args[0]
 
+            func(*args, **kwargs)
+            self.update_table_widget()
+
+        return wrapper
+
+    @_update_table_widget_decorator  # clears table and fills it with updated DF
     def sort_df_by_column(self, name):  # sorts data in DF
 
         if len(self.DF):  # checks if DF is not empty
 
             self.DF = self.DF.sort_values(by=name, ascending=self.sortingOrder, ignore_index=True)
             self.sortingOrder = not (self.sortingOrder)  # reverses sorting order for next call
-            self.update_table_widget()  # clears table and fills it with updated DF
+
 
 
     def export_csv(self):  # exports DF to csv
@@ -29,7 +42,7 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
         if dir:  # checks if user did not cancel export
             self.DF.to_csv(dir, index=False, decimal=',', sep=';')
 
-
+    @_update_table_widget_decorator  # clears table and fills it with updated DF
     def reset_df_and_table(self):  # clears both table and DF
 
         button = QtWidgets.QMessageBox.question(self, "Подтверждение", "Really?")  # confirmation from user
@@ -38,32 +51,31 @@ class Data:  # class for interaction with DataFrame (DF) and table_widget (table
 
             self.DF = pd.DataFrame(columns=self.meterNames)  # creates new DF rewriting variable
             self.N = 1
-            self.update_table_widget()  # clears table and fills it with updated DF
 
 
+    @_update_table_widget_decorator  # clears table and fills it with updated DF
     def remove_last_from_df(self):  # dropes the last row from both dataframe and table
 
         if len(self.DF):  # checks if table is not empty
 
             self.DF = self.DF.drop(labels=[len(self.DF) - 1], axis=0)
-            self.update_table_widget()  # clears table and fills it with updated DF
 
 
+    @_update_table_widget_decorator  # clears table and fills it with updated DF
     def add_data_to_df(self):  # adds line of values to the end of DF
 
         self.DF.loc[len(self.DF)] = [meter.value() for meter in self.meters] + [self.N]  # adds data from meters to DF
 
         self.N = self.N + 1
-        self.update_table_widget()  # clears table and fills it with updated DF
 
 
+    @_update_table_widget_decorator  # clears table and fills it with updated DF
     def delete_by_N(self, n):
         if len(self.DF):
             if int(n) in self.DF['N'].astype(int).tolist():
 
                 self.DF = self.DF.drop(self.DF[self.DF['N'].astype(int) == int(n)].index)
 
-                self.update_table_widget()
 
 
     def update_table_widget(self):  # clears table and fills it with updated DF
