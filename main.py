@@ -1,3 +1,5 @@
+"""In this module all other modules are inherited into"""
+
 import sys, os
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QIODevice

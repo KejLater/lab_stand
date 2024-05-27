@@ -1,3 +1,5 @@
+"""This module is responsible for working with Serial Port and collecting and sending data to port"""
+
 from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 from PyQt5.QtCore import QIODevice
 
