@@ -4,7 +4,8 @@ from PyQt5.QtSerialPort import QSerialPort, QSerialPortInfo
 from PyQt5.QtCore import QIODevice
 
 
-class SerialPort:  # class for interaction with port
+class SerialPort:
+    """class for interaction with port"""
 
     def __init__(self):
 
@@ -12,15 +13,18 @@ class SerialPort:  # class for interaction with port
         self.update_choose_port_list()  # updates list of available ports
         self.data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  # data for initialisation
 
-    def update_choose_port_list(self):  # updates list of available ports
+    def update_choose_port_list(self):
+        """updates list of available ports"""
+
+        # choose_port_list is in main.py
         self.choose_port_list.clear()  # clears widget
         self.choose_port_list.addItems([port.portName() for port in QSerialPortInfo().availablePorts()])  # adds ports to widget
 
-    def open_selected_port(self, selected_port):  # opens port chosen in widget
+    def open_selected_port(self, selected_port):
+        """opens port chosen in widget"""
 
         if self.serial.isOpen():  # closes port if it was previously opened
             self.serial.close()
-
 
         if selected_port in [port.portName() for port in QSerialPortInfo().availablePorts()]:  # checks if port lost
 
@@ -32,15 +36,16 @@ class SerialPort:  # class for interaction with port
         else:  # updates port list if chosen port lost
             self.update_choose_port_list()
 
-        if self.serial.isOpen():  # makes fuction read data from port and changes UI if successful
+        if self.serial.isOpen():  # makes function read data from port and changes UI if successful
 
             self.serial.readyRead.connect(self.read_port)
-            self.show_port_opened()
+            self.show_port_opened()  # show_port_opened is in main.py
 
-        else:  # makes UI show error if problems occured
-            self.show_port_error()
+        else:  # makes UI show error if problems occurred
+            self.show_port_error()  # show_port_error is in main.py
 
-    def read_port(self):  # reads data from port
+    def read_port(self):
+        """reads data from port"""
 
         import time
         import os
@@ -80,9 +85,10 @@ class SerialPort:  # class for interaction with port
             print(a)
             print()
 
-        self.data = a  # turns bytes to str withuot '\n'
+            self.data = a  # writes received bits to self.data if CRC correct
 
-    def close_port(self):  # closes port
+    def close_port(self):
+        """closes port"""
 
         if self.serial.isOpen():  # checks if port is opened
             self.serial.close()  # closes port
@@ -93,7 +99,8 @@ class SerialPort:  # class for interaction with port
         else:  # makes UI show error if port is still opened
             self.show_port_error()
 
-    def send_to_port(self, data):  # sends data to port
+    def send_to_port(self, data):
+        """sends data to port"""
 
         import struct
         import crccheck
@@ -121,30 +128,34 @@ class SerialPort:  # class for interaction with port
 
             for i in range(8):  # iterates ports 0-7
 
-                if self.iosA[i].currentText() == '0':  # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
+                # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
+                if self.iosA[i].currentText() == '0':
                     portAconf = portAconf + 2 ** i
 
-                elif self.iosA[i].currentText() == '1':  # if pin status is 1, writes 1 to portAconf byte and 1 to portAdata (2^i in dec)
+                # if pin status is 1, writes 1 to portAconf byte and 1 to portAdata (2^i in dec)
+                elif self.iosA[i].currentText() == '1':
                     portAconf = portAconf + 2 ** i
                     portAdata = portAdata + 2 ** i
 
-
             for i in range(8):  # iterates ports 8-15
 
-                if self.iosB[i].currentText() == '0':  # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
+                # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
+                if self.iosB[i].currentText() == '0':
                     portBconf = portBconf + 2 ** i
 
-                elif self.iosB[i].currentText() == '1':  # if pin status is 1, writes 1 to portAconf byte and 1 to portAdata (2^i in dec)
+                # if pin status is 1, writes 1 to portAconf byte and 1 to portAdata (2^i in dec)
+                elif self.iosB[i].currentText() == '1':
                     portBconf = portBconf + 2 ** i
                     portBdata = portBdata + 2 ** i
 
-
             for i in range(8):  # iterates ports 16-23
 
-                if self.iosC[i].currentText() == '0':  # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
+                # if pin status is 0, writes 1 to portAconf byte (2^i in dec)
+                if self.iosC[i].currentText() == '0':
                     portCconf = portCconf + 2 ** i
 
-                elif self.iosC[i].currentText() == '1':  # if pin status is 1, writes 1 to portAconf byte and 1 to portAdata (2^i in dec)
+                # if pin status is 1, writes 1 to portAconf byte and 1 to portAdata (2^i in dec)
+                elif self.iosC[i].currentText() == '1':
                     portCconf = portCconf + 2 ** i
                     portCdata = portCdata + 2 ** i
 
