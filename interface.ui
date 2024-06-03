@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1352</width>
-    <height>808</height>
+    <height>731</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1266,8 +1266,8 @@
    <widget class="QCheckBox" name="A2_y">
     <property name="geometry">
      <rect>
-      <x>895</x>
-      <y>70</y>
+      <x>1065</x>
+      <y>-350</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -1351,7 +1351,7 @@
      <rect>
       <x>80</x>
       <y>630</y>
-      <width>131</width>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
@@ -1363,7 +1363,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Бахнуть!</string>
+     <string>Подать</string>
     </property>
    </widget>
    <widget class="QPushButton" name="close_port_button">
@@ -1535,8 +1535,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>440</y>
+      <x>620</x>
+      <y>20</y>
       <width>41</width>
       <height>31</height>
      </rect>
@@ -1555,8 +1555,8 @@
    <widget class="QPushButton" name="delete_by_N_button">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>440</y>
+      <x>780</x>
+      <y>20</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -1575,8 +1575,8 @@
    <widget class="QComboBox" name="choose_delete_list">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>440</y>
+      <x>670</x>
+      <y>20</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -1624,8 +1624,8 @@
    <widget class="QLCDNumber" name="lcd_io_0">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>530</y>
+      <x>410</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1647,8 +1647,8 @@
    <widget class="QLCDNumber" name="lcd_io_1">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>570</y>
+      <x>410</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1670,8 +1670,8 @@
    <widget class="QLCDNumber" name="lcd_io_2">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>610</y>
+      <x>410</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1693,8 +1693,8 @@
    <widget class="QLCDNumber" name="lcd_io_3">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>650</y>
+      <x>410</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1716,8 +1716,8 @@
    <widget class="QPushButton" name="reset_io_button">
     <property name="geometry">
      <rect>
-      <x>1120</x>
-      <y>700</y>
+      <x>1180</x>
+      <y>650</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -1730,14 +1730,14 @@
      </font>
     </property>
     <property name="text">
-     <string>335</string>
+     <string>Подать</string>
     </property>
    </widget>
    <widget class="QComboBox" name="io_0_list">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>530</y>
+      <x>450</x>
+      <y>480</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1753,8 +1753,8 @@
    <widget class="QComboBox" name="io_1_list">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>570</y>
+      <x>450</x>
+      <y>520</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1770,8 +1770,8 @@
    <widget class="QComboBox" name="io_2_list">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>610</y>
+      <x>450</x>
+      <y>560</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1787,8 +1787,8 @@
    <widget class="QComboBox" name="io_3_list">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>650</y>
+      <x>450</x>
+      <y>600</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1804,8 +1804,8 @@
    <widget class="QLCDNumber" name="lcd_io_5">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>570</y>
+      <x>580</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1827,8 +1827,8 @@
    <widget class="QLCDNumber" name="lcd_io_4">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>530</y>
+      <x>580</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1850,8 +1850,8 @@
    <widget class="QLCDNumber" name="lcd_io_6">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>610</y>
+      <x>580</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1873,8 +1873,8 @@
    <widget class="QComboBox" name="io_5_list">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>571</y>
+      <x>620</x>
+      <y>521</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1890,8 +1890,8 @@
    <widget class="QComboBox" name="io_4_list">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>531</y>
+      <x>620</x>
+      <y>481</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1907,8 +1907,8 @@
    <widget class="QComboBox" name="io_6_list">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>611</y>
+      <x>620</x>
+      <y>561</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1924,8 +1924,8 @@
    <widget class="QLCDNumber" name="lcd_io_7">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>650</y>
+      <x>580</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1947,8 +1947,8 @@
    <widget class="QComboBox" name="io_7_list">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>651</y>
+      <x>620</x>
+      <y>601</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -1964,8 +1964,8 @@
    <widget class="QLCDNumber" name="lcd_io_12">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>530</y>
+      <x>910</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -1987,8 +1987,8 @@
    <widget class="QLCDNumber" name="lcd_io_9">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>570</y>
+      <x>750</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2010,8 +2010,8 @@
    <widget class="QLCDNumber" name="lcd_io_13">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>570</y>
+      <x>910</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2033,8 +2033,8 @@
    <widget class="QLCDNumber" name="lcd_io_8">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>530</y>
+      <x>750</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2056,8 +2056,8 @@
    <widget class="QComboBox" name="io_12_list">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>531</y>
+      <x>950</x>
+      <y>481</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2073,8 +2073,8 @@
    <widget class="QLCDNumber" name="lcd_io_15">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>650</y>
+      <x>910</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2096,8 +2096,8 @@
    <widget class="QLCDNumber" name="lcd_io_10">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>610</y>
+      <x>750</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2119,8 +2119,8 @@
    <widget class="QComboBox" name="io_9_list">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>571</y>
+      <x>790</x>
+      <y>521</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2136,8 +2136,8 @@
    <widget class="QComboBox" name="io_13_list">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>571</y>
+      <x>950</x>
+      <y>521</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2153,8 +2153,8 @@
    <widget class="QComboBox" name="io_15_list">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>651</y>
+      <x>950</x>
+      <y>601</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2170,8 +2170,8 @@
    <widget class="QComboBox" name="io_8_list">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>531</y>
+      <x>790</x>
+      <y>481</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2187,8 +2187,8 @@
    <widget class="QComboBox" name="io_10_list">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>611</y>
+      <x>790</x>
+      <y>561</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2204,8 +2204,8 @@
    <widget class="QLCDNumber" name="lcd_io_11">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>650</y>
+      <x>750</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2227,8 +2227,8 @@
    <widget class="QComboBox" name="io_11_list">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>651</y>
+      <x>790</x>
+      <y>601</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2244,8 +2244,8 @@
    <widget class="QComboBox" name="io_14_list">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>611</y>
+      <x>950</x>
+      <y>561</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2261,8 +2261,8 @@
    <widget class="QLCDNumber" name="lcd_io_14">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>610</y>
+      <x>910</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2284,8 +2284,8 @@
    <widget class="QLCDNumber" name="lcd_io_23">
     <property name="geometry">
      <rect>
-      <x>1160</x>
-      <y>649</y>
+      <x>1220</x>
+      <y>599</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2307,8 +2307,8 @@
    <widget class="QLCDNumber" name="lcd_io_16">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>529</y>
+      <x>1070</x>
+      <y>479</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2330,8 +2330,8 @@
    <widget class="QComboBox" name="io_18_list">
     <property name="geometry">
      <rect>
-      <x>1050</x>
-      <y>610</y>
+      <x>1110</x>
+      <y>560</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2347,8 +2347,8 @@
    <widget class="QLCDNumber" name="lcd_io_21">
     <property name="geometry">
      <rect>
-      <x>1160</x>
-      <y>569</y>
+      <x>1220</x>
+      <y>519</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2370,8 +2370,8 @@
    <widget class="QComboBox" name="io_21_list">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>570</y>
+      <x>1260</x>
+      <y>520</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2387,8 +2387,8 @@
    <widget class="QComboBox" name="io_19_list">
     <property name="geometry">
      <rect>
-      <x>1050</x>
-      <y>650</y>
+      <x>1110</x>
+      <y>600</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2404,8 +2404,8 @@
    <widget class="QComboBox" name="io_22_list">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>610</y>
+      <x>1260</x>
+      <y>560</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2421,8 +2421,8 @@
    <widget class="QLCDNumber" name="lcd_io_17">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>569</y>
+      <x>1070</x>
+      <y>519</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2444,8 +2444,8 @@
    <widget class="QLCDNumber" name="lcd_io_19">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>649</y>
+      <x>1070</x>
+      <y>599</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2467,8 +2467,8 @@
    <widget class="QComboBox" name="io_23_list">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>650</y>
+      <x>1260</x>
+      <y>600</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2484,8 +2484,8 @@
    <widget class="QComboBox" name="io_16_list">
     <property name="geometry">
      <rect>
-      <x>1050</x>
-      <y>530</y>
+      <x>1110</x>
+      <y>480</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2501,8 +2501,8 @@
    <widget class="QLCDNumber" name="lcd_io_20">
     <property name="geometry">
      <rect>
-      <x>1160</x>
-      <y>529</y>
+      <x>1220</x>
+      <y>479</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2524,8 +2524,8 @@
    <widget class="QComboBox" name="io_20_list">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>530</y>
+      <x>1260</x>
+      <y>480</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2541,8 +2541,8 @@
    <widget class="QLCDNumber" name="lcd_io_22">
     <property name="geometry">
      <rect>
-      <x>1160</x>
-      <y>609</y>
+      <x>1220</x>
+      <y>559</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2564,8 +2564,8 @@
    <widget class="QLCDNumber" name="lcd_io_18">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>609</y>
+      <x>1070</x>
+      <y>559</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2587,8 +2587,8 @@
    <widget class="QComboBox" name="io_17_list">
     <property name="geometry">
      <rect>
-      <x>1050</x>
-      <y>570</y>
+      <x>1110</x>
+      <y>520</y>
       <width>51</width>
       <height>41</height>
      </rect>
@@ -2604,8 +2604,8 @@
    <widget class="QComboBox" name="io_reset_list">
     <property name="geometry">
      <rect>
-      <x>1030</x>
-      <y>700</y>
+      <x>1090</x>
+      <y>650</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -2674,8 +2674,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>530</y>
+      <x>380</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2687,8 +2687,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>570</y>
+      <x>380</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2700,8 +2700,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>610</y>
+      <x>380</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2713,8 +2713,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>650</y>
+      <x>380</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2726,8 +2726,8 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>650</y>
+      <x>550</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2739,8 +2739,8 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>610</y>
+      <x>550</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2752,8 +2752,8 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>530</y>
+      <x>550</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2765,8 +2765,8 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>570</y>
+      <x>550</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2778,8 +2778,8 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>570</y>
+      <x>720</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2791,8 +2791,8 @@
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>530</y>
+      <x>720</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2804,8 +2804,8 @@
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>650</y>
+      <x>720</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2817,8 +2817,8 @@
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>610</y>
+      <x>720</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2830,8 +2830,8 @@
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>570</y>
+      <x>880</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2843,8 +2843,8 @@
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>610</y>
+      <x>880</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2856,8 +2856,8 @@
    <widget class="QLabel" name="label_15">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>650</y>
+      <x>880</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2869,8 +2869,8 @@
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>820</x>
-      <y>530</y>
+      <x>880</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2882,8 +2882,8 @@
    <widget class="QLabel" name="label_17">
     <property name="geometry">
      <rect>
-      <x>980</x>
-      <y>570</y>
+      <x>1040</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2895,8 +2895,8 @@
    <widget class="QLabel" name="label_18">
     <property name="geometry">
      <rect>
-      <x>980</x>
-      <y>610</y>
+      <x>1040</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2908,8 +2908,8 @@
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>980</x>
-      <y>530</y>
+      <x>1040</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2921,8 +2921,8 @@
    <widget class="QLabel" name="label_20">
     <property name="geometry">
      <rect>
-      <x>980</x>
-      <y>650</y>
+      <x>1040</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2934,8 +2934,8 @@
    <widget class="QLabel" name="label_21">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>650</y>
+      <x>1190</x>
+      <y>600</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2947,8 +2947,8 @@
    <widget class="QLabel" name="label_22">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>610</y>
+      <x>1190</x>
+      <y>560</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2960,8 +2960,8 @@
    <widget class="QLabel" name="label_23">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>530</y>
+      <x>1190</x>
+      <y>480</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -2973,8 +2973,8 @@
    <widget class="QLabel" name="label_24">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>570</y>
+      <x>1190</x>
+      <y>520</y>
       <width>31</width>
       <height>41</height>
      </rect>
@@ -3055,9 +3055,9 @@
    <widget class="QPushButton" name="zero_voltage_button">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>670</y>
-      <width>131</width>
+      <x>210</x>
+      <y>630</y>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
