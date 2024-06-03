@@ -12,7 +12,7 @@ from port_interaction import SerialPort
 
 class MainWindow(QtWidgets.QMainWindow, Data, SerialPort):
 
-    def __init__(self):  # pyinstaller.exe --onefile --add-data="interface.ui;." --icon=icon.svg --noconsole main.py
+    def __init__(self):  # pyinstaller.exe --onefile --add-data="interface.ui;." --noconsole main.py
         super().__init__()  # inherits init of randomer and port_interaction
         qdarktheme.setup_theme()  # makes app dark
 
